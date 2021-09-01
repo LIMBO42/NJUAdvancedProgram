@@ -64,6 +64,9 @@ bool erase(List& head, int i)
 
 void show(List& head)
 {
+	if(head == nullptr){
+		return;
+	}
 	for (List p = head->next; p != nullptr; p = p->next) {
 		std::cout << p->val << " ";
 	}
