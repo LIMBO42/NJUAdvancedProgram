@@ -1,26 +1,77 @@
-// #include<iostream>
-// #include<fstream>
-// #include<string>
-// #include"fibonacci.h"
-// using namespace std;
-// int main(int argc,char*argv[]){
-//     std::ifstream test_in(argv[1]);    /* This stream reads from test's input file   */
-//     if(!test_in.is_open()){
-//         std::cout << "Error opening file " << argv[1] << std::endl;
-//         return -1;
-//     }
-//     int n;
-//     test_in >> n;
-//     std::cout << fibonacci(n) << std::endl; 
-// }
-
-
-#include <iostream>
-#include "fibonacci.h"
+#include <cstdlib>
+#include <ctime>
+#include<iostream>
+#include<stdlib.h>
+#include <experimental/random>
+#include"List.h"
 using namespace std;
-int main(){
-	int n;
-	cin >> n;
-	cout << fibonacci(n) << endl;
-	return 0;
+extern int sz;
+int main(int argc,char*argv[])
+{
+	List head = init();
+
+	// int choice = 0;
+	// int index,val;
+	// while(std::cin >> choice){
+	// 	switch(choice):
+	// 	case 1:
+	// 		std::cin >> index >> val;
+	// 		std::cout<<insert(head,index,val)<<std::endl;;
+	// 		break;
+	// 	case 2:
+	// 		std::cin >> index >> val;
+	// 		std::cout<<erase(head,index)<<std::endl;
+	// 		break;
+	// 	case 3:
+	// 		show(head);
+	// 		break;
+	// 	case 4:
+	// 		clear(head);
+	// }
+
+
+	// for generate testing files
+	std::srand(std::time(nullptr));
+	int cnt = atoi(argv[1]); // how many times
+	int num = atoi(argv[2]); // for choice 
+	int index = 0;
+	int val = 0;
+	while(cnt--){
+		int choice = std::experimental::randint(1, num);
+		std::cout << choice;
+		switch(choice){
+			case 1:{
+				int next_choice = std::experimental::randint(1, 2);
+				val = std::rand();
+				if(next_choice == 1){
+					index = std::experimental::randint(0, sz == 0? 0 : sz-1);
+				}else{
+					index = std::experimental::randint(sz,sz+100);
+				}
+				insert(head,index,val);
+				std::cout<<" "<<index<<" "<<val<<"  "<<sz<<std::endl;
+				break;
+			}
+			case 2:{
+				int next_choice = std::experimental::randint(1, 2);
+				if(next_choice == 1){
+					index = std::experimental::randint(0, sz-1);
+				}else{
+					index = std::experimental::randint(sz,sz+100);
+				}
+				std::cout<<" "<<index<<" "<<std::endl;
+				erase(head,index);
+				break;
+			}
+			case 3:{
+				//show(head);
+				break;
+			}
+			case 4:{
+				clear(head);
+				break;
+			}
+		}
+	}
+
 }
