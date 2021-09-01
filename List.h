@@ -11,11 +11,10 @@ typedef struct Node {
 //链表定义
 typedef struct Node* List;
 
-//初始化
+// you may need to allocate a head node for 
 List init();
 
-//i从1开始计数
-//插入节点，在链表第i个位置插入值为val的节点，成功返回true，失败返回false
+//插入节点，在链表第i个位置插入值为val的节点，成功返回true，失败返回false, i从0开始计数
 bool insert(List& head, int i, int val);
 //删除节点，删除链表第i个位置的元素,成功返回true，失败返回false
 bool erase(List& head, int i);

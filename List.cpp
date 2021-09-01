@@ -10,49 +10,47 @@ List init()
 
 bool insert(List& head, int i, int val)
 {
-	if (head == nullptr) return false;
-	int count = 0;
-	
-	//new一个节点
+	if (head == nullptr || i<0) return false;
+	int index = 0;
 	List tmpNode = new Node;
 	tmpNode->val = val;
 	tmpNode->next = nullptr;
 
 	List pre = head;
 	for (List cur = head -> next; cur != nullptr; cur = cur->next, pre = pre->next) {
-		if (count == i) {
+		if (index == i) {
 			tmpNode->next = pre->next;
 			pre->next = tmpNode;
 			return true;
 		}
-		count++;
+		index++;
 	}
-	//处理count==i 即插入到末尾的情况
-	//以及插入空链表第一个元素的情况
-	if (count == i) {
+// handle the case when we add a new node to the tail
+	if (index == i) {
 		tmpNode->next = pre->next;
 		pre->next = tmpNode;
 		return true;
 	}
+// if error we need to delete the node
+	delete tmpNode;
 	return false;
 }
 
 bool erase(List& head, int i)
 {
-	if (head == nullptr)return false;
-	int count = 0;
+	if (head == nullptr || i<0)return false;
+	int index = 0;
 	List pre = head;
 	for (List cur = head->next; cur != nullptr; cur = cur->next, pre = pre->next) {
-		if (count == i) {
+		if (index == i) {
 			pre->next = cur->next;
 			delete cur;
 			return true;
 		}
-		count++;
+		index++;
 	}
-	//处理count==i 即删除末尾的情况
-	
-	if (count == i) {
+// handle the case when we want to delete the last node
+	if (index == i) {
 		pre->next = nullptr;
 		return true;
 	}
@@ -69,11 +67,14 @@ void show(List& head)
 
 void clear(List& head)
 {
-	List pre = head;
-	for (List p = head->next; p != nullptr; ) {
-		pre->next = p->next;
+	if(head == nullptr){
+		return;
+	}
+	List next = nullptr;
+	for (List p = head; p != nullptr; ) {
+		next = p->next;
 		delete p;
-		p = pre->next;
+		p = next;
 	}
 	head = nullptr;
 }

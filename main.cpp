@@ -1,26 +1,33 @@
-// #include<iostream>
-// #include<fstream>
-// #include<string>
-// #include"fibonacci.h"
-// using namespace std;
-// int main(int argc,char*argv[]){
-//     std::ifstream test_in(argv[1]);    /* This stream reads from test's input file   */
-//     if(!test_in.is_open()){
-//         std::cout << "Error opening file " << argv[1] << std::endl;
-//         return -1;
-//     }
-//     int n;
-//     test_in >> n;
-//     std::cout << fibonacci(n) << std::endl; 
-// }
-
-
-#include <iostream>
-#include "fibonacci.h"
+  
+#include"List.h"
+#include<iostream>
 using namespace std;
-int main(){
-	int n;
-	cin >> n;
-	cout << fibonacci(n) << endl;
-	return 0;
+int main()
+{
+	//part1
+	List head = init();
+	cout << insert(head, 0, 8) << endl;
+	cout << insert(head, 0, 9) << endl;
+	cout << insert(head, 1, 10) << endl;
+	cout << insert(head, 10, 1) << endl;
+	show(head);
+	cout << erase(head, 0) << endl;
+	cout << erase(head, 10) << endl;
+	show(head);
+	clear(head);
+	cout << insert(head, 0, 8) << endl;
+	cout << erase(head, 0) << endl;
+
+	// //part2
+	// Queue q;
+	// init(q);
+	// push(q, 1);
+	// push(q, 2);
+	// push(q, 3);
+	// cout << front(q) << endl;
+	// cout << back(q) << endl;
+	// pop(q);
+	// cout << front(q) << endl;
+	// show(q);
+	// return 0;
 }
