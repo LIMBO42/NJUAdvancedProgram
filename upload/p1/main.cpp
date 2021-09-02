@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <ctime>
 #include<iostream>
+#include <fstream>
 #include<stdlib.h>
 #include <experimental/random>
 #include"List.h"
@@ -36,10 +37,14 @@ int main(int argc,char*argv[])
 	}
 
 
-	// // for generate testing files
+	// for generate testing files
 	// std::srand(std::time(nullptr));
 	// int cnt = atoi(argv[1]); // how many times
 	// int num = atoi(argv[2]); // for choice 
+	// std::string file_name(argv[3]); //for inputfile
+	// ofstream file;
+  	// file.open (file_name);
+
 	// int index = 0;
 	// int val = 0;
 	// while(cnt--){
@@ -47,7 +52,7 @@ int main(int argc,char*argv[])
 	// 		return -1;
 	// 	}
 	// 	int choice = std::experimental::randint(1, num);
-	// 	std::cout << choice<<" ";
+	// 	file << choice<<" ";
 	// 	switch(choice){
 	// 		case 1:{
 	// 			int next_choice = std::experimental::randint(1, 2);
@@ -57,8 +62,8 @@ int main(int argc,char*argv[])
 	// 			}else{
 	// 				index = std::experimental::randint(sz,sz+100);
 	// 			}
-	// 			insert(head,index,val);
-	// 			std::cout<<" "<<index<<" "<<val<<"  "<<std::endl;
+	// 			std::cout<<insert(head,index,val)<<std::endl;
+	// 			file<<" "<<index<<" "<<val<<"  "<<std::endl;
 	// 			break;
 	// 		}
 	// 		case 2:{
@@ -68,21 +73,24 @@ int main(int argc,char*argv[])
 	// 			}else{
 	// 				index = std::experimental::randint(sz,sz+100);
 	// 			}
-	// 			std::cout<<" "<<index<<" "<<std::endl;
-	// 			erase(head,index);
+	// 			file <<" "<<index<<" "<<std::endl;
+	// 			std::cout<<erase(head,index)<<std::endl;
 	// 			break;
 	// 		}
 	// 		case 3:{
-	// 			//show(head);
-	// 			cout<<std::endl;
+	// 			show(head);
+	// 			file<<std::endl;
 	// 			break;
 	// 		}
 	// 		case 4:{
 	// 			clear(head);
-	// 			cout<<std::endl;
+	// 			file<<std::endl;
 	// 			break;
 	// 		}
 	// 	}
 	// }
+	// file.close();
+
+
 	clear(head);
 }
