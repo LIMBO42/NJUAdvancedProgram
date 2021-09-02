@@ -24,6 +24,9 @@ bool pop(Queue& q)
 	q.head->next = p->next;
 	delete p;
 	q.size--;
+	if(q.size  == 0){
+		q.tail = q.head;
+	}
 	return true;
 }
 
