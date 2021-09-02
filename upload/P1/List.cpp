@@ -41,7 +41,7 @@ bool insert(List& head, int i, int val)
 
 bool erase(List& head, int i)
 {
-	if (head == nullptr || i<0)return false;
+	if (head == nullptr || head->next == nullptr || i<0)return false;
 	int index = 0;
 	List pre = head;
 	for (List cur = head->next; cur != nullptr; cur = cur->next, pre = pre->next) {
@@ -52,12 +52,6 @@ bool erase(List& head, int i)
 			return true;
 		}
 		index++;
-	}
-// handle the case when we want to delete the last node
-	if (index == i) {
-		pre->next = nullptr;
-		--sz;
-		return true;
 	}
 	return false;
 }

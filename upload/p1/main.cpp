@@ -43,8 +43,11 @@ int main(int argc,char*argv[])
 	// int index = 0;
 	// int val = 0;
 	// while(cnt--){
+	// 	if(sz<0){
+	// 		return -1;
+	// 	}
 	// 	int choice = std::experimental::randint(1, num);
-	// 	std::cout << choice;
+	// 	std::cout << choice<<" ";
 	// 	switch(choice){
 	// 		case 1:{
 	// 			int next_choice = std::experimental::randint(1, 2);
@@ -55,7 +58,7 @@ int main(int argc,char*argv[])
 	// 				index = std::experimental::randint(sz,sz+100);
 	// 			}
 	// 			insert(head,index,val);
-	// 			std::cout<<" "<<index<<" "<<val<<std::endl;
+	// 			std::cout<<" "<<index<<" "<<val<<"  "<<std::endl;
 	// 			break;
 	// 		}
 	// 		case 2:{
@@ -71,10 +74,12 @@ int main(int argc,char*argv[])
 	// 		}
 	// 		case 3:{
 	// 			//show(head);
+	// 			cout<<std::endl;
 	// 			break;
 	// 		}
 	// 		case 4:{
 	// 			clear(head);
+	// 			cout<<std::endl;
 	// 			break;
 	// 		}
 	// 	}

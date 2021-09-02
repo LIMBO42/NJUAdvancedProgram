@@ -25,6 +25,13 @@ done
 #   ./List 10000 2 >${outfile}
 #   index=$(( $index + 1 ))
 # done
+# while [ $index -le 190 ]
+# do
+#   outfile="in/input${index}.txt"
+#   echo "---------- Test "$outfile"  ----------"
+#   ./List 10000 3 >${outfile}
+#   index=$(( $index + 1 ))
+# done
 # while [ $index -le 200 ]
 # do
 #   outfile="in/input${index}.txt"
