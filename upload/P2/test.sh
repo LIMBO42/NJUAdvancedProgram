@@ -4,14 +4,16 @@
 index=1
 
 
-while [ $index -le 200 ]
-do
-  realfile="real/output${index}.txt"
-  outfile="out/output${index}.txt"
-  echo "---------- Test "$outfile"  ----------"
-  diff ${realfile} ${outfile}
-  index=$(( $index + 1 ))
-done
+# while [ $index -le 200 ]
+# do
+#   realfile="real/output${index}.txt"
+#   outfile="out/output${index}.txt"
+#   echo "---------- Test "$outfile"  ----------"
+#   diff ${realfile} ${outfile}
+#   index=$(( $index + 1 ))
+# done
+
+
 
 # while [ $index -le 200 ]
 # do
@@ -21,7 +23,6 @@ done
 #   ./Queue <${infile} >${outfile}
 #   index=$(( $index + 1 ))
 # done
-
 
 
 # while [ $index -le 200 ]

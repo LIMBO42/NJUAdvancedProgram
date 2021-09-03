@@ -8,7 +8,7 @@ typedef struct Queue {
 	int size;
 	List head;
 	List tail;
-};
+}Queue;
 
 //初始化
 void init(Queue& q);
@@ -31,4 +31,6 @@ int front(Queue& q);
 //返回队尾元素值，如果队列为空，返回-1
 int back(Queue& q);
 
+// 相当于一个析构函数。清空队列，也需要清空head。
+void clear(Queue&q);
 #endif // !QUEUE_H

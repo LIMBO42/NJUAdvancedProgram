@@ -54,3 +54,9 @@ int back(Queue& q)
 	if (q.size == 0)return -1;
 	return q.tail->val;
 }
+
+void clear(Queue&q){
+	clear(q.head);
+	q.head = nullptr;
+	q.tail = nullptr;
+}

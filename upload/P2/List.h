@@ -6,7 +6,7 @@
 typedef struct Node {
 	int val;
 	Node* next;
-};
+}Node;
 
 //链表定义
 typedef struct Node* List;

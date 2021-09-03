@@ -6,7 +6,6 @@
 #include <experimental/random>
 #include"List.h"
 using namespace std;
-extern int sz;
 int main(int argc,char*argv[])
 {
 	List head = init();

@@ -1,5 +1,4 @@
 #include "Queue.h"
-
 #include <cstdlib>
 #include <ctime>
 #include<iostream>
@@ -8,7 +7,6 @@
 #include <experimental/random>
 #include"List.h"
 using namespace std;
-extern int sz;
 int main(int argc,char*argv[])
 {
 	Queue q;
@@ -98,4 +96,5 @@ int main(int argc,char*argv[])
 	// }
 	// file.close();
 
+	clear(q);
 }
