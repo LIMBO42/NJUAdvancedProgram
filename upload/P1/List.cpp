@@ -1,6 +1,6 @@
 #include "List.h"
 #include <iostream>
-
+int sz = 0;
 List init()
 {
 	List head = new Node;
@@ -21,6 +21,7 @@ bool insert(List& head, int i, int val)
 		if (index == i) {
 			tmpNode->next = pre->next;
 			pre->next = tmpNode;
+			sz++;
 			return true;
 		}
 		index++;
@@ -29,6 +30,7 @@ bool insert(List& head, int i, int val)
 	if (index == i) {
 		tmpNode->next = pre->next;
 		pre->next = tmpNode;
+		sz++;
 		return true;
 	}
 // if error we need to delete the node
@@ -45,6 +47,7 @@ bool erase(List& head, int i)
 		if (index == i) {
 			pre->next = cur->next;
 			delete cur;
+			sz--;
 			return true;
 		}
 		index++;
@@ -75,4 +78,6 @@ void clear(List& head)
 		p = next;
 	}
 	head = nullptr;
+	sz = 0;
+
 }
