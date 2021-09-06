@@ -4,6 +4,8 @@
 index=1
 
 
+
+
 # while [ $index -le 20 ]
 # do
 #   realfile="real/output${index}.txt"
@@ -13,21 +15,58 @@ index=1
 #   index=$(( $index + 1 ))
 # done
 
-# while [ $index -le 20 ]
+while [ $index -le 20 ]
+do
+  infile="in/input${index}.txt"
+  outfile="out/output${index}.txt"
+  echo "---------- Test "$outfile"  ----------"
+  ./List <${infile} >${outfile}
+  index=$(( $index + 1 ))
+done
+
+
+# rm -rf in/*.txt
+# rm -rf out/*.txt
+# rm -rf real/*.txt
+
+
+# while [ $index -le 1 ]
 # do
-#   infile="in/input${index}.txt"
-#   outfile="out/output${index}.txt"
+#   outfile="in/input${index}.txt"
+#   realout="real/output${index}.txt"
 #   echo "---------- Test "$outfile"  ----------"
-#   ./List <${infile} >${outfile}
+#   ./List 10 1 ${outfile} >${realout}
 #   index=$(( $index + 1 ))
 # done
 
+# while [ $index -le 2 ]
+# do
+#   outfile="in/input${index}.txt"
+#   realout="real/output${index}.txt"
+#   echo "---------- Test "$outfile"  ----------"
+#   ./List 10 2 ${outfile} >${realout}
+#   index=$(( $index + 1 ))
+# done
 
+# while [ $index -le 3 ]
+# do
+#   outfile="in/input${index}.txt"
+#   realout="real/output${index}.txt"
+#   echo "---------- Test "$outfile"  ----------"
+#   ./List 10 3 ${outfile} >${realout}
+#   index=$(( $index + 1 ))
+# done
 
+# while [ $index -le 4 ]
+# do
+#   outfile="in/input${index}.txt"
+#   realout="real/output${index}.txt"
+#   echo "---------- Test "$outfile"  ----------"
+#   ./List 10 4 ${outfile} >${realout}
+#   index=$(( $index + 1 ))
+# done
 
-
-
-# while [ $index -le 5 ]
+# while [ $index -le 7 ]
 # do
 #   outfile="in/input${index}.txt"
 #   realout="real/output${index}.txt"
