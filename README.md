@@ -121,6 +121,7 @@ void init(Queue& q);
 void push(Queue& q, int val);
 
 //出队列
+//请注意队列中只剩下最后一个元素的情况
 bool pop(Queue& q);
 
 //判断是否为空
