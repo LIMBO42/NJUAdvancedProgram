@@ -6,7 +6,16 @@ index=1
 
 while [ $index -le 20 ]
 do
-  realfile="real/output${index}.txt"
+  infile="in/input${index}.txt"
+  outfile="now/output${index}.txt"
+  echo "---------- Test "$outfile"  ----------"
+ ./Queue <${infile} >${outfile}
+  index=$(( $index + 1 ))
+done
+
+while [ $index -le 20 ]
+do
+  realfile="now/output${index}.txt"
   outfile="out/output${index}.txt"
   echo "---------- Test "$outfile"  ----------"
   diff ${realfile} ${outfile}
@@ -15,14 +24,6 @@ done
 
 
 
-# while [ $index -le 20 ]
-# do
-#   infile="in/input${index}.txt"
-#   outfile="out/output${index}.txt"
-#   echo "---------- Test "$outfile"  ----------"
-#   valgrind --error-exitcode=1  ./Queue <${infile} >${outfile}
-#   index=$(( $index + 1 ))
-# done
 
 
 # while [ $index -le 20 ]

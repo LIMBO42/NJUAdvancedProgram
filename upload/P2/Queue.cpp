@@ -37,6 +37,9 @@ bool empty(Queue& q)
 
 void show(Queue& q)
 {
+	if(q.head == nullptr){
+		return;
+	}
 	for (List p = q.head->next; p != nullptr; p = p->next) {
 		std::cout << p->val << " ";
 	}
@@ -59,4 +62,5 @@ void clear(Queue&q){
 	clear(q.head);
 	q.head = nullptr;
 	q.tail = nullptr;
+	q.size = 0;
 }

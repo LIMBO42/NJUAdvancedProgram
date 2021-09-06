@@ -6,14 +6,7 @@ index=1
 
 
 
-# while [ $index -le 20 ]
-# do
-#   realfile="real/output${index}.txt"
-#   outfile="out/output${index}.txt"
-#   echo "---------- Test "$outfile"  ----------"
-#   diff ${realfile} ${outfile}
-#   index=$(( $index + 1 ))
-# done
+
 
 while [ $index -le 20 ]
 do
@@ -24,7 +17,14 @@ do
   index=$(( $index + 1 ))
 done
 
-
+# while [ $index -le 20 ]
+# do
+#   realfile="real/output${index}.txt"
+#   outfile="out/output${index}.txt"
+#   echo "---------- Test "$outfile"  ----------"
+#   diff ${realfile} ${outfile}
+#   index=$(( $index + 1 ))
+# done
 # rm -rf in/*.txt
 # rm -rf out/*.txt
 # rm -rf real/*.txt
