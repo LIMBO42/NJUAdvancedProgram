@@ -21,19 +21,21 @@ typedef struct Node {
 typedef struct Node* List;
 
 //初始化
-//return: head node
+//return: head pointer
 List init();
-
+// 不保证所有参数的合法性！！！！！
 //插入节点，在链表第i个位置插入值为val的节点，成功返回true，失败返回false。
 // i的合法取值范围是0-len(list)，也就是说可以在链表的头部到尾部的任意位置插入结点。
 bool insert(List& head, int i, int val);
+// 不保证所有参数的合法性！！！！！
 //删除节点，删除链表第i个位置的元素,成功返回true，失败返回false
 //请特别注意，这里我们将空链表删除情况视为false(无论i为多少)
-//另外请仔细思考头指针指向头结点的链表为空的情况
 bool erase(List& head, int i);
 //打印所有节点的数据，每个节点以空格分隔，最后一个元素接换行
+// 不保证所有参数的合法性！！！！！
 void show(List& head);
-//删除所有元素，也需要删除head node。注意内存泄漏。在clear调用之后，需要将head赋值为空指针。
+// 不保证所有参数的合法性！！！！！
+//删除所有元素，也需要删除head pointer。注意内存泄漏。在clear调用之后，需要将head赋值为空指针。
 void clear(List& head);
 
 #endif // !LIST_H
