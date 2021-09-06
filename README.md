@@ -26,7 +26,6 @@ typedef struct Node* List;
 List init();
 
 // 插入节点，在head之后第i个位置插入值为val的节点，成功返回true，失败返回false。
-// i的合法取值范围是0-len(list)，也就是说可以在链表的头部到尾部的任意位置插入结点。
 bool insert(List& head, int i, int val);
 
 //删除节点，删除head之后第i个位置的元素,成功返回true，失败返回false
