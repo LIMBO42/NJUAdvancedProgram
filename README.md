@@ -5,8 +5,9 @@
 实现链表，在List.h文件中，接口定义如下：
 
 ```c++
-//注意：为了保证你程序的鲁棒性，请不要相信你自己的直观感觉，对于指针的操作你需要十分小心，不然你会遇到很多的困难。
-// 我们不保证传递给函数所有参数都合法，需要你自行解决。但保证传进去的head只要不空，都指向某链表的head pointer
+//注意：
+// 我们不保证传递给函数所有参数都合法，需要你自行解决。但保证传进来的任何指向Node的指针都是合法的，我们也只传这样的指针或者nullptr。
+
 
 #ifndef LIST_H
 #define LIST_H
@@ -24,15 +25,15 @@ typedef struct Node* List;
 //return: head pointer
 List init();
 
-//插入节点，在第i个位置插入值为val的节点，成功返回true，失败返回false。
+// 插入节点，在head之后第i个位置插入值为val的节点，成功返回true，失败返回false。
 // i的合法取值范围是0-len(list)，也就是说可以在链表的头部到尾部的任意位置插入结点。
 bool insert(List& head, int i, int val);
 
-//删除节点，删除链表第i个位置的元素,成功返回true，失败返回false
-//请特别注意，这里我们将空链表删除情况视为false(无论i为多少)
+//删除节点，删除head之后第i个位置的元素,成功返回true，失败返回false
+//只有执行了delete操作的情况才能返回true。否则一律返回false。
 bool erase(List& head, int i);
-//打印所有节点的数据，每个节点以空格分隔，最后一个元素接换行
 
+//打印所有节点的数据，每个节点以空格分隔，最后一个元素接换行
 void show(List& head);
 
 //删除所有元素，也需要删除head pointer。注意内存泄漏。在clear调用之后，需要将head赋值为空指针。
