@@ -27,7 +27,7 @@ myString::myString(const myString& str)
 	while (capacity_ <= str.size_ + 1) {
 		Resize();
 	}
-	size_ = str.get_size();
+	size_ = str.size();
 	memcpy(str_, str.str_, str.size_ + 1);
 }
 
@@ -46,7 +46,7 @@ myString& myString::operator=(myString& str)
 	while (capacity_ <= str.size_ + 1) {
 		Resize();
 	}
-	size_ = str.get_size();
+	size_ = str.size();
 	memcpy(str_, str.str_, str.size_ + 1);
 	return *this;
 }
@@ -90,13 +90,32 @@ myString& myString::operator+=(const myString& str)
 
 bool myString::operator<(const myString& str)
 {
-	if (strcmp(str_, str.str_) < 0) return true;
-	return false;
+	int i = 0;
+	while(i<size_ && i<str.size()){
+		if(str_[i]<str[i]){
+			return true;
+		}
+		if(str_[i]>str[i]){
+			return false;
+		}
+		++i;
+	}
+	return i == str.size() ? false:true;	
 }
 
 bool myString::operator==(const myString& str)
 {
-	return strcmp(str_, str.str_) == 0;
+	if(str.size() != size()){
+		return false;
+	}
+	int i = 0;
+	while(i<size_){
+		if(str_[i] != str[i]){
+			return false;
+		}
+		++i;
+	}
+	return true;
 }
 
 //更改capacity大小
@@ -109,7 +128,7 @@ void myString::Resize()
 	str_= arr;
 }
 
-int myString::get_size() const
+int myString::size() const
 {
 	return size_;
 }
@@ -122,6 +141,36 @@ int myString::get_capacity() const
 
 void myString::printStr()
 {
-	std::cout << str_ << std::endl;
+	printf("%s\n",str_);
 }
 
+bool myString::operator>=(const myString& str){
+	return !(*this < str);
+}
+bool myString::operator<=(const myString& str){
+	return *this < str || *this == str;
+}
+bool myString::operator!=(const myString& str){
+	return !(*this == str);
+}
+bool myString::operator>(const myString& str){
+	return !(*this < str) && (*this != str);
+}
+
+
+char myString::operator[](const int index)const{
+	return str_[index];
+}
+char& myString::operator[](const int index){
+	return str_[index];
+}
+
+void myString::append(char ch){
+	*this += ch;
+}
+void myString::append(char* ch){
+	*this += ch;
+}
+void myString::append(const myString& ch){
+	*this += ch;
+}

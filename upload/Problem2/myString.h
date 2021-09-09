@@ -1,7 +1,7 @@
 #pragma once
 #ifndef MYSTRING_H
 #define MYSTRING_H
-#include "string.h"
+#include <string.h>
 class myString {
 private:
 	//字符串数组
@@ -14,7 +14,7 @@ public:
 	//默认构造函数
 	//默认构造空间大小为8个字节
 	myString();
-	myString(const char* str = nullptr);
+	myString(const char* str);
 	//拷贝构造函数
 	myString(const myString& str);
 	//析构函数
@@ -29,14 +29,23 @@ public:
 	myString& operator+=(const myString& str);
 	//比较运算符重载
 	bool operator<(const myString& str);
+	bool operator>(const myString& str);
 	bool operator==(const myString& str);
+	bool operator>=(const myString& str);
+	bool operator<=(const myString& str);
+	bool operator!=(const myString& str);
+
+	char& operator[](const int index);
+	char operator[](const int index)const;
+	void append(char ch);
+	void append(char* ch);
+	void append(const myString& ch);
 	//扩容,每次容量增加一倍
 	void Resize();
-	int get_size() const;
+	int size() const;
 	int get_capacity() const;
 	//打印字符串
 	void printStr();
-
 };
 
 
