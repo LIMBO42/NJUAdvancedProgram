@@ -100,7 +100,7 @@ class myString {
 private:
 	//字符串数组
 	char* str_;
-	//已分配空间的大小
+	//已分配空间的大小，根据需求动态增长，每次增长为原来的2倍
 	int capacity_;
 	//字符串大小，不包括'\0'
 	int size_;
@@ -108,6 +108,7 @@ public:
 	//默认构造函数
 	//默认构造空间大小为8个字节
 	myString();
+    //请注意，即使是拷贝构造函数，string初始的capacity也是8
 	myString(const char* str = nullptr);
 	//拷贝构造函数
 	myString(const myString& str);
