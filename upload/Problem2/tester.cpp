@@ -5,10 +5,12 @@ Usage:
 Put your declaration and implementation of myString in `mystring.h`
 and compile & run this file with modern C++ features enabled.
 
-For example, in Linux: g++ -std=c++14 tester.cpp -o tester && ./tester
+For example, in Linux: g++ -std=c++14 tester.cpp myString.cpp -o tester && ./tester
 
  */
-
+#include <fstream>
+#include <string>
+#include <vector>
 #include <cstdio>
 #include <cassert>
 #include <cstring>
@@ -20,33 +22,32 @@ using namespace test_helper;
 
 const int CLASS_SIZE_MAX = 100;
 
-int main() {
+int main(int argc, char const *argv[]) {
   init();
   alloc_trace_enabled = true;
 
   printf("===== Testing Basic Functionalities =====\n");
-
-  run_test([] {
+  std::vector<std::function<void(void)>> funcs = {
+  ([] {
     {
       
       myString *s = new myString();
       test_assert(__LINE__, s->size() == 0, "myString.size() should be zero when it is initialized without parameters");
       delete s;
     }
-    printf("===== here =====\n");
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const myString *s = new myString();
       test_assert(__LINE__, s->size() == 0, "myString.size() should be zero when it is initialized without parameters");
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       myString *s = new myString(str.get());
@@ -54,9 +55,9 @@ int main() {
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       int alloc_data_size = 0;
       const auto str = build_magic_string();
@@ -67,9 +68,9 @@ int main() {
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       myString *s1 = new myString(str.get());
@@ -79,9 +80,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       const myString *s1 = new myString(str.get());
@@ -91,9 +92,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       myString *s1 = new myString(str.get());
@@ -103,9 +104,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       const myString *s1 = new myString(str.get());
@@ -115,9 +116,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       myString *s = new myString(str.get());
@@ -127,9 +128,9 @@ int main() {
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       const myString *s = new myString(str.get());
@@ -139,9 +140,9 @@ int main() {
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       const auto str_backup = copy_string(str);
@@ -154,9 +155,9 @@ int main() {
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       const auto str_backup = copy_string(str);
@@ -169,9 +170,9 @@ int main() {
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       const auto str_backup = copy_string(str);
@@ -193,9 +194,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       int alloc_data_size = 0;
       const auto str_1 = build_magic_string();
@@ -221,9 +222,9 @@ int main() {
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       int alloc_data_size = 0;
       const auto str_1 = build_magic_string();
@@ -254,9 +255,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcde");
       myString *s2 = new myString("abcde");
@@ -270,9 +271,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcde");
       myString *s2 = new myString("abcdef");
@@ -286,9 +287,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcdefg");
       myString *s2 = new myString("abcdef");
@@ -302,9 +303,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("aacdefg");
       myString *s2 = new myString("abcdef");
@@ -318,9 +319,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcdeg");
       myString *s2 = new myString("abcdef");
@@ -334,9 +335,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcdegabc");
       myString *s2 = new myString("abcdefabc");
@@ -350,20 +351,19 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  printf("===== Testing Edge Cases =====\n");
 
-  run_test([] {
+  ([] {
     {
       myString *s = new myString("");
       test_assert(__LINE__, s->size() == 0, "myString.size() incorrect");
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("");
       myString *s2 = new myString(*s1);
@@ -372,9 +372,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("");
       myString *s2 = new myString("");
@@ -386,9 +386,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcdef");
       myString *s2 = new myString("");
@@ -398,9 +398,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("");
       myString *s2 = new myString("");
@@ -414,9 +414,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("a");
       myString *s2 = new myString("");
@@ -430,11 +430,10 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  printf("===== Testing Null Character =====\n");
 
-  run_test([] {
+  ([] {
     {
       const auto str_1 = build_magic_string();
       const auto str_2 = build_magic_string();
@@ -486,9 +485,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcde");
       myString *s2 = new myString("abcde");
@@ -504,9 +503,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcde");
       myString *s2 = new myString("abcdef");
@@ -522,9 +521,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcdefg");
       myString *s2 = new myString("abcdef");
@@ -540,9 +539,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("aacdefg");
       myString *s2 = new myString("abcdef");
@@ -558,9 +557,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcdeg");
       myString *s2 = new myString("abcdef");
@@ -576,9 +575,9 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       myString *s1 = new myString("abcdegabc");
       myString *s2 = new myString("abcdefabc");
@@ -594,11 +593,10 @@ int main() {
       delete s2;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  printf("===== Testing COW =====\n");
 
-  run_test([] {
+  ([] {
     {
       const auto str = build_magic_string();
       myString *s = new myString(str.get());
@@ -610,9 +608,9 @@ int main() {
       delete s;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  }),
 
-  run_test([] {
+  ([] {
     {
       const auto str_1 = build_magic_string();
       const auto str_2 = build_magic_string();
@@ -664,8 +662,35 @@ int main() {
       delete s4;
     }
     test_assert(__LINE__, alloc_mem == 0, "myString should free all allocated memory");
-  });
+  })
 
+  };
+
+
+
+	std::ifstream test_in(argv[1]);    /* This stream reads from test's input file   */
+	std::ifstream test_out(argv[2]);   /* This stream reads from test's output file  */
+	std::ifstream user_out(argv[3]);   /* This stream reads from user's output file  */
+ 
+	/* Your code here */
+	/* If user's output is correct, return 0, otherwise return 1       */
+	/* e.g.: Here the problem is: read n numbers and print their sum:  */
+ 
+
+  int test_num = 0;
+  test_in >> test_num;
+  int start = 3*(test_num-1);
+  int end = 3*test_num;
+  for(int i=start;i<end;++i) {
+    if(run_test(funcs[i])){
+      return 1;
+    }
+  }
   alloc_trace_enabled = false;
   return 0;
+
+
+
+
 }
+

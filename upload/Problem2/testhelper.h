@@ -56,7 +56,7 @@ namespace test_helper {
 
   bool test_has_errors;
 
-  void run_test(const std::function<void(void)> func) {
+  bool run_test(const std::function<void(void)> func) {
     static int case_counter = 1;
     printf("Case %d:\n", case_counter++);
     test_has_errors = false;
@@ -68,6 +68,7 @@ namespace test_helper {
     } else {
       printf("Pass.\n");
     }
+    return test_has_errors;
   }
 
   bool test_assert(int line_no, bool stat, const char * err_message) {
