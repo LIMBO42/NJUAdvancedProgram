@@ -118,7 +118,7 @@ bool myString::operator==(const myString& str)
 	return true;
 }
 
-//¸ü¸Äcapacity´óÐ¡
+//ï¿½ï¿½ï¿½ï¿½capacityï¿½ï¿½Ð¡
 void myString::Resize()
 {
 	capacity_ = capacity_ * 2;
@@ -141,7 +141,11 @@ int myString::get_capacity() const
 
 void myString::printStr()
 {
-	printf("%s\n",str_);
+	for(int i=0;i<size_;++i){
+		if(str_[i] != '\0')
+			printf("%c",str_[i]);
+	}
+	printf("\n");
 }
 
 bool myString::operator>=(const myString& str){

@@ -2,10 +2,10 @@
 
 Usage:
 
-Put your declaration and implementation of myString in `mystring.h`
+Put your declaration and implementation of myString in `myString.h`
 and compile & run this file with modern C++ features enabled.
 
-For example, in Linux: g++ -std=c++14 tester.cpp myString.cpp -o tester && ./tester
+For example, in Linux: g++ -std=c++14 main.cpp myString.cpp -o main && ./main
 
  */
 #include <fstream>
