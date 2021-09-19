@@ -139,7 +139,7 @@ public:
 	void append(const myString& ch);
 	//扩容,每次容量增加一倍
 	void Resize();
-	int get_size() const;
+	int size() const;
 	int get_capacity() const;
 	//打印字符串
 	void printStr();
@@ -155,27 +155,27 @@ public:
 ```c++
 myString str1("hello world");
 str1.printStr();
-cout << str1.get_capacity() << " " << str1.get_size() << endl;
+cout << str1.get_capacity() << " " << str1.size() << endl;
 
 myString str2(str1);
 str2.printStr();
-cout << str2.get_capacity() << " " << str2.get_size() << endl;
+cout << str2.get_capacity() << " " << str2.size() << endl;
 
 str2 += '!';
 str2.printStr();
-cout << str2.get_capacity() << " " << str2.get_size() << endl;
+cout << str2.get_capacity() << " " << str2.size() << endl;
 
 str2 += " This is my implement of sring!";
 str2.printStr();
-cout << str2.get_capacity() << " " << str2.get_size() << endl;
+cout << str2.get_capacity() << " " << str2.size() << endl;
 
 str2 += str1;
 str2.printStr();
-cout << str2.get_capacity() << " " << str2.get_size() << endl;
+cout << str2.get_capacity() << " " << str2.size() << endl;
 
 str1 = str2;
 str1.printStr();
-cout << str1.get_capacity() << " " << str1.get_size() << endl;
+cout << str1.get_capacity() << " " << str1.size() << endl;
 
 myString str3("AAAAAAAAAA");
 myString str4("BBBBBBBBBB");
