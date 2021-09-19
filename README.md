@@ -139,7 +139,7 @@ public:
 	void append(const myString& ch);
 	//扩容,每次容量增加一倍
 	void Resize();
-	int size() const;
+	int get_size() const;
 	int get_capacity() const;
 	//打印字符串
 	void printStr();
