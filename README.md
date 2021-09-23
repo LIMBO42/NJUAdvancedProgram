@@ -109,10 +109,10 @@ public:
 	//默认构造函数
 	//默认构造空间大小为8个字节
 	myString();
-    //注意一开始的capacity为8个字节，每次cap不足，扩容一倍
+    //注意一开始的capacity为8个字节，每次cap不足，扩容一倍，不含最后的'\0'
 	myString(const char* str);
 	//拷贝构造函数
-    //注意一开始的capacity为8个字节，每次cap不足，扩容一倍
+    //注意一开始的capacity为8个字节，每次cap不足，扩容一倍，不含最后的'\0'
 	myString(const myString& str);
 	//析构函数
 	~myString();
