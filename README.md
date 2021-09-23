@@ -204,28 +204,7 @@ hello world! This is my implement of sring!hello world
 
 - 提交一个源码文件myString.cpp，实现给定的接口，直接打包成zip格式的压缩包。**不要添加其他任何目录,压缩包中只包含这一个文件!**
 
-- **请注意myString的字符串中如果出现"\0"，则会将它看做普通字符**，这一点与`std::string`保持一致，在你们实现比较操作符重载的时候，请确保这一点。另外请不要使用strcmp，这会导致无法通过某些测试样例，为理解这一点，请执行以下代码。
-
-  ```c++
-  #include<iostream>
-  #include<assert.h>
-  #include<string.h>
-  using namespace std;
-  int main()
-  {
-      char str1[] = "abcde";
-      char str2[] = "abcdf";
-      str1[1] = '\0';
-      str2[1] = '\0';
-      assert(strcmp(str1,str2)==0);
-      string str3 = "abcde";
-      string str4 = "abcdf";
-      str3[1] = '\0';
-      str4[1] = '\0';
-      assert(str3 < str4);
-      return 0;
-  }
-  ```
+- **请注意myString的字符串中如果出现'\0'，则会将它看做普通字符**，这一点与`std::string`保持一致，因此C标准库里的`str*()`和`sprintf()`等不宜直接使用.
 
 - 文件的编码格式只支持utf-8。
 
