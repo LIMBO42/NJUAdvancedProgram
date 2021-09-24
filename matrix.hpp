@@ -6,8 +6,6 @@
 //
 // Identification: src/include/primer/p0_starter.h
 //
-// Copyright (c) 2015-2020, Carnegie Mellon University Database Group
-//
 //===----------------------------------------------------------------------===//
 
 #pragma once

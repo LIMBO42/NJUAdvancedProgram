@@ -6,8 +6,6 @@
 //
 // Identification: test/include/starter_test.cpp
 //
-// Copyright (c) 2015-2020, Carnegie Mellon University Database Group
-//
 //===----------------------------------------------------------------------===//
 
 #include <functional>
