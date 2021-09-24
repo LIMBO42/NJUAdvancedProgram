@@ -1,5 +1,5 @@
-#ifndef SPONGE_TESTS_TEST_ERR_IF_HH
-#define SPONGE_TESTS_TEST_ERR_IF_HH
+#ifndef TESTS_TEST_ERR_IF_HH
+#define TESTS_TEST_ERR_IF_HH
 
 #include <stdexcept>
 #include <string>
@@ -15,4 +15,4 @@ static void _test_err_if(const bool err_condition, const std::string &err_string
     ++err_num;
 }
 
-#endif  // SPONGE_TESTS_TEST_ERR_IF_HH
+#endif  // TESTS_TEST_ERR_IF_HH

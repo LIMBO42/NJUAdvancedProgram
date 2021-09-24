@@ -1,5 +1,5 @@
-#ifndef SPONGE_TESTS_TEST_SHOULD_BE_HH
-#define SPONGE_TESTS_TEST_SHOULD_BE_HH
+#ifndef TESTS_TEST_SHOULD_BE_HH
+#define TESTS_TEST_SHOULD_BE_HH
 
 #include "string_conversions.hh"
 
@@ -25,4 +25,4 @@ static void _test_should_be(const T &actual,
     }
 }
 
-#endif  // SPONGE_TESTS_TEST_SHOULD_BE_HH
+#endif  // TESTS_TEST_SHOULD_BE_HH

@@ -1,8 +1,8 @@
-#ifndef SPONGE_BYTE_STREAM_HARNESS_HH
-#define SPONGE_BYTE_STREAM_HARNESS_HH
+#ifndef BYTE_STREAM_HARNESS_HH
+#define BYTE_STREAM_HARNESS_HH
 
 #include "byte_stream.hh"
-#include "util.hh"
+
 
 #include <exception>
 #include <initializer_list>
@@ -10,6 +10,8 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <functional>
+
 
 struct ByteStreamTestStep {
     virtual operator std::string() const;
