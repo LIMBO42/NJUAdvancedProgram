@@ -7,7 +7,7 @@
 #include <ctime> 
 using namespace std;
 
-
+// command : g++ --std=c++17 main.cc byte_stream.cc byte_stream_test_harness.cc 
 
 bool test1() {
   try {
