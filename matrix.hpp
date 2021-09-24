@@ -17,9 +17,6 @@
 #include <vector>
 
 
-
-namespace bustub {
-
 /**
  * The Matrix type defines a common
  * interface for matrix operations.
@@ -28,7 +25,7 @@ template <typename T>
 class Matrix {
  protected:
   /**
-   * TODO(P0): Add implementation
+   * TODO: Add implementation
    *
    * Construct a new Matrix instance.
    * @param rows The number of rows
@@ -43,8 +40,8 @@ class Matrix {
   int cols_;
 
   /**
-   * TODO(P0): Allocate the array in the constructor.
-   * TODO(P0): Deallocate the array in the destructor.
+   * TODO: Allocate the array in the constructor.
+   * TODO: Deallocate the array in the destructor.
    * A flattened array containing the elements of the matrix.
    */
   T *linear_;
@@ -93,7 +90,7 @@ class Matrix {
 
   /**
    * Destroy a matrix instance.
-   * TODO(P0): Add implementation
+   * TODO: Add implementation
    */
   virtual ~Matrix() = default;
 };
@@ -106,7 +103,7 @@ template <typename T>
 class RowMatrix : public Matrix<T> {
  public:
   /**
-   * TODO(P0): Add implementation
+   * TODO: Add implementation
    *
    * Construct a new RowMatrix instance.
    * @param rows The number of rows
@@ -115,19 +112,19 @@ class RowMatrix : public Matrix<T> {
   RowMatrix(int rows, int cols) : Matrix<T>(rows, cols) {}
 
   /**
-   * TODO(P0): Add implementation
+   * TODO: Add implementation
    * @return The number of rows in the matrix
    */
   int GetRowCount() const override { return 0; }
 
   /**
-   * TODO(P0): Add implementation
+   * TODO: Add implementation
    * @return The number of columns in the matrix
    */
   int GetColumnCount() const override { return 0; }
 
   /**
-   * TODO(P0): Add implementation
+   * TODO: Add implementation
    *
    * Get the (i,j)th matrix element.
    *
@@ -155,7 +152,7 @@ class RowMatrix : public Matrix<T> {
   void SetElement(int i, int j, T val) override {}
 
   /**
-   * TODO(P0): Add implementation
+   * TODO: Add implementation
    *
    * Fill the elements of the matrix from `source`.
    *
@@ -170,7 +167,7 @@ class RowMatrix : public Matrix<T> {
   }
 
   /**
-   * TODO(P0): Add implementation
+   * TODO: Add implementation
    *
    * Destroy a RowMatrix instance.
    */
@@ -180,7 +177,7 @@ class RowMatrix : public Matrix<T> {
   /**
    * A 2D array containing the elements of the matrix in row-major format.
    *
-   * TODO(P0):
+   * TODO:
    * - Allocate the array of row pointers in the constructor.
    * - Use these pointers to point to corresponding elements of the `linear` array.
    * - Don't forget to deallocate the array in the destructor.
@@ -203,7 +200,7 @@ class RowMatrixOperations {
    * @return The result of matrix addition
    */
   static std::unique_ptr<RowMatrix<T>> Add(const RowMatrix<T> *matrixA, const RowMatrix<T> *matrixB) {
-    // TODO(P0): Add implementation
+    // TODO: Add implementation
     return std::unique_ptr<RowMatrix<T>>(nullptr);
   }
 
@@ -215,7 +212,7 @@ class RowMatrixOperations {
    * @return The result of matrix multiplication
    */
   static std::unique_ptr<RowMatrix<T>> Multiply(const RowMatrix<T> *matrixA, const RowMatrix<T> *matrixB) {
-    // TODO(P0): Add implementation
+    // TODO: Add implementation
     return std::unique_ptr<RowMatrix<T>>(nullptr);
   }
 
@@ -229,8 +226,8 @@ class RowMatrixOperations {
    */
   static std::unique_ptr<RowMatrix<T>> GEMM(const RowMatrix<T> *matrixA, const RowMatrix<T> *matrixB,
                                             const RowMatrix<T> *matrixC) {
-    // TODO(P0): Add implementation
+    // TODO: Add implementation
     return std::unique_ptr<RowMatrix<T>>(nullptr);
   }
 };
-}  // namespace bustub
+

@@ -13,11 +13,7 @@
 #include <functional>
 #include <numeric>
 
-#include "common/exception.h"
-#include "gtest/gtest.h"
-#include "primer/p0_starter.h"
 
-namespace bustub {
 
 /**
  * Determine if invoking the providing function object results
@@ -190,4 +186,4 @@ TEST(StarterTest, DISABLED_MultiplicationTest) {
     }
   }
 }
-}  // namespace bustub
+
