@@ -10,7 +10,7 @@
 
 #include <functional>
 #include <numeric>
-
+#include "matrix.hpp"
 
 
 /**
