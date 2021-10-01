@@ -1,0 +1,5 @@
+0
+main.cpp:34: Failure
+Value of: ThrowsException([&]() { matrix->FillFrom(source0); }, std::out_of_range(""))
+  Actual: false
+Expected: true
