@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-bool is_empty(std::ifstream& pFile)
+bool empty(std::ifstream& pFile)
 {
     return pFile.peek() == std::ifstream::traits_type::eof();
 }
@@ -18,9 +18,8 @@ int main(int argc, char const *argv[])
 	/* If user's output is correct, return 0, otherwise return 1       */
 	/* e.g.: Here the problem is: read n numbers and print their sum:  */
  
-    if(!is_empty(user_out)){
+    if(!empty(user_out)){
         return 1;
     }
-
     return 0; 
 }
