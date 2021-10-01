@@ -1,12 +1,26 @@
 {
+<<<<<<< HEAD
     "files.associations": {
         "iosfwd": "cpp",
         "algorithm": "cpp",
+=======
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "functional": "cpp",
+        "string": "cpp",
+        "optional": "cpp",
+        "iostream": "cpp",
+        "exception": "cpp",
+>>>>>>> 81a41794f1749f6deb7239e35132f99792c3e5dd
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
         "*.tcc": "cpp",
         "cctype": "cpp",
+<<<<<<< HEAD
+=======
+        "chrono": "cpp",
+>>>>>>> 81a41794f1749f6deb7239e35132f99792c3e5dd
         "clocale": "cpp",
         "cmath": "cpp",
         "cstdarg": "cpp",
@@ -14,20 +28,34 @@
         "cstdint": "cpp",
         "cstdio": "cpp",
         "cstdlib": "cpp",
+<<<<<<< HEAD
+=======
+        "cstring": "cpp",
+        "ctime": "cpp",
+>>>>>>> 81a41794f1749f6deb7239e35132f99792c3e5dd
         "cwchar": "cpp",
         "cwctype": "cpp",
         "deque": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
+<<<<<<< HEAD
         "exception": "cpp",
         "functional": "cpp",
+=======
+        "algorithm": "cpp",
+>>>>>>> 81a41794f1749f6deb7239e35132f99792c3e5dd
         "iterator": "cpp",
         "memory": "cpp",
         "memory_resource": "cpp",
         "numeric": "cpp",
+<<<<<<< HEAD
         "optional": "cpp",
         "random": "cpp",
         "string": "cpp",
+=======
+        "random": "cpp",
+        "ratio": "cpp",
+>>>>>>> 81a41794f1749f6deb7239e35132f99792c3e5dd
         "string_view": "cpp",
         "system_error": "cpp",
         "tuple": "cpp",
@@ -35,7 +63,11 @@
         "utility": "cpp",
         "fstream": "cpp",
         "initializer_list": "cpp",
+<<<<<<< HEAD
         "iostream": "cpp",
+=======
+        "iosfwd": "cpp",
+>>>>>>> 81a41794f1749f6deb7239e35132f99792c3e5dd
         "istream": "cpp",
         "limits": "cpp",
         "new": "cpp",
@@ -43,8 +75,13 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
+<<<<<<< HEAD
         "typeinfo": "cpp",
         "ctime": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
+=======
+        "typeinfo": "cpp"
+    }
+>>>>>>> 81a41794f1749f6deb7239e35132f99792c3e5dd
 }

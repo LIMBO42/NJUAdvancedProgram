@@ -43,6 +43,7 @@ myString::~myString()
 
 myString& myString::operator=(myString& str)
 {
+	if(this == &str)return *this;
 	while (capacity_ <= str.size_ + 1) {
 		Resize();
 	}
