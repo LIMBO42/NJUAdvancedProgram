@@ -22,6 +22,10 @@ static void _test_should_be(const T &actual,
            << "\nand the latter is\n\t" << to_string(expected) << "\n"
            << " (at line " << lineno << ")\n";
         throw std::runtime_error(ss.str());
+        std::cout << 0 << std::endl;
+
+    }else{
+        std::cout << 1 << std::endl;
     }
 }
 
