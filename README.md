@@ -57,10 +57,10 @@ private:
     //如果您不了解deque的用法，您也可以使用char数组和两个指针来表示队列的头和尾
     //一些必要的变量：用来表示内存容量，已经写入的字节数，已经读出的字节数，输入流是否结束，输出流是否结束
     //size_t用来表示无符号整型，您的整型变量的类型均可设为size_t
-    bool _error{};  //表明stream是否出现了error的flag
+    bool _error{};  //表明stream是否出现了error
     
     //需要您格外注意：输入流和输出流结束的判断，输入流结束的时候会调用end_input()通知，
-    //在输入流结束且容器中全部都读出之后，输出流结束
+    //在输入流结束且容器中全部都读出之后，整个流到达eof
 public:
     //构造函数
     ByteStream(const size_t capacity);
@@ -81,7 +81,7 @@ public:
     std::string read(const size_t len);
     //返回bool变量
     bool input_ended() const;
-    //stream出错 不用实现
+    //stream出错
     bool error() const { return _error; }
     //返回当前容器的size
     size_t buffer_size() const;
