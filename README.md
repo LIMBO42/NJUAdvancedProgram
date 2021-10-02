@@ -26,7 +26,7 @@ void set_error();
 
 写端的接口如下所示：
 ```C++
-// Peek at next "len" bytes of the stream,just peek not pop!!!!(so we const for this function)
+// Peek at next "len" bytes of the stream,just peek not pop!!!!(so we use const for this function)
 std::string peek_output(const size_t len) const;
 // Remove ``len'' bytes from the buffer
 void pop_output(const size_t len);
