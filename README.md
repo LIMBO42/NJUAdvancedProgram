@@ -2,11 +2,11 @@
 
 #### 题目描述
 
-​	如果您对TCP有所了解的话，您可能会知道可靠的字节流在网络通信上的起到的作用，但是如果您不了解也没关系。本次上机将会实现一个简易的ByteStream：(您可以默认输入的是char类型)
+如果你了解TCP，你可能知道可靠字节流的抽象在通信中是很用的，即使Internet本身只提供“尽力而为”（不可靠）数据报的服务，但如果你从未听说过TCP也没关系，本次上机将会实现一个简易的ByteStream：(你可以默认输入的是char类型)，你会实现一个提供这种抽象的对象。字节写在“输入”端，可以从“输出”端以相同的顺序读取。字节流是有限的：写端(`end_input()`)可以结束输入，然后再也不能写入字节,如果写端结束输入当读读取到流的末尾时，字节流将达到“EOF”，并且不能读取更多的字节。字节流对象用一个特定的“容量”(`capacity`)初始化，字节流将限制写入程序在任何给定时刻的写入量，以确保流不会超过其存储容量。当读端读取字节并将其从字节流pop时，允许写端写入更多字节。你实现的字节流只会用于单个线程，所以不必担心并发。
 
-​	为了更好的模拟真实世界的情况，我们假定开辟了一块容量为capacity的内存空间，您可以认为输入流，输出流是无限的，直到输入流到达EOF(EOF表示输入流的末尾)。
 
-​	但是由于内存空间的限制，如果输入流占满了空间，就会被阻塞，相对应的如果内存空间为空，输出流就会被阻塞。如下图所示，ByteStream一端读，一端写，writer从输入流写入数据，reader从输出流读出数据：
+
+
 
 ​	![image-20211001200249862](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211001200249862.png)
 
@@ -87,136 +87,12 @@ public:
 #endif  // SPONGE_LIBSPONGE_BYTE_STREAM_H
 ```
 
-#### 调用示例
-
-```c++
-#include <iostream>
-#include "byte_stream.hh"
-#include <assert.h>     /* assert */
-
-using namespace std;
-
-// command: g++ test.cc byte_stream.cc
-
-// test for 
-void test_capacity(){
-    ByteStream stream(2);
-    assert(2 == stream.write("cat"));
-    assert(false == stream.eof());
-    assert(0 == stream.bytes_read());
-    assert(2 == stream.bytes_written());
-    assert(0 == stream.remaining_capacity());
-    assert(2 == stream.buffer_size());
-    assert("ca" == stream.peek_output(2));
-    assert(0 == stream.write("t"));
-    assert(false == stream.input_ended());
-    assert(false == stream.buffer_empty());
-    assert(false == stream.eof());
-    assert(0 == stream.bytes_read());
-    assert(2 == stream.bytes_written());
-    assert(0 == stream.remaining_capacity());
-    assert(2 == stream.buffer_size());
-    assert("ca" == stream.peek_output(2));
-}
 
 
-void test_write_once(){
-    ByteStream stream(15);
-    stream.write("cat");
-    assert(false == stream.input_ended());
-    assert(false == stream.buffer_empty());
-    assert(false == stream.eof());
-    assert(0 == stream.bytes_read());
-    assert(3 == stream.bytes_written());
-    assert(12 == stream.remaining_capacity());
-    assert(3 == stream.buffer_size());
-    assert("cat" == stream.peek_output(3));
-    
-    stream.end_input();
-    assert(true == stream.input_ended());
-    assert(false == stream.eof());
-    assert(0 == stream.bytes_read());
-    assert(3 == stream.bytes_written());
-    assert(12 == stream.remaining_capacity());
-    assert(3 == stream.buffer_size());
-    assert("cat" == stream.peek_output(3));
-
-    stream.pop_output(3);
-
-    assert(true == stream.input_ended());
-    assert(true == stream.buffer_empty());
-    assert(true == stream.eof());
-    assert(3 == stream.bytes_read());
-    assert(3 == stream.bytes_written());
-    assert(15 == stream.remaining_capacity());
-    assert(0 == stream.buffer_size());
-
-}
-
-void test_write_twice(){
-    ByteStream stream(15);
-
-
-    stream.write("cat");
-    assert(false == stream.input_ended());
-    assert(false == stream.buffer_empty());
-    assert(false == stream.eof());
-    assert(0 == stream.bytes_read());
-    assert(3 == stream.bytes_written());
-    assert(12 == stream.remaining_capacity());
-    assert(3 == stream.buffer_size());
-    assert("cat" == stream.peek_output(3));
-    
-    stream.write("tac");
-    assert(false == stream.input_ended());
-    assert(false == stream.buffer_empty());
-    assert(false == stream.eof());
-    assert(0 == stream.bytes_read());
-    assert(6 == stream.bytes_written());
-    assert(9 == stream.remaining_capacity());
-    assert(6 == stream.buffer_size());
-    assert("cattac" == stream.peek_output(6));
-    
-    stream.end_input();
-    assert(true == stream.input_ended());
-    assert(false == stream.buffer_empty());
-    assert(false == stream.eof());
-    assert(0 == stream.bytes_read());
-    assert(6 == stream.bytes_written());
-    assert(9 == stream.remaining_capacity());
-    assert(6 == stream.buffer_size());
-    assert("cattac" == stream.peek_output(6));    
-
-    stream.pop_output(2);
-    assert(true == stream.input_ended());
-    assert(false == stream.buffer_empty());
-    assert(false == stream.eof());
-    assert(2 == stream.bytes_read());
-    assert(6 == stream.bytes_written());
-    assert(11 == stream.remaining_capacity());
-    assert(4 == stream.buffer_size());
-    assert("ttac" == stream.peek_output(6));    
-
-    stream.pop_output(4);
-    assert(true == stream.input_ended());
-    assert(true == stream.buffer_empty());
-    assert(true == stream.eof());
-    assert(6 == stream.bytes_read());
-    assert(6 == stream.bytes_written());
-    assert(15 == stream.remaining_capacity());
-    assert(0 == stream.buffer_size()); 
-}
-
-int main(int argc,char*argv[]){
-    test_capacity();
-    test_write_once();
-    test_write_twice();
-}
-```
 
 #### 提交要求
 
-- 只需提交一个源码文件：byte_stream.cpp (实现byte_stream.h中声明的接口) ,直接打包成zip格式的压缩包。**不要添加其他任何目录，压缩包中只包含这两个个文件!**
+- 提交源码文件：`byte_stream.cc` 和 `byte_stream.hh`  ,直接打包成zip格式的压缩包。**不要添加其他任何目录，压缩包中只包含这两个个文件!**
 - 文件的编码格式只支持utf-8。
 - 请严格按照给定的接口进行编码,否则无法调用测试用例。
 - **提交的源码文件中不需要包含main函数,否则无法通过编译。**
