@@ -3,7 +3,6 @@
 
 #include <exception>
 #include <iostream>
-#include <cstdlib> 
 #include <ctime> 
 using namespace std;
 
@@ -35,7 +34,8 @@ bool test1() {
     test.execute(BufferSize{2});
     test.execute(Peek{"ca"});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -58,7 +58,8 @@ bool test2() {
     test.execute(BufferSize{2});
     test.execute(Peek{"ta"});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -81,7 +82,8 @@ bool test3() {
     test.execute(BufferSize{2});
     test.execute(Peek{"at"});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -122,7 +124,8 @@ bool test4() {
     test.execute(Pop{2});
     test.execute(Eof{true});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -138,7 +141,8 @@ bool test5() {
     test.execute(RemainingCapacity{15});
     test.execute(BufferSize{0});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -155,7 +159,8 @@ bool test6() {
     test.execute(RemainingCapacity{15});
     test.execute(BufferSize{0});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -196,7 +201,8 @@ bool test7() {
     test.execute(RemainingCapacity{15});
     test.execute(BufferSize{0});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -236,7 +242,8 @@ bool test8() {
     test.execute(RemainingCapacity{15});
     test.execute(BufferSize{0});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -287,7 +294,8 @@ bool test9() {
     test.execute(RemainingCapacity{15});
     test.execute(BufferSize{0});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -351,7 +359,8 @@ bool test10() {
     test.execute(RemainingCapacity{15});
     test.execute(BufferSize{0});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -415,7 +424,8 @@ bool test11() {
     test.execute(RemainingCapacity{15});
     test.execute(BufferSize{0});
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -454,7 +464,8 @@ bool test12() {
       }
     }
   } catch (const exception &e) {
-    cerr << "Exception: " << e.what() << endl;
+    // cerr << "Exception: " << e.what() << endl;
+    cerr << 0 << endl;
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
