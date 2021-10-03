@@ -16,8 +16,11 @@
 
 // command ::g++ main.cpp -lgtest -lpthread
 
+
+// 1:pass 0: not pass
+
 using std::exception;
-static bool ThrowsException(const std::function<void()> &function, exception type) {
+static bool ThrowsException(const std::function<void()> &function) {
   bool expected_type_thrown = false;
   try {
     function();
@@ -30,12 +33,47 @@ static bool ThrowsException(const std::function<void()> &function, exception typ
   return expected_type_thrown;
 }
 
+static bool ThrowsNoException(const std::function<void()> &function) {
+  bool expected_no_exception_thrown = true;
+  try {
+    function();
+  } catch (const std::exception &e){
+    expected_no_exception_thrown = false;
+  }
+  std::cout << expected_no_exception_thrown << std::endl;
+  return expected_no_exception_thrown;
+}
+
+template <typename T>
+static bool EXPECTEQUAL(const RowMatrix<T> * user,const Rowmatrix<T> * real) {
+  bool equal = true;
+  if(user->GetRowCount() != real->GetRowCount()||
+      user->GetColumnCount() != real->GetColumnCount()){
+    equal = false;
+  }
+  for(int i=0;i<user->GetRowCount();++i){
+    for(int j=0;i<user->GetColumnCount();++j){
+      if(user->GetElement(i,j)!=real->GetElement(i,j)){
+        equal = false;
+      }
+    }
+  }
+  std::cout << equal << std::endl;
+  return equal;
+}
+
+template <typename T>
+static bool EXPECTNOEQUAL(const RowMatrix<T> * user,const Rowmatrix<T> * real) {
+  bool notequal = !EXPECTEQUAL(user,real);
+  return notequal;
+}
+
 void test1(){
     auto matrix = std::make_unique<RowMatrix<int>>(2, 2);
     // Source contains too few elements
     std::vector<int> source0(3);
     std::iota(source0.begin(), source0.end(), 0);
-    EXPECT_TRUE(ThrowsException([&]() { matrix->FillFrom(source0); }, std::out_of_range("")));
+    ThrowsException([&]() { matrix->FillFrom(source0);});
 }
 
 void test2(){
@@ -43,7 +81,7 @@ void test2(){
     // Source contains too many elements
     std::vector<int> source0(5);
     std::iota(source0.begin(), source0.end(), 0);
-    ThrowsException([&]() { matrix->FillFrom(source0); }, std::out_of_range(""));
+    ThrowsException([&]() { matrix->FillFrom(source0);});
 }
 
 void test3(){
@@ -57,19 +95,32 @@ void test3(){
             EXPECT_EQ(expected, matrix->GetElement(i, j));
         }
   }
-  EXPECT_TRUE(ThrowsException([&]() { matrix->GetElement(0, -1); }, std::out_of_range("")));
-  EXPECT_TRUE(ThrowsException([&]() { matrix->GetElement(-1, 0); }, std::out_of_range("")));
-  EXPECT_TRUE(ThrowsException([&]() { matrix->GetElement(0, 2); }, std::out_of_range("")));
-  EXPECT_TRUE(ThrowsException([&]() { matrix->GetElement(2, 0); }, std::out_of_range("")));
+  ThrowsException([&]() { matrix->GetElement(0, -1); });
+  ThrowsException([&]() { matrix->GetElement(-1, 0); });
+  ThrowsException([&]() { matrix->GetElement(0, 2); });
+  ThrowsException([&]() { matrix->GetElement(2, 0); });
 }
 
-void test4(){
+void test4(int line ,int col){
   srand (time(NULL));
-  int line  = 10, col = 10;
-  myMatrix<int> mymatrix(line,col);
-  auto matrix = std::make_unique<RowMatrix<int>>(line, col);
-  std::vector<int> vec;
-  
+  auto user_matrix1 = std::make_unique<RowMatrix<int>>(line, col);
+  auto real_matrix1 = std::make_unique<Rowmatrix<int>>(line, col);
+  auto user_matrix2 = std::make_unique<RowMatrix<int>>(line, col);
+  auto real_matrix2 = std::make_unique<Rowmatrix<int>>(line, col);
+
+  std::vector<int> vec1;
+  std::vector<int> vec2;
+  for(int i=0;i<line;++i){
+    for(int j=0;j<col;++j){
+      vec1.push_back(rand() % 100 - 50);
+      vec2.push_back(rand() % 100 - 50);
+    }
+  }
+  ThrowsNoException([&]() { user_matrix1->FillFrom(vec1);});
+  ThrowsNoException([&]() { real_matrix2->FillFrom(vec1);});
+  auto user_add = RowMatrixOperations<int>::Add(user_matrix1.get(), user_matrix2.get());
+  auto real_add = RowmatrixOperations<int>::Add(real_matrix1.get(), real_matrix2.get());
+  EXPECTEQUAL(user_add.get(),real_add.get());
 }
 
 

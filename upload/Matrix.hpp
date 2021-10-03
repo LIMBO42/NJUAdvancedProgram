@@ -1,241 +1,221 @@
-#ifndef __MYMATRIX_H__
-#define __MYMATRIX_H__
+#pragma once
 
-#include<iostream>
+#include <memory>
+#include <stdexcept>
+#include <vector>
 
-template<typename __T>
-class myMatrix
-{
-private:
-	int row;
-	int col;
-	__T **num;
-public:
-	myMatrix(const int,const int);
-	myMatrix(const myMatrix<__T>&);
-	~myMatrix();
-	myMatrix  operator+ (const myMatrix<__T>&);
-	myMatrix  operator- (const myMatrix<__T>&);
-	myMatrix  operator* (const myMatrix<__T>&);
-	myMatrix& operator= (const myMatrix<__T>&);
-	__T*    operator[](const int);
-	myMatrix  Hadamard  (const myMatrix<__T>&);
-	myMatrix  Transpose ();
-	template<typename T> friend std::ostream& operator<<(std::ostream&,const myMatrix<T>&);
-	template<typename T> friend std::istream& operator>>(std::istream&,const myMatrix<T>&);
+
+/**
+ * The matrix type defines a common
+ * interface for matrix operations.
+ */
+template <typename T>
+class matrix {
+ protected:
+  /**
+   * TODO: Add implementation
+   *
+   * Construct a new matrix instance.
+   * @param rows The number of rows
+   * @param cols The number of columns
+   *
+   */
+  matrix(int rows, int cols) {}
+
+  /** The number of rows in the matrix */
+  int rows_;
+  /** The number of columns in the matrix */
+  int cols_;
+
+  /**
+   * TODO: Allocate the array in the constructor.
+   * TODO: Deallocate the array in the destructor.
+   * A flattened array containing the elements of the matrix.
+   */
+  T *linear_;
+
+ public:
+  /** @return The number of rows in the matrix */
+  virtual int GetRowCount() const = 0;
+
+  /** @return The number of columns in the matrix */
+  virtual int GetColumnCount() const = 0;
+
+  /**
+   * Get the (i,j)th matrix element.
+   *
+   * Throw OUT_OF_RANGE if either index is out of range.
+   *
+   * @param i The row index
+   * @param j The column index
+   * @return The (i,j)th matrix element
+   * @throws OUT_OF_RANGE if either index is out of range
+   */
+  virtual T GetElement(int i, int j) const = 0;
+
+  /**
+   * Set the (i,j)th matrix element.
+   *
+   * Throw OUT_OF_RANGE if either index is out of range.
+   *
+   * @param i The row index
+   * @param j The column index
+   * @param val The value to insert
+   * @throws OUT_OF_RANGE if either index is out of range
+   */
+  virtual void SetElement(int i, int j, T val) = 0;
+
+  /**
+   * Fill the elements of the matrix from `source`.
+   *
+   * Throw OUT_OF_RANGE in the event that `source`
+   * does not contain the required number of elements.
+   *
+   * @param source The source container
+   * @throws OUT_OF_RANGE if `source` is incorrect size
+   */
+  virtual void FillFrom(const std::vector<T> &source) = 0;
+
+  /**
+   * Destroy a matrix instance.
+   * TODO: Add implementation
+   */
+  virtual ~matrix() = default;
 };
 
-template<typename __T>
-myMatrix<__T>::myMatrix(const int __row,const int __col)
-{
-	row=__row;
-	col=__col;
-	if(row>0 && col>0)
-	{
-		num=new __T* [row];
-		for(int i=0;i<row;++i)
-			num[i]=new __T[col];
-	}
-	else
-	{
-		row=0;
-		col=0;
-		num=NULL;
-	}
-	return;
-}
+/**
+ * The Rowmatrix type is a concrete matrix implementation.
+ * It implements the interface defined by the matrix type.
+ */
+template <typename T>
+class Rowmatrix : public matrix<T> {
+ public:
+  /**
+   * TODO: Add implementation
+   *
+   * Construct a new Rowmatrix instance.
+   * @param rows The number of rows
+   * @param cols The number of columns
+   */
+  Rowmatrix(int rows, int cols) : matrix<T>(rows, cols) {}
 
-template<typename __T>
-myMatrix<__T>::myMatrix(const myMatrix<__T>& __temp)
-{
-	row=__temp.row;
-	col=__temp.col;
-	if(row>0 && col>0)
-	{
-		num=new __T* [row];
-		for(int i=0;i<row;++i)
-			num[i]=new __T[col];
-		for(int i=0;i<row;++i)
-			for(int j=0;j<col;++j)
-				num[i][j]=__temp.num[i][j];
-	}
-	else
-	{
-		row=0;
-		col=0;
-		num=NULL;
-	}
-	return;
-}
+  /**
+   * TODO: Add implementation
+   * @return The number of rows in the matrix
+   */
+  int GetRowCount() const override { return 0; }
 
-template<typename __T>
-myMatrix<__T>::~myMatrix()
-{
-	if(num)
-	{
-		for(int i=0;i<row;++i)
-			delete[] num[i];
-		delete[] num;
-	}
-	return;
-}
+  /**
+   * TODO: Add implementation
+   * @return The number of columns in the matrix
+   */
+  int GetColumnCount() const override { return 0; }
 
-template<typename __T>
-myMatrix<__T> myMatrix<__T>::operator+(const myMatrix<__T>& B)
-{
-	if(this->row==B.row&&this->col==B.col)
-	{
-		for(int i=0;i<row;++i)
-			for(int j=0;j<col;++j)
-				this->num[i][j]+=B.num[i][j];
-		return *this;
-	}
-	else
-	{
-		myMatrix<__T> NullMatrix(0,0);
-		std::string WarningInformation="No matching matrix";
-		throw WarningInformation;
-		return NullMatrix;
-	}
-}
+  /**
+   * TODO: Add implementation
+   *
+   * Get the (i,j)th matrix element.
+   *
+   * Throw OUT_OF_RANGE if either index is out of range.
+   *
+   * @param i The row index
+   * @param j The column index
+   * @return The (i,j)th matrix element
+   * @throws OUT_OF_RANGE if either index is out of range
+   */
+  T GetElement(int i, int j) const override {
+    //throw NotImplementedException{"Rowmatrix::GetElement() not implemented."};
+  }
 
-template<typename __T>
-myMatrix<__T> myMatrix<__T>::operator-(const myMatrix<__T>& B)
-{
-	if(this->row==B.row&&this->col==B.col)
-	{
-		for(int i=0;i<row;++i)
-			for(int j=0;j<col;++j)
-				this->num[i][j]-=B.num[i][j];
-		return *this;
-	}
-	else
-	{
-		myMatrix<__T> NullMatrix(0,0);
-		std::string WarningInformation="No matching matrix";
-		throw WarningInformation;
-		return NullMatrix;
-	}
-}
+  /**
+   * Set the (i,j)th matrix element.
+   *
+   * Throw OUT_OF_RANGE if either index is out of range.
+   *
+   * @param i The row index
+   * @param j The column index
+   * @param val The value to insert
+   * @throws OUT_OF_RANGE if either index is out of range
+   */
+  void SetElement(int i, int j, T val) override {}
 
-template<typename __T>
-myMatrix<__T> myMatrix<__T>::operator*(const myMatrix<__T>& B)
-{
-	myMatrix<__T> NullMatrix(0,0);
-	if(!this->row || !this->col|| !B.row|| !B.col)
-	{
-		std::string WarningInformation="No matching matrix";
-		throw WarningInformation;
-	}
-	else if(this->col!=B.row)
-	{
-		std::string WarningInformation="No matching matrix";
-		throw WarningInformation;
-	}
-	else
-	{
-		myMatrix<__T> Temp(this->row,B.col);
-		__T trans;
-		for(int i=0;i<Temp.row;++i)
-			for(int j=0;j<Temp.col;++j)
-			{
-				trans=0;
-				for(int k=0;k<this->col;++k)
-					trans+=this->num[i][k]*B.num[k][j];
-				Temp.num[i][j]=trans;
-			}
-		return Temp;
-	}
-	return NullMatrix;
-}
+  /**
+   * TODO: Add implementation
+   *
+   * Fill the elements of the matrix from `source`.
+   *
+   * Throw OUT_OF_RANGE in the event that `source`
+   * does not contain the required number of elements.
+   *
+   * @param source The source container
+   * @throws OUT_OF_RANGE if `source` is incorrect size
+   */
+  void FillFrom(const std::vector<T> &source) override {
+    //throw NotImplementedException{"Rowmatrix::FillFrom() not implemented."};
+  }
 
-template<typename __T>
-myMatrix<__T>& myMatrix<__T>::operator=(const myMatrix<__T>& B)
-{
-	if(num)
-	{
-		for(int i=0;i<row;++i)
-			delete[] num[i];
-		delete num;
-	}
-	row=B.row;
-	col=B.col;
-	if(row>0 && col>0)
-	{
-		num=new __T* [row];
-		for(int i=0;i<row;++i)
-			num[i]=new __T[col];
-		for(int i=0;i<row;++i)
-			for(int j=0;j<col;++j)
-				num[i][j]=B.num[i][j];
-	}
-	else
-	{
-		row=0;
-		col=0;
-		num=NULL;
-	}
-	return *this;
-}
+  /**
+   * TODO: Add implementation
+   *
+   * Destroy a Rowmatrix instance.
+   */
+  ~Rowmatrix() override = default;
 
-template<typename __T>
-__T* myMatrix<__T>::operator[](const int addr)
-{
-	return addr>=this->row? NULL:this->num[addr];
-}
+ private:
+  /**
+   * A 2D array containing the elements of the matrix in row-major format.
+   *
+   * TODO:
+   * - Allocate the array of row pointers in the constructor.
+   * - Use these pointers to point to corresponding elements of the `linear` array.
+   * - Don't forget to deallocate the array in the destructor.
+   */
+  T **data_;
+};
 
-template<typename __T>
-myMatrix<__T> myMatrix<__T>::Hadamard(const myMatrix<__T>& B)
-{
-	myMatrix<__T> NullMatrix(0,0);
-	if(!this->row || !this->col || !B.row || !B.col)
-	{
-		std::string WarningInformation="No matching matrix";
-		throw WarningInformation;
-	}
-	else if(this->row!=B.row || this->col!=B.col)
-	{
-		std::string WarningInformation="No matching matrix";
-		throw WarningInformation;
-	}
-	else
-	{
-		myMatrix<__T> temp(this->row,this->col);
-		for(int i=0;i<this->row;++i)
-			for(int j=0;j<this->col;++j)
-				temp.num[i][j]=this->num[i][j]*B.num[i][j];
-		return temp;
-	}
-	return NullMatrix;
-}
+/**
+ * The RowmatrixOperations class defines operations
+ * that may be performed on instances of `Rowmatrix`.
+ */
+template <typename T>
+class RowmatrixOperations {
+ public:
+  /**
+   * Compute (`matrixA` + `matrixB`) and return the result.
+   * Return `nullptr` if dimensions mismatch for input matrices.
+   * @param matrixA Input matrix
+   * @param matrixB Input matrix
+   * @return The result of matrix addition
+   */
+  static std::unique_ptr<Rowmatrix<T>> Add(const Rowmatrix<T> *matrixA, const Rowmatrix<T> *matrixB) {
+    // TODO: Add implementation
+    return std::unique_ptr<Rowmatrix<T>>(nullptr);
+  }
 
-template<typename __T>
-myMatrix<__T> myMatrix<__T>::Transpose()
-{
-	myMatrix<__T> temp(this->col,this->row);
-	for(int i=0;i<this->row;++i)
-		for(int j=0;j<this->col;++j)
-			temp.num[j][i]=this->num[i][j];
-	return temp;
-}
+  /**
+   * Compute the matrix multiplication (`matrixA` * `matrixB` and return the result.
+   * Return `nullptr` if dimensions mismatch for input matrices.
+   * @param matrixA Input matrix
+   * @param matrixB Input matrix
+   * @return The result of matrix multiplication
+   */
+  static std::unique_ptr<Rowmatrix<T>> Multiply(const Rowmatrix<T> *matrixA, const Rowmatrix<T> *matrixB) {
+    // TODO: Add implementation
+    return std::unique_ptr<Rowmatrix<T>>(nullptr);
+  }
 
-template<typename T>
-std::ostream& operator<<(std::ostream& strm,const myMatrix<T>& aim)
-{
-	for(int i=0;i<aim.row;++i)
-	{
-		for(int j=0;j<aim.col;++j)
-			strm<<aim.num[i][j]<<((char)(j==aim.col-1)? '\n':' ');
-	}
-	return strm;
-}
+  /**
+   * Simplified General matrix Multiply operation. Compute (`matrixA` * `matrixB` + `matrixC`).
+   * Return `nullptr` if dimensions mismatch for input matrices.
+   * @param matrixA Input matrix
+   * @param matrixB Input matrix
+   * @param matrixC Input matrix
+   * @return The result of general matrix multiply
+   */
+  static std::unique_ptr<Rowmatrix<T>> GEMM(const Rowmatrix<T> *matrixA, const Rowmatrix<T> *matrixB,
+                                            const Rowmatrix<T> *matrixC) {
+    // TODO: Add implementation
+    return std::unique_ptr<Rowmatrix<T>>(nullptr);
+  }
+};
 
-template<typename T>
-std::istream& operator>>(std::istream& strm,const myMatrix<T>& aim)
-{
-	for(int i=0;i<aim.row;++i)
-		for(int j=0;j<aim.col;++j)
-			strm>>aim.num[i][j];
-	return strm;
-}
-#endif
