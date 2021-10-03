@@ -9,8 +9,10 @@
 #include <iostream>
 #include <cassert>
 #include <gtest/gtest.h>
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 #include "matrix.hpp"
-
+#include "Matrix.hpp"
 
 // command ::g++ main.cpp -lgtest -lpthread
 
@@ -59,6 +61,15 @@ void test3(){
   EXPECT_TRUE(ThrowsException([&]() { matrix->GetElement(-1, 0); }, std::out_of_range("")));
   EXPECT_TRUE(ThrowsException([&]() { matrix->GetElement(0, 2); }, std::out_of_range("")));
   EXPECT_TRUE(ThrowsException([&]() { matrix->GetElement(2, 0); }, std::out_of_range("")));
+}
+
+void test4(){
+  srand (time(NULL));
+  int line  = 10, col = 10;
+  myMatrix<int> mymatrix(line,col);
+  auto matrix = std::make_unique<RowMatrix<int>>(line, col);
+  std::vector<int> vec;
+  
 }
 
 
