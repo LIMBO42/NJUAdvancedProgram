@@ -3,12 +3,11 @@
 
 #include "byte_stream.hh"
 
-
+#include <vector>
 #include <exception>
 #include <initializer_list>
 #include <iostream>
 #include <memory>
-#include <optional>
 #include <string>
 #include <functional>
 
@@ -50,7 +49,7 @@ struct EndInput : public ByteStreamAction {
 
 struct Write : public ByteStreamAction {
     std::string _data;
-    std::optional<size_t> _bytes_written{};
+    size_t _bytes_written{};
 
     Write(const std::string &data);
     Write &with_bytes_written(const size_t bytes_written);

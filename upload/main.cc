@@ -448,8 +448,9 @@ bool test12() {
         rd = rand();
         const size_t size = MIN_WRITE + (rd % (MAX_WRITE - MIN_WRITE));
         string d(size, 0);
-        rd = rand();
-        generate(d.begin(), d.end(), [&] { return 'a' + (rd % 26); });
+        for(auto iter = d.begin();iter!=d.end();++iter){
+          *iter = 'a' + (rand() % 26); 
+        }
 
         test.execute(Write{d}.with_bytes_written(size));
         acc += size;
