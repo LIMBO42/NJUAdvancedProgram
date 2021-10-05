@@ -15,4 +15,4 @@ static void _test_err_if(const bool err_condition, const std::string &err_string
     ++err_num;
 }
 
-#endif  // TESTS_TEST_ERR_IF_HH
+#endif  // 

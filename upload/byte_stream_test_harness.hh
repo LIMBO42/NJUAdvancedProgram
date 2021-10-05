@@ -140,4 +140,4 @@ class ByteStreamTestHarness {
     void execute(const ByteStreamTestStep &step);
 };
 
-#endif  // SPONGE_BYTE_STREAM_HARNESS_HH
+#endif  // 
