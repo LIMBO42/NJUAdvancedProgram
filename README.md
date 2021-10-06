@@ -76,7 +76,7 @@ public:
     std::string peek_output(const size_t len) const;
     //对输出流pop
     void pop_output(const size_t len);
-    //read len的数据
+    //read len的数据，可以理解为两步peek+pop
     std::string read(const size_t len);
     //返回bool变量
     bool input_ended() const;
