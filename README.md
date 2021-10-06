@@ -100,9 +100,18 @@ public:
 #### Tips
 
 - 建议大家看完函数接口的描述之后，先去看下测试样例文件`test.cc`。
+
+- 如果你的结果和`assert`中描述的不一致，则会触发异常，此时你可以选择断点调试或者在代码中插入`print`语句进行调试。
+
 - 虽然函数的参数是`len`，但由于`capacity`的限制，不一定能写入/读出`len`。
+
 - `end_input()`和`input_ended()`一个发出信号表明输入流结束，一个返回`bool`类型变量表示输入流是否结束。
+
 - `eof()`表示输出流是否结束：意味着输入流结束并且容器中没有多余的字节可读
+
+- 如果要使用`deque<char>`，要么使用`std::deque<char>`，要么在`.hh`文件中加上`#include<iostream>`，`using namespace std;`
+
+  
 
 
 
