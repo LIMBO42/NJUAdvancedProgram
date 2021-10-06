@@ -10,7 +10,7 @@
 
 ![image-20211001200249862](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211001200249862.png)
 
-读端需要解决的接口如下：
+写端需要解决的接口如下：
 ```C++
 // Write a string of bytes into the stream. Write as many
 // as will fit, and return the number of bytes written.
@@ -24,7 +24,7 @@ void set_error();
 ```
 
 
-写端的接口如下所示：
+读端的接口如下所示：
 ```C++
 // Peek at next "len" bytes of the stream,just peek not pop!!!!(so we use const for this function)
 std::string peek_output(const size_t len) const;
@@ -122,6 +122,9 @@ for (auto it = vec_.begin(); it != vec_.end(); it++) {
 ```
 
 * 如果你需要用`deque<char>q`的前n个char构成一个`string`，你也可以这样写`std::string(q.begin(),q.begin()+n)`
+
+* `set_error()` 和 `bool error() const` 是给上一层对象调用的接口，所以在该实验中并不需要考虑，只需要给定初始值然后返回就好。
+* `write()`也是给上一层对象调用的接口，根据返回值来实现可靠传输的，想想看这是为什么？
 
 
 
