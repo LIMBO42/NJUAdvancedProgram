@@ -109,7 +109,7 @@ public:
 
 - `eof()`表示输出流是否结束：意味着输入流结束并且容器中没有多余的字节可读
 
-- 如果要使用`deque<char>`，要么使用`std::deque<char>`，要么在`.hh`文件中加上`#include<iostream>`，`using namespace std;`
+- 如果要使用`deque<char>`，要么使用`std::deque<char>`，要么在`.hh`文件中加上`#include<iostream>`，`#include<deque>`,`using namespace std;`
 
 - `set_error()` 和 `bool error() const` 是给上一层对象调用的接口，所以在该实验中并不需要考虑，只需要给定初始值然后返回就好。
 
