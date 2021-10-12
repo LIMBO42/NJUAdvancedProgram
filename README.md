@@ -1,7 +1,6 @@
+# NJU-AdvancedProgramming21Fall
 
-=======
 ## Matrix
->>>>>>> 560da8d94d80c491eb33a5122cf766ba5fcb7fde
 
 In this project, you will implement three classes: Matrix, RowMatrix, and RowMatrixOperations. These matrices are simple two-dimensional matrices that must support addition, matrix multiplication, and a simplified General Matrix Multiply (GEMM) operation.
 
