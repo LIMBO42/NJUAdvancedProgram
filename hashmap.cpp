@@ -1,17 +1,3 @@
-/*
-* Assignment 2: HashMap template implementation (BASIC SOLUTION)
-*      Notes: this file is what we call a .tpp file. It's not a .cpp file,
-*      because it's not exactly a regular source code file. Instead, we are
-*      defining the template definitions for our HashMap class.
-*
-*      TODO: write a comment here.
-*
-*      You'll notice that the commenting provided is absolutely stunning.
-*      It was really fun to read through the starter code, right?
-*      Please emulate this commenting style in your code, so your grader
-*      can have an equally pleasant time reading your code. :)
-*/
-
 #include "hashmap.h"
 
 

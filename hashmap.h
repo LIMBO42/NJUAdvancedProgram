@@ -1,11 +1,6 @@
 /*
-* Assignment 2: HashMap template interface
-*      TODO: write a comment here.
-*
-*      You'll notice that the commenting provided is absolutely stunning.
-*      It was really fun to read through the starter code, right?
-*      Please emulate this commenting style in your code, so your grader
-*      can have an equally pleasant time reading your code. :)
+*  HashMap template interface
+*    
 */
 
 #ifndef HASHMAP_H

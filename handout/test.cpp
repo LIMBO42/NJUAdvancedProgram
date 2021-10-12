@@ -1,4 +1,6 @@
 #include "hashmap.hpp"
+// command: g++ -std=c++17 test.cpp
+
 
 using namespace std;
 
@@ -706,9 +708,9 @@ void C_move_time() {
         move_assign = std::chrono::duration_cast<ns>(end - start);
         VERIFY_TRUE(check_map_equal(move_assigned,answer), __LINE__);
     }
-    std::cout << "HashMap with 2000 elements (ns)" << std::endl;
-    std::cout << "Copy ctor: " << copy_ctor.count() << setw(15) << "Move ctor: " << move_ctor.count() << std::endl;
-    std::cout << "Copy assign: " << copy_assign.count() << setw(15) << "Move assign: " << move_assign.count() << std::endl;
+    // std::cout << "HashMap with 2000 elements (ns)" << std::endl;
+    // std::cout << "Copy ctor: " << copy_ctor.count() << setw(15) << "Move ctor: " << move_ctor.count() << std::endl;
+    // std::cout << "Copy assign: " << copy_assign.count() << setw(15) << "Move assign: " << move_assign.count() << std::endl;
 
     // verify that move operations are much faster than their copy counterparts
     // you should be able to easily beat this benchmark
@@ -718,7 +720,11 @@ void C_move_time() {
 
 
 int main(){
-    A_basic();
+    try{
+        A_basic();
+    }catch(std::exception e){
+        std::cout<<0<<std::endl;
+    }
     A_copy_ctor_assignment();
     A_index_operator();
     A_rehash_basic();
