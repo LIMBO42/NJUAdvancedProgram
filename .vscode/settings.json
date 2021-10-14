@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
         "functional": "cpp",
@@ -54,5 +55,12 @@
         "set": "cpp",
         "iomanip": "cpp",
         "variant": "cpp"
+=======
+    "files.associations": {
+        "chrono": "cpp",
+        "stdexcept": "cpp",
+        "iosfwd": "cpp",
+        "sstream": "cpp"
+>>>>>>> 51a081c48ff50ce796bb83610dd9b11a6cc19215
     }
 }
