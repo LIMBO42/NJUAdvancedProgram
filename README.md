@@ -2,6 +2,8 @@
 
 #### 题目描述
 
+>> Typically we'd just put everything (interface + implementation) in the .h file,but the file got a bit too long with the comments, so we split it up.
+
 ​		本次上机考察`template`的使用，实现一个`hashmap`。
 
 ​		需要注意的是本次实验的难度相比之前会大一些，但是我们的测试样例设置了基础分，也就是说只要你的文件能够编译，实现几个简单的功能，就能拿到及格的分数。也就说，不必等到全部写完再提交。
@@ -97,7 +99,7 @@ private:
 - `insert(),contains(),erase() `都可以调用`find_node()`，本质上都是对链表的操作。
 - 对`[]`的重载：如果`key`不存在，需要你创建一个`key value`对，当然因为此时`value`并不知道，所以用`M()`代替就好。这么做的原因是实现`map[key]=value`的操作，`[]`重载之后，如果`key`不存在，会先创建`key`的空间，返回对`value`的引用，此时可以修改`map[key]`。这个函数可能有一定难度。
 - `rehash()`的意思是此时`buckets`的个数发生了变化，需要重新散列，因此，去申请新的`vector<node*>`的空间，将`node`根据`key`进行散列即可。
-- `==`的判断是如果`size`不等直接返回`false`，相等的话针对每一个`key`，去判断在不在`map`中，`value`值等不等。
+- `==`需要逐个比较
 
 
 
@@ -107,7 +109,7 @@ private:
 
 #### 提交要求
 
-- 提交源码文件：`hashmap.hpp` ` ,直接打包成zip格式的压缩包。**不要添加其他任何目录，压缩包中只包含这一个文件!**
+- 提交源码文件：`hashmap.hpp` `hashmap.cpp` ,直接打包成zip格式的压缩包。**不要添加其他任何目录**
 - 文件的编码格式只支持utf-8。
 - 请严格按照给定的接口进行编码,否则无法调用测试用例。
 - **提交的源码文件中不需要包含main函数,否则无法通过编译。**

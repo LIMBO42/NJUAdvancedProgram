@@ -229,16 +229,7 @@ HashMap<K, M, H>::HashMap(HashMap const &other){
     }
 }
 
-template <typename K, typename M, typename H>
-HashMap<K, M, H>::HashMap(HashMap &&other){
-    this->_hash_function = other._hash_function;
-    this->_size = other._size;
-    this->_buckets_array = other._buckets_array;
 
-    other._buckets_array = {};
-    other._size = 0 ;
-
-}
 
 
 template<typename K, typename M, typename H>
@@ -259,23 +250,5 @@ HashMap<K,M,H> &HashMap<K, M, H>::operator=(const HashMap &other) {
     return *this;
 }
 
-template<typename K, typename M, typename H>
-HashMap<K,M,H> &HashMap<K, M, H>::operator=(HashMap &&other) {
-    if(*this == other) return *this;
-    this->_hash_function = other._hash_function;
-    this->_size = other._size;
-    this->_buckets_array = other._buckets_array;
 
-    other._buckets_array = {};
-    other._size = 0 ;
-    return *this;
-}
 
-template<typename K, typename M, typename H>
-HashMap<K, M, H>::HashMap(std::initializer_list<std::pair<K, M>>list) {
-    this->_size = 0;
-    this->_buckets_array = std::vector<node*>(kDefaultBuckets, nullptr);
-    for(auto &node:list){
-        insert(node);
-    }
-}
