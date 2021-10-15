@@ -97,7 +97,7 @@ private:
 - `laod_factor()`的注释中`*Return value: size_t - number of buckets*`意思是返回值类型为`size_t`并不是说返回值是`size - num`。
 - 先实现`find_node()`
 - `insert(),contains(),erase() `都可以调用`find_node()`，本质上都是对链表的操作。
-- 对`[]`的重载：如果`key`不存在，需要你创建一个`key value`对，当然因为此时`value`并不知道，所以用`M()`代替就好。这么做的原因是实现`map[key]=value`的操作，`[]`重载之后，如果`key`不存在，会先创建`key`的空间，返回对`value`的引用，此时可以修改`map[key]`。这个函数可能有一定难度。
+- 对`[]`的重载：如果`key`不存在，需要你创建一个`key value`对，当然因为此时`value`并不知道，所以用`M()`代替就好。这么做的原因是实现`map[key]=value`的操作，`[]`重载之后，如果`key`不存在，会先创建`key`的空间，返回对`value`的引用，此时可以修改`map[key]`。
 - `rehash()`的意思是此时`buckets`的个数发生了变化，需要重新散列，因此，去申请新的`vector<node*>`的空间，将`node`根据`key`进行散列即可。
 - `==`需要逐个比较
 
@@ -109,7 +109,7 @@ private:
 
 #### 提交要求
 
-- 提交源码文件：`hashmap.hpp` `hashmap.cpp` ,直接打包成zip格式的压缩包。**不要添加其他任何目录**
+- 提交源码文件：`hashmap.cpp` ,直接打包成zip格式的压缩包。**不要添加其他任何目录**
 - 文件的编码格式只支持utf-8。
 - 请严格按照给定的接口进行编码,否则无法调用测试用例。
 - **提交的源码文件中不需要包含main函数,否则无法通过编译。**
