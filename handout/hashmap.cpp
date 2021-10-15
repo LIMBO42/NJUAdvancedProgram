@@ -1,60 +1,42 @@
 #include "hashmap.hpp"
 
-
-
-
+template <typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap() : HashMap(kDefaultBuckets) { }
 
 template <typename K, typename M, typename H>
-HashMap<K, M, H>::~HashMap() {
-
-}
+HashMap<K, M, H>::HashMap(size_t bucket_count, const H& hash ) { }
 
 template <typename K, typename M, typename H>
-inline size_t HashMap<K, M, H>::size() const noexcept {
-
-}
+HashMap<K, M, H>::~HashMap() {}
 
 template <typename K, typename M, typename H>
-inline bool HashMap<K, M, H>::empty() const noexcept {
-
-}
+inline size_t HashMap<K, M, H>::size() const noexcept {return {};}
 
 template <typename K, typename M, typename H>
-inline float HashMap<K, M, H>::load_factor() const noexcept {
-
-};
+inline bool HashMap<K, M, H>::empty() const noexcept {return {};}
 
 template <typename K, typename M, typename H>
-size_t HashMap<K, M, H>::bucket_count() const noexcept {
-
-};
+inline float HashMap<K, M, H>::load_factor() const noexcept {return {};};
 
 template <typename K, typename M, typename H>
-bool HashMap<K, M, H>::contains(const K& key) const noexcept {
-    
-}
+size_t HashMap<K, M, H>::bucket_count() const noexcept {return {};};
 
 template <typename K, typename M, typename H>
-void HashMap<K, M, H>::clear() noexcept {
-    
-}
+bool HashMap<K, M, H>::contains(const K& key) const noexcept {return {};}
+
+template <typename K, typename M, typename H>
+void HashMap<K, M, H>::clear() noexcept {return {};}
 
 template <typename K, typename M, typename H>
 std::pair<typename HashMap<K, M, H>::value_type*, bool>
-HashMap<K, M, H>::insert(const value_type& value) {
-    
-}
+HashMap<K, M, H>::insert(const value_type& value) {return {};}
 
 
 template <typename K, typename M, typename H>
-bool HashMap<K, M, H>::erase(const K& key) {
-    
-}
+bool HashMap<K, M, H>::erase(const K& key) {return {};}
 
 template <typename K, typename M, typename H>
-M& HashMap<K, M, H>::at(const K& key)const{
-    
-}
+M& HashMap<K, M, H>::at(const K& key)const{return {};}
 
 template <typename K, typename M, typename H>
 void HashMap<K, M, H>::debug() const {
@@ -81,76 +63,28 @@ void HashMap<K, M, H>::debug() const {
 
 
 template <typename K, typename M, typename H>
-typename HashMap<K, M, H>::node_pair HashMap<K, M, H>::find_node(const K& key) const {
-    
-}
-
-
-
+typename HashMap<K, M, H>::node_pair HashMap<K, M, H>::find_node(const K& key) const {return {};}
 
 template <typename K, typename M, typename H>
-void HashMap<K, M, H>::rehash(size_t new_bucket_count) {
-    
-}
-
+void HashMap<K, M, H>::rehash(size_t new_bucket_count) {return {};}
 
 template <typename K, typename M, typename H>
-M& HashMap<K, M, H>::operator[](const K& key){
-    
-}
+M& HashMap<K, M, H>::operator[](const K& key){return {};}
 
 template <typename K, typename M, typename H>
-std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& map){
-    os<<"{";
-    std::string str = "";
-    for (size_t i = 0; i < map.bucket_count(); ++i) {
-        auto curr = map._buckets_array[i];
-        while (curr != nullptr) {
-            auto node = curr;
-            auto value = node->value;
-            os<<str<<value.first<<":"<<value.second;
-            str = ", ";
-            curr = curr->next;
-        }
-    }
-    os<<"}";
-    return os;
-}
+std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& map){return {};}
 
 template <typename K, typename M, typename H>
 bool operator==(const HashMap<K, M, H>& lhs,
-                const HashMap<K, M, H>& rhs){
-    
-}
+                const HashMap<K, M, H>& rhs){return {};}
 
 template <typename K, typename M, typename H>
 bool operator!=(const HashMap<K, M, H>& lhs,
-                const HashMap<K, M, H>& rhs){
-    
-}
+                const HashMap<K, M, H>& rhs){return {};}
 
 template <typename K, typename M, typename H>
-HashMap<K, M, H>::HashMap(HashMap const &other){
-    
-}
-
-template <typename K, typename M, typename H>
-HashMap<K, M, H>::HashMap(HashMap &&other){
-   
-}
+HashMap<K, M, H>::HashMap(HashMap const &other){return {};}
 
 
 template<typename K, typename M, typename H>
-HashMap<K,M,H> &HashMap<K, M, H>::operator=(const HashMap &other) {
-   
-}
-
-template<typename K, typename M, typename H>
-HashMap<K,M,H> &HashMap<K, M, H>::operator=(HashMap &&other) {
-    
-}
-
-template<typename K, typename M, typename H>
-HashMap<K, M, H>::HashMap(std::initializer_list<std::pair<K, M>>list) {
-    
-}
+HashMap<K,M,H> &HashMap<K, M, H>::operator=(const HashMap &other) {return {};}

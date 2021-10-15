@@ -43,11 +43,7 @@ template <typename K, typename M, typename H = std::hash<K>>
 class HashMap {
 
 public:
-    HashMap(HashMap const &other);
-    HashMap(HashMap &&other);
-    HashMap& operator=(const HashMap &other);
-    HashMap& operator=(HashMap &&other);
-    HashMap(std::initializer_list<std::pair<K, M>>list);
+
 
     /*
     * Alias for std::pair<const K, M>, used by the STL (such as in std::inserter)
@@ -310,10 +306,30 @@ public:
     */
     void rehash(size_t new_buckets);
 
+    /*
+        [] operator 
+        usage:
+            HashMap<std::string, int> map;
+            map["S"] = 1;
+            assert(map.at("S" == 1))
+
+    */
     M& operator[](const K& key);
 
 
+    /*
+            HashMap<std::string, int> map;
 
+            std::ostringstream oss1;
+            oss1 << map;
+            VERIFY_TRUE(oss1.str() == "{}", __LINE__);
+            map.insert({"Anna", 2});
+            std::ostringstream oss3;
+            VERIFY_TRUE(oss2.str() == "{Anna:2}", __LINE__);
+            map.insert({"Avery", 3});
+            oss3 << map;
+            VERIFY_TRUE(oss3.str() == "{Avery:3, Anna:2}" || oss3.str() == "{Anna:2, Avery:3}", __LINE__);
+    */
     template <typename K_, typename M_, typename H_>
     friend std::ostream& operator<<(std::ostream& os, const HashMap<K_, M_, H_>& map);
 
@@ -324,6 +340,9 @@ public:
     template <typename K_, typename M_, typename H_>
     friend bool operator!=(const HashMap<K_, M_, H_>& lhs,
        const HashMap<K_, M_, H_>& rhs);
+
+    HashMap(HashMap const &other);
+    HashMap& operator=(const HashMap &other);   
 
 private:
 
