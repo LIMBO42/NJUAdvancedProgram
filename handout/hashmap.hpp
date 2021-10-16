@@ -341,6 +341,9 @@ public:
     friend bool operator!=(const HashMap<K_, M_, H_>& lhs,
        const HashMap<K_, M_, H_>& rhs);
 
+    /*
+        this two functions are easy for you now :-)
+    */
     HashMap(HashMap const &other);
     HashMap& operator=(const HashMap &other);   
 

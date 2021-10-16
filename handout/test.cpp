@@ -33,11 +33,8 @@ template <typename Map1, typename Map2> bool check_map_equal(Map1& map, Map2& an
 
 void VERIFY_TRUE(bool condition, int line) {
     if (!condition) {
-        std::cout<<"0"<<std::endl; 
-        // std::cout<< "not pass the test in line " << line << std::endl;
+        std::cout<< "Not pass the test in line " << line << std::endl;
         // throw VerifyTrueAssertionFailure{line};
-    }else{
-        std::cout<<"1"<<std::endl;
     }
 }
 

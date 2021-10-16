@@ -1,5 +1,5 @@
 #include "hashmap.hpp"
-// command: g++ -std=c++17 test.cpp
+// command: g++ -std=c++17 main.cpp
 
 // 0: not pass,
 
@@ -36,8 +36,6 @@ void VERIFY_TRUE(bool condition, int line) {
         std::cout<<"0"<<std::endl; 
         // std::cout<< "not pass the test in line " << line << std::endl;
         // throw VerifyTrueAssertionFailure{line};
-    }else{
-        std::cout<<"1"<<std::endl;
     }
 }
 
@@ -581,8 +579,8 @@ void A_copy_ctor_assignment() {
     original_copy_assigned = copy_assigned;
 
     // // suppress the really annoying warnings
-    // #pragma GCC diagnostic push
-    // #pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wself-assign-overloaded"
 
     // start doing weird things to the map
     copy_constructed = copy_constructed;
@@ -604,22 +602,23 @@ void A_copy_ctor_assignment() {
 
 
 int main(){
-    try{
-        A_basic();
-    }catch(std::exception e){
-        std::cout<<0<<std::endl;
+    int testNo;
+    std::cin >> testNo; 
+    switch(testNo){
+        case 1 : {  try{A_basic();}catch(std::exception e){}break;}
+        case 2 : {  try{A_copy_ctor_assignment();}catch(std::exception e){}break;}
+        case 3 : {  try{A_index_operator();}catch(std::exception e){}break;}
+        case 4 : {  try{A_rehash_basic();}catch(std::exception e){}break;}
+        case 5 : {  try{B_insert();}catch(std::exception e){}break;}
+        case 6 : {  try{B_rehash_correctness_by_time();}catch(std::exception e){}break;}
+        case 7 : {  try{B_stream_insertion_operator();}catch(std::exception e){}break;}
+        case 8 : {  try{C_clear();}catch(std::exception e){}break;}
+        case 9 : {  try{C_equality_operator();}catch(std::exception e){}break;}
+        case 10 : {  try{D_at();}catch(std::exception e){}break;}
+        case 11 : {  try{D_const_correctness();}catch(std::exception e){}break;}
+        case 12 : {  try{E_custom_bucket_count();}catch(std::exception e){}break;}
+        case 13 : {  try{F_custom_hash_function();}catch(std::exception e){}break;}
+        case 14 : {  try{G_erase();}catch(std::exception e){}break;}
     }
-    A_copy_ctor_assignment();
-    A_index_operator();
-    A_rehash_basic();
-    B_insert();
-    B_rehash_correctness_by_time();
-    B_stream_insertion_operator();
-    C_clear();
-    C_equality_operator();
-    D_at();
-    D_const_correctness();
-    E_custom_bucket_count();
-    F_custom_hash_function();
-    G_erase();
+    
 }
