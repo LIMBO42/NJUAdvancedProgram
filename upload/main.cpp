@@ -605,20 +605,20 @@ int main(){
     int testNo;
     std::cin >> testNo; 
     switch(testNo){
-        case 1 : {  try{A_basic();}catch(std::exception e){}break;}
-        case 2 : {  try{A_copy_ctor_assignment();}catch(std::exception e){}break;}
-        case 3 : {  try{A_index_operator();}catch(std::exception e){}break;}
-        case 4 : {  try{A_rehash_basic();}catch(std::exception e){}break;}
-        case 5 : {  try{B_insert();}catch(std::exception e){}break;}
-        case 6 : {  try{B_rehash_correctness_by_time();}catch(std::exception e){}break;}
-        case 7 : {  try{B_stream_insertion_operator();}catch(std::exception e){}break;}
-        case 8 : {  try{C_clear();}catch(std::exception e){}break;}
-        case 9 : {  try{C_equality_operator();}catch(std::exception e){}break;}
-        case 10 : {  try{D_at();}catch(std::exception e){}break;}
-        case 11 : {  try{D_const_correctness();}catch(std::exception e){}break;}
-        case 12 : {  try{E_custom_bucket_count();}catch(std::exception e){}break;}
-        case 13 : {  try{F_custom_hash_function();}catch(std::exception e){}break;}
-        case 14 : {  try{G_erase();}catch(std::exception e){}break;}
+        case 1 : {  try{A_basic();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 2 : {  try{A_copy_ctor_assignment();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 3 : {  try{A_index_operator();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 4 : {  try{A_rehash_basic();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 5 : {  try{B_insert();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 6 : {  try{B_rehash_correctness_by_time();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 7 : {  try{B_stream_insertion_operator();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 8 : {  try{C_clear();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 9 : {  try{C_equality_operator();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 10 : {  try{D_at();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 11 : {  try{D_const_correctness();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 12 : {  try{E_custom_bucket_count();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 13 : {  try{F_custom_hash_function();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 14 : {  try{G_erase();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
     }
     
 }
