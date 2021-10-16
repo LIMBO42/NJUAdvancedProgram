@@ -36,6 +36,8 @@ void VERIFY_TRUE(bool condition, int line) {
         std::cout<<"0"<<std::endl; 
         // std::cout<< "not pass the test in line " << line << std::endl;
         // throw VerifyTrueAssertionFailure{line};
+    }else{
+        std::cout<<"1"<<std::endl;
     }
 }
 
