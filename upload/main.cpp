@@ -91,6 +91,7 @@ void C_clear() {
            map.insert(kv_pair);
        }
 
+       VERIFY_TRUE(map.empty() == false, __LINE__);
        answer.clear();
        map.clear();
 
@@ -461,7 +462,8 @@ void C_equality_operator() {
         map2.insert({i, i*i});
         VERIFY_TRUE(map1 == map2 && map2 == map1 && map1 == map1 && map2 == map2, __LINE__);
     }
-
+    VERIFY_TRUE(map1.empty() == false , __LINE__);
+    VERIFY_TRUE(map2.empty() == false , __LINE__);
     // Change the two maps' elements in a different order.
     // This means the the maps won't be equal until the very end
     for (int i = 0; i < 99; ++i) {
@@ -557,6 +559,7 @@ void A_copy_ctor_assignment() {
     for (const auto& kv_pair : vec) {
         map.insert(kv_pair);
     }
+    VERIFY_TRUE(map.empty() == false, __LINE__);
 
     HashMap<std::string, int> copy_constructed{map};
     HashMap<std::string, int> copy_assigned;
