@@ -4,6 +4,14 @@
 // copy this file directy to .hpp file(remove the line : #include "hashmap.hpp") if you are using ide like visual studio, otherwise your code will not compile.
 // still you don't need to worry about concurrency.
 // you can directly submit this file to oj and you can pass the compile phase.
+
+
+
+
+// I think most of you are not familar with std::out_of_range, so you can just use this like this:
+    // throw std::out_of_range("out of range!")
+    // In fact, we don't judge this in this lab, but you had better implemnt it for robustness
+    
 #include "hashmap.hpp"
 template <typename K, typename M, typename H>
 HashMap<K, M, H>::HashMap() : HashMap(kDefaultBuckets) { }
@@ -69,8 +77,11 @@ bool HashMap<K, M, H>::erase(const K& key) {
     return true;
 }
 
+
+
 template <typename K, typename M, typename H>
 M& HashMap<K, M, H>::at(const K& key)const {
+    // to do
     return * (new M());
 }
 
