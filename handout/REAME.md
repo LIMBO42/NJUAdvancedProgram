@@ -14,6 +14,8 @@
 
 通过计算公式`hash(key)%buckets.size()`来将`key value`对散列到`bucket`中。
 
+注意这里的`hash(key)`得到的值可能远远大于`buckets`的个数，因此需要对其取余。
+
 <img src="https://cdn-images-1.medium.com/max/1200/1*3jxEppESh9LLK14YMQ-ocA.png" alt="查看源图像" style="zoom: 67%;" />
 
 ------
