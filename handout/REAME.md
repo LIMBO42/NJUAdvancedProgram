@@ -14,13 +14,13 @@
 
 
 
-**hash map**：这里我们用若干`buckets`来做`hash`，每个`buckets`均为`nodes`串联的链表。
+**hash map**：这里我们用若干`buckets`来做`hash`，每个`bucket`均为`nodes`串联的链表。
 
 通过计算公式`hash(key)%buckets.size()`来将`key value`对散列到`bucket`中。
 
-注意这里的`hash(key)`得到的值可能远远大于`buckets`的个数，因此需要对其取余。
+注意这里的`hash(key)`得到的值可能远远大于`bucket`的个数，因此需要对其取余。
 
-<img src="https://cdn-images-1.medium.com/max/1200/1*3jxEppESh9LLK14YMQ-ocA.png" alt="查看源图像" style="zoom: 67%;" />
+<img src="https://cdn-images-1.medium.com/max/1200/1*3jxEppESh9LLK14YMQ-ocA.png" alt="查看源图像" style="zoom: 33%;" />
 
 ------
 
@@ -132,7 +132,7 @@ private:
 
 - 如果你使用`vs`，请在右侧解决方案栏中右击`projectxx`，选择属性，选择`C/C++`一栏，选择所有选项，选择`C++`语言标准，选择`C++17`。
 
-<img src="https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211014210351276.png" alt="image-20211014210351276" style="zoom:67%;" />
+<img src="https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211014210351276.png" alt="image-20211014210351276" style="zoom: 33%;" />
 
 
 
@@ -140,7 +140,7 @@ private:
 
   
 
-<img src="https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211014210604162.png" alt="image-20211014210604162" style="zoom:67%;" />
+<img src="https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211014210604162.png" alt="image-20211014210604162" style="zoom: 50%;" />
 
 ------
 
