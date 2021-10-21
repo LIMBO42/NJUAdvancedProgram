@@ -3,7 +3,7 @@
 // you need only need to implement the functions labled with to do.
 // copy this file directy to .hpp file(remove the line : #include "hashmap.hpp") if you are using ide like visual studio, otherwise your code will not compile.
 // still you don't need to worry about concurrency.
-// you can directly submit this file file to oj and you can pass the compile phase.
+// you can directly submit this file to oj and you can pass the compile phase.
 #include "hashmap.hpp"
 template <typename K, typename M, typename H>
 HashMap<K, M, H>::HashMap() : HashMap(kDefaultBuckets) { }
@@ -126,12 +126,9 @@ std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& map) {
     os<<"{";
     std::string str = "";
     for (size_t i = 0; i < map.bucket_count(); ++i) {
+        // to do
         auto curr = map._buckets_array[i];
         while (curr != nullptr) {
-            auto node = curr;
-            auto value = node->value;
-            os<<str<<value.first<<":"<<value.second;
-            str = ", ";
             curr = curr->next;
         }
     }
