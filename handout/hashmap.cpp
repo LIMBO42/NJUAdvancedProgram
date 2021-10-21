@@ -1,4 +1,9 @@
-
+// please learn to reuse your code, especially some basic functions, that's to say if you have implemented == operator, 
+// you can just use == to implement !=. Please be careful about memory allocation.
+// you need only need to implement the functions labled with to do.
+// copy this file directy to .hpp file(remove the line : #include "hashmap.hpp") if you are using ide like visual studio, otherwise your code will not compile.
+// still you don't need to worry about concurrency.
+// you can directly submit this file file to oj and you can pass the compile phase.
 #include "hashmap.hpp"
 template <typename K, typename M, typename H>
 HashMap<K, M, H>::HashMap() : HashMap(kDefaultBuckets) { }
@@ -106,6 +111,10 @@ void HashMap<K, M, H>::rehash(size_t new_bucket_count) {
 }
 
 
+// you know how to create a new node?
+// maybe you find will help you:(I think you will waste a lot of time here, so I just give you  code here ;-)
+    // auto node = new value_type(key, M());
+// why return type is M& ,please think about it. If you are still confused, contact me.
 template <typename K, typename M, typename H>
 M& HashMap<K, M, H>::operator[](const K& key) {
     //to do
