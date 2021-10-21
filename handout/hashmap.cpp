@@ -8,8 +8,10 @@
 
 // if you cannot decide the type of a variable, please use `auto` keyword.(especially when you override the == operator)
 
-// you may copy a lot of code from copy construtor
+// you may copy a lot of code from copy construtor and know how to throw a std::out_of_range exception
+// from function at
 
+// please carefully read related descriptions from .hpp when you implement a function.
 
 #include "hashmap.hpp"
 
@@ -158,6 +160,8 @@ typename HashMap<K, M, H>::node_pair HashMap<K, M, H>::find_node(const K& key) c
     return { nullptr,nullptr };
 }
 
+
+// 
 template <typename K, typename M, typename H>
 void HashMap<K, M, H>::rehash(size_t new_bucket_count) {
     //to do
