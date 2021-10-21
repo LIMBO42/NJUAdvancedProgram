@@ -20,7 +20,7 @@
 * M = mapped type
 * H = hash function type used to hash a key; if not provided, defaults to std::hash<K>
 *
-* Notes: When dealing with the Stanford libraries, we often call M the value
+* Notes: When dealing with the libraries, we often call M the value
 * (and maps store key/value pairs).
 *
 * However, we name it M for mapped type to avoid confusion with value_type.
@@ -174,7 +174,7 @@ public:
     *
     * Notes: Recall that when using a std::map, you use the map.count(key) function
     * (returns 0 or 1) to check if key exists. In C++20, map.contains(key) will be available.
-    * Since contains feels more natural to students who've used the Stanford libraries
+    * Since contains feels more natural to students who've used the libraries
     * and will be available in the future, we will implement map.contains(key).
     */
     bool contains(const K& key) const noexcept;

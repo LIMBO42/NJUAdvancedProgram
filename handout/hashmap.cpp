@@ -24,37 +24,34 @@ HashMap<K, M, H>::HashMap(size_t bucket_count, const H& hash) :
 
 template <typename K, typename M, typename H>
 HashMap<K, M, H>::~HashMap() {
-    //to do 
+    clear();
 }
 
 template <typename K, typename M, typename H>
 inline size_t HashMap<K, M, H>::size() const noexcept {
-    //to do
-    return 0;
+    return _size;
 }
 
 template <typename K, typename M, typename H>
 inline bool HashMap<K, M, H>::empty() const noexcept {
-    //todo
-    return true;
+    return _size == 0;
 }
 
+// return type is float, so you know how to handle two integer division.
+// still, I implement it for you.
 template <typename K, typename M, typename H>
 inline float HashMap<K, M, H>::load_factor() const noexcept {
-    //to do
-    return 0;
+    return static_cast<float>(size())/bucket_count();
 };
 
 template <typename K, typename M, typename H>
 size_t HashMap<K, M, H>::bucket_count() const noexcept {
-    //to do
-    return 0;
+    return _buckets_array.size();
 };
 
 template <typename K, typename M, typename H>
 bool HashMap<K, M, H>::contains(const K& key) const noexcept {
-    //to do 
-    return true;
+    return find_node(key).second != nullptr;
 }
 
 template <typename K, typename M, typename H>
@@ -78,11 +75,13 @@ bool HashMap<K, M, H>::erase(const K& key) {
 }
 
 
-
 template <typename K, typename M, typename H>
 M& HashMap<K, M, H>::at(const K& key)const {
-    // to do
-    return * (new M());
+    auto [prev, node_found] = find_node(key);
+    if (node_found == nullptr) {
+        throw std::out_of_range("HashMap<K, M, H>::at: key not found");
+    }
+    return node_found->value.second;
 }
 
 template <typename K, typename M, typename H>
@@ -126,26 +125,16 @@ void HashMap<K, M, H>::rehash(size_t new_bucket_count) {
 // maybe you find will help you:(I think you will waste a lot of time here, so I just give you  code here ;-)
     // auto item = new value_type(key, M());
 // why return type is M& ,please think about it. If you are still confused, contact me.
+// In fact this function is for you, but a lot of people are stuck here, so I implement it for you.
 template <typename K, typename M, typename H>
 M& HashMap<K, M, H>::operator[](const K& key) {
-    //to do
-    return * (new M());
+    if(!contains(key)) {
+        auto res = new value_type(key, M());
+        insert(*res);
+    }
+    return at(key);
 }
 
-template <typename K, typename M, typename H>
-std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& map) {
-    os<<"{";
-    std::string str = "";
-    for (size_t i = 0; i < map.bucket_count(); ++i) {
-        // to do
-        auto curr = map._buckets_array[i];
-        while (curr != nullptr) {
-            curr = curr->next;
-        }
-    }
-    os<<"}";
-    return os;
-}
 
 template <typename K, typename M, typename H>
 bool operator==(const HashMap<K, M, H>& lhs,
@@ -175,3 +164,22 @@ HashMap<K, M, H>& HashMap<K, M, H>::operator=(const HashMap& other) {
     return *this;
 }
 
+
+// I implement it for you.
+template <typename K, typename M, typename H>
+std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& map){
+    os<<"{";
+    std::string str = "";
+    for (size_t i = 0; i < map.bucket_count(); ++i) {
+        auto curr = map._buckets_array[i];
+        while (curr != nullptr) {
+            auto node = curr;
+            auto value = node->value;
+            os<<str<<value.first<<":"<<value.second;
+            str = ", ";
+            curr = curr->next;
+        }
+    }
+    os<<"}";
+    return os;
+}
