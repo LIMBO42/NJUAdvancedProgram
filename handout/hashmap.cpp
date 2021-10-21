@@ -1,5 +1,5 @@
 // please learn to reuse your code, especially some basic functions, that's to say if you have implemented == operator, 
-// you can just use == to implement !=. Please be careful about memory allocation.
+// you can just use == to implement != and some other cases. Please be careful about memory allocation.
 // you need only need to implement the functions labled with to do.
 // copy this file directy to .hpp file(remove the line : #include "hashmap.hpp") if you are using ide like visual studio, otherwise your code will not compile.
 // still you don't need to worry about concurrency.

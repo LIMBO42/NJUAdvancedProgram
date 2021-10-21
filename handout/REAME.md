@@ -8,17 +8,42 @@
 
 ​		需要注意的是本次实验的难度相比之前会大一些，但是我们的测试样例设置了基础分，也就是说只要你的文件能够编译，实现几个简单的功能，就能拿到及格的分数。也就说，不必等到全部写完再提交。
 
+
+
 ------
 
-**hash map**：这里我们用若干`buckets`来做`hash`，每个`buckets`均为`nodes`串联的链表。
+
+
+**hash map**：这里我们用若干`buckets`来做`hash`，每个`bucket`均为`nodes`串联的链表。
 
 通过计算公式`hash(key)%buckets.size()`来将`key value`对散列到`bucket`中。
 
-注意这里的`hash(key)`得到的值可能远远大于`buckets`的个数，因此需要对其取余。
+注意这里的`hash(key)`得到的值可能远远大于`bucket`的个数，因此需要对其取余。
 
-<img src="https://cdn-images-1.medium.com/max/1200/1*3jxEppESh9LLK14YMQ-ocA.png" alt="查看源图像" style="zoom: 67%;" />
+<img src="https://cdn-images-1.medium.com/max/1200/1*3jxEppESh9LLK14YMQ-ocA.png" alt="查看源图像" style="zoom: 33%;" />
 
 ------
+
+
+
+| 函数接口                               | 实现                               |
+| -------------------------------------- | ---------------------------------- |
+| ~HashMap()                             | 析构函数，释放空间                 |
+| size_t size()                          | 返回当前hashmap中key value对的个数 |
+| bool empty()                           | hashmap是否为空                    |
+| float load_factor()                    | 负载因子，size/bucket_count        |
+| size_t bucket_count()                  | 返回buckets的个数                  |
+| bool contains(const K& *key*)          | 判断是否包含key                    |
+| void clear()                           | 清空hashmap                        |
+| pair insert(const value_type& *value*) | 插入key value对                    |
+| bool erase(const K& *key*)             | 移除key                            |
+| M& at(const K& *key*)                  | 返回key对应的value                 |
+| node_pair find_node(const K& *key*)    | 寻找node的前驱和node               |
+| void rehash(size_t *new_bucket_count*) | 重新散列                           |
+| M& operator[](const K& *key*)          | 重载                               |
+| <<，==，!=，=                          | 重载                               |
+| 拷贝构造函数                           |                                    |
+|                                        |                                    |
 
 
 
@@ -77,6 +102,22 @@ private:
 
 ------
 
+
+
+ **Tips:**
+
+- 这几个函数容易实现：`size(),empty(),load_factor(),bucker_count()`
+- `laod_factor()`的注释中`Return value: size_t - number of buckets`意思是返回值类型为`size_t`并不是说返回值是`size - num`。
+- 先实现`find_node()`
+- `insert(),contains(),erase() `都可以调用`find_node()`，本质上都是对链表的操作。
+- 对`[]`的重载：如果`key`不存在，需要你创建一个`key value`对，当然因为此时`value`并不知道，所以用`M()`代替就好。这么做的原因是实现`map[key]=value`的操作，`[]`重载之后，如果`key`不存在，会先创建`key`的空间，返回对`value`的引用，此时可以修改`map[key]`。
+- `rehash()`的意思是此时`buckets`的个数发生了变化，需要重新散列，因此，去申请新的`vector<node*>`的空间，将`node`根据`key`进行散列即可。
+- `==`需要逐个比较
+
+
+
+------
+
 **编译：**
 
 ​	通常在写`template`时我们把（interface + implementation)放在.h文件中，但是这个文件注释太长了，所以我们把它分开。同时也是为了防止直接调用`hashmap`库。
@@ -91,7 +132,7 @@ private:
 
 - 如果你使用`vs`，请在右侧解决方案栏中右击`projectxx`，选择属性，选择`C/C++`一栏，选择所有选项，选择`C++`语言标准，选择`C++17`。
 
-<img src="https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211014210351276.png" alt="image-20211014210351276" style="zoom:67%;" />
+<img src="https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211014210351276.png" alt="image-20211014210351276" style="zoom: 33%;" />
 
 
 
@@ -99,21 +140,9 @@ private:
 
   
 
-<img src="https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211014210604162.png" alt="image-20211014210604162" style="zoom:67%;" />
+<img src="https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211014210604162.png" alt="image-20211014210604162" style="zoom: 50%;" />
 
- **Tips:**
-
-- 这几个函数容易实现：`size(),empty(),load_factor(),bucker_count()`
-- `laod_factor()`的注释中`Return value: size_t - number of buckets`意思是返回值类型为`size_t`并不是说返回值是`size - num`。
-- 先实现`find_node()`
-- `insert(),contains(),erase() `都可以调用`find_node()`，本质上都是对链表的操作。
-- 对`[]`的重载：如果`key`不存在，需要你创建一个`key value`对，当然因为此时`value`并不知道，所以用`M()`代替就好。这么做的原因是实现`map[key]=value`的操作，`[]`重载之后，如果`key`不存在，会先创建`key`的空间，返回对`value`的引用，此时可以修改`map[key]`。
-- `rehash()`的意思是此时`buckets`的个数发生了变化，需要重新散列，因此，去申请新的`vector<node*>`的空间，将`node`根据`key`进行散列即可。
-- `==`需要逐个比较
-
-
-
-
+------
 
 
 
@@ -126,24 +155,5 @@ private:
 
 
 
-------
 
-| 函数接口                               | 实现                               |
-| -------------------------------------- | ---------------------------------- |
-| ~HashMap()                             | 析构函数，释放空间                 |
-| size_t size()                          | 返回当前hashmap中key value对的个数 |
-| bool empty()                           | hashmap是否为空                    |
-| float load_factor()                    | 负载因子，size/bucket_count        |
-| size_t bucket_count()                  | 返回buckets的个数                  |
-| bool contains(const K& *key*)          | 判断是否包含key                    |
-| void clear()                           | 清空hashmap                        |
-| pair insert(const value_type& *value*) | 插入key value对                    |
-| bool erase(const K& *key*)             | 移除key                            |
-| M& at(const K& *key*)                  | 返回key对应的value                 |
-| node_pair find_node(const K& *key*)    | 寻找node的前驱和node               |
-| void rehash(size_t *new_bucket_count*) | 重新散列                           |
-| M& operator[](const K& *key*)          | 重载                               |
-| <<，==，!=，=                          | 重载                               |
-| 拷贝构造函数                           |                                    |
-|                                        |                                    |
 
