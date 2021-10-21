@@ -45,20 +45,6 @@ void VERIFY_TRUE(bool condition, int line) {
 // ----------------------------------------------------------------------------------------------
 /* Starter Code Test Cases (DO NOT EDIT) */
 
-void A_basic() {
-    /*
-    * Verifies basic operations by comparing behavior with std::map
-    *      - default ctor
-    *      - size, empty, bucket_count
-    *      - contains, at (used as an r-value)
-    *
-    * Mainly checking that check_map_equal compiles correctly.
-    */
-    std::map<std::string, int> answer;
-    HashMap<std::string, int> map;
-    VERIFY_TRUE(check_map_equal(map, answer), __LINE__);
-    VERIFY_TRUE(map.bucket_count() == 10, __LINE__);
-}
 void B_insert() {
     /*
     * Verifies functionality of insert.
@@ -610,12 +596,12 @@ int main(){
     int testNo;
     std::cin >> testNo; 
     switch(testNo){
-        case 1 : {  try{A_basic();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
-        case 2 : {  try{A_copy_ctor_assignment();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
-        case 3 : {  try{A_index_operator();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
-        case 4 : {  try{A_rehash_basic();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
-        case 5 : {  try{B_insert();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
-        case 6 : {  try{B_rehash_correctness_by_time();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 1 : {  try{A_copy_ctor_assignment();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 2 : {  try{A_index_operator();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 3 : {  try{A_rehash_basic();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 4 : {  try{B_insert();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 5 : {  try{B_rehash_correctness_by_time();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
+        case 6 : {  try{G_erase();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
         case 7 : {  try{B_stream_insertion_operator();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
         case 8 : {  try{C_clear();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
         case 9 : {  try{C_equality_operator();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
@@ -623,7 +609,6 @@ int main(){
         case 11 : {  try{D_const_correctness();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
         case 12 : {  try{E_custom_bucket_count();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
         case 13 : {  try{F_custom_hash_function();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
-        case 14 : {  try{G_erase();}catch(std::exception e){std::cout<< 0 <<std::endl;}break;}
     }
     
 }

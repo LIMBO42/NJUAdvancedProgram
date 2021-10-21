@@ -28,22 +28,13 @@
 
 | 函数接口                               | 实现                               |
 | -------------------------------------- | ---------------------------------- |
-| ~HashMap()                             | 析构函数，释放空间                 |
-| size_t size()                          | 返回当前hashmap中key value对的个数 |
-| bool empty()                           | hashmap是否为空                    |
-| float load_factor()                    | 负载因子，size/bucket_count        |
-| size_t bucket_count()                  | 返回buckets的个数                  |
-| bool contains(const K& *key*)          | 判断是否包含key                    |
 | void clear()                           | 清空hashmap                        |
 | pair insert(const value_type& *value*) | 插入key value对                    |
 | bool erase(const K& *key*)             | 移除key                            |
-| M& at(const K& *key*)                  | 返回key对应的value                 |
 | node_pair find_node(const K& *key*)    | 寻找node的前驱和node               |
 | void rehash(size_t *new_bucket_count*) | 重新散列                           |
-| M& operator[](const K& *key*)          | 重载                               |
-| <<，==，!=，=                          | 重载                               |
-| 拷贝构造函数                           |                                    |
-|                                        |                                    |
+| ==，!=，=     		                  | 重载                               |
+
 
 
 
