@@ -6,6 +6,8 @@
 // you can directly submit this file to oj and you can pass the compile phase.
 
 
+// if you cannot decide the type of a variable, please use `auto` keyword.(especially when you override the == operator)
+
 // you may copy a lot of code from copy construtor
 
 
