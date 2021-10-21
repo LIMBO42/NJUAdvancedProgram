@@ -111,9 +111,9 @@ void HashMap<K, M, H>::rehash(size_t new_bucket_count) {
 }
 
 
-// you know how to create a new node?
+// you know how to create a new item?
 // maybe you find will help you:(I think you will waste a lot of time here, so I just give you  code here ;-)
-    // auto node = new value_type(key, M());
+    // auto item = new value_type(key, M());
 // why return type is M& ,please think about it. If you are still confused, contact me.
 template <typename K, typename M, typename H>
 M& HashMap<K, M, H>::operator[](const K& key) {
