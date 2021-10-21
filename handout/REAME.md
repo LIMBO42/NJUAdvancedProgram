@@ -2,13 +2,13 @@
 
 #### 题目描述
 
->> Typically we'd just put everything (interface + implementation) in the .h file,but the file got a bit too long with the comments, so we split it up.
+
 
 ​		本次上机考察`template`的使用，实现一个`hashmap`。
 
 ​		需要注意的是本次实验的难度相比之前会大一些，但是我们的测试样例设置了基础分，也就是说只要你的文件能够编译，实现几个简单的功能，就能拿到及格的分数。也就说，不必等到全部写完再提交。
 
-
+------
 
 **hash map**：这里我们用若干`buckets`来做`hash`，每个`buckets`均为`nodes`串联的链表。
 
@@ -16,7 +16,7 @@
 
 <img src="https://cdn-images-1.medium.com/max/1200/1*3jxEppESh9LLK14YMQ-ocA.png" alt="查看源图像" style="zoom: 67%;" />
 
-
+------
 
 
 
@@ -73,9 +73,17 @@ private:
 	std::vector<node*> _buckets_array;
 ```
 
-
+------
 
 **编译：**
+
+​	通常在写`template`时我们把（interface + implementation)放在.h文件中，但是这个文件注释太长了，所以我们把它分开。同时也是为了防止直接调用`hashmap`库。
+
+​	**我们强烈建议在`Linux`环境下编译运行。**
+
+​	**但如果你一定要使用`IDE`（包括不限于`VS，VScode，Clion`）来编译运行，我们都建议将`hashmap.cpp`里的内容复制粘贴到`hashmap.hpp`中，否则可能会出现各种奇怪的问题。**
+
+​	**提交的时候只用提交`hashmap.cpp`**。
 
 - 如果你使用的是`linux`系统，请使用` g++ -std=c++17 test.cpp`进行编译。
 
@@ -94,7 +102,7 @@ private:
  **Tips:**
 
 - 这几个函数容易实现：`size(),empty(),load_factor(),bucker_count()`
-- `laod_factor()`的注释中`*Return value: size_t - number of buckets*`意思是返回值类型为`size_t`并不是说返回值是`size - num`。
+- `laod_factor()`的注释中`Return value: size_t - number of buckets`意思是返回值类型为`size_t`并不是说返回值是`size - num`。
 - 先实现`find_node()`
 - `insert(),contains(),erase() `都可以调用`find_node()`，本质上都是对链表的操作。
 - 对`[]`的重载：如果`key`不存在，需要你创建一个`key value`对，当然因为此时`value`并不知道，所以用`M()`代替就好。这么做的原因是实现`map[key]=value`的操作，`[]`重载之后，如果`key`不存在，会先创建`key`的空间，返回对`value`的引用，此时可以修改`map[key]`。
@@ -115,4 +123,25 @@ private:
 - **提交的源码文件中不需要包含main函数,否则无法通过编译。**
 
 
+
+------
+
+| 函数接口                               | 实现                               |
+| -------------------------------------- | ---------------------------------- |
+| ~HashMap()                             | 析构函数，释放空间                 |
+| size_t size()                          | 返回当前hashmap中key value对的个数 |
+| bool empty()                           | hashmap是否为空                    |
+| float load_factor()                    | 负载因子，size/bucket_count        |
+| size_t bucket_count()                  | 返回buckets的个数                  |
+| bool contains(const K& *key*)          | 判断是否包含key                    |
+| void clear()                           | 清空hashmap                        |
+| pair insert(const value_type& *value*) | 插入key value对                    |
+| bool erase(const K& *key*)             | 移除key                            |
+| M& at(const K& *key*)                  | 返回key对应的value                 |
+| node_pair find_node(const K& *key*)    | 寻找node的前驱和node               |
+| void rehash(size_t *new_bucket_count*) | 重新散列                           |
+| M& operator[](const K& *key*)          | 重载                               |
+| <<，==，!=，=                          | 重载                               |
+| 拷贝构造函数                           |                                    |
+|                                        |                                    |
 

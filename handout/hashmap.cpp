@@ -114,6 +114,19 @@ M& HashMap<K, M, H>::operator[](const K& key) {
 
 template <typename K, typename M, typename H>
 std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& map) {
+    os<<"{";
+    std::string str = "";
+    for (size_t i = 0; i < map.bucket_count(); ++i) {
+        auto curr = map._buckets_array[i];
+        while (curr != nullptr) {
+            auto node = curr;
+            auto value = node->value;
+            os<<str<<value.first<<":"<<value.second;
+            str = ", ";
+            curr = curr->next;
+        }
+    }
+    os<<"}";
     return os;
 }
 
