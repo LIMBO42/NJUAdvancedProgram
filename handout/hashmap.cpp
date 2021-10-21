@@ -127,7 +127,7 @@ std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& map){
     return os;
 }
 
-
+// you work starts from here
 
 template <typename K, typename M, typename H>
 void HashMap<K, M, H>::clear() noexcept {
