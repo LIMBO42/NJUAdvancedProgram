@@ -229,7 +229,16 @@ HashMap<K, M, H>::HashMap(HashMap const &other){
     }
 }
 
+template <typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(HashMap &&other){
+    this->_hash_function = other._hash_function;
+    this->_size = other._size;
+    this->_buckets_array = other._buckets_array;
 
+    other._buckets_array = {};
+    other._size = 0 ;
+
+}
 
 
 template<typename K, typename M, typename H>
@@ -250,5 +259,71 @@ HashMap<K,M,H> &HashMap<K, M, H>::operator=(const HashMap &other) {
     return *this;
 }
 
+template<typename K, typename M, typename H>
+HashMap<K,M,H> &HashMap<K, M, H>::operator=(HashMap &&other) {
+    if(*this == other) return *this;
+    this->_hash_function = other._hash_function;
+    this->_size = other._size;
+    this->_buckets_array = other._buckets_array;
+
+    other._buckets_array = {};
+    other._size = 0 ;
+    return *this;
+}
+
+template<typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(std::initializer_list<std::pair<K, M>>list) {
+    this->_size = 0;
+    this->_buckets_array = std::vector<node*>(kDefaultBuckets, nullptr);
+    for(auto &node:list){
+        insert(node);
+    }
+}
 
 
+
+template<typename K, typename M, typename H>
+template<typename interator_input>
+HashMap<K, M, H>::HashMap(interator_input begin,interator_input end) {
+    this->_size = 0;
+    this->_buckets_array = std::vector<node*>(kDefaultBuckets, nullptr);
+    while(begin!=end){
+        insert(*begin++);
+    }
+}
+
+template<typename K, typename M, typename H>
+typename HashMap<K,M,H>::iterator HashMap<K, M, H>::find(const K &k) {
+    for(auto iter = begin();iter!=end();++iter){
+        if(iter.key_equal(k))
+            return iter;
+    }
+    return end();
+}
+template<typename K, typename M, typename H>
+typename HashMap<K,M,H>::const_iterator HashMap<K, M, H>::find(const K &k)const {
+    for(auto iter = begin();iter!=end();++iter){
+        if(iter.key_equal(k))
+            return iter;
+    }
+    return end();
+}
+
+template<typename K, typename M, typename H>
+typename HashMap<K,M,H>::iterator HashMap<K, M, H>::erase(HashMap::iterator position) {
+    if(position == end())
+        return end();
+    auto res = position;
+    if(erase((*res).first))
+        return position++;
+    return position;
+}
+
+template<typename K, typename M, typename H>
+typename HashMap<K,M,H>::iterator HashMap<K, M, H>::erase(HashMap::iterator first, HashMap::iterator last) {
+    auto res = first;
+    for(auto iter = first;iter!=last;++iter){
+        res = erase(iter);
+    }
+    return res;
+}
