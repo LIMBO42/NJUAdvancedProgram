@@ -12,6 +12,7 @@ using namespace std;
 #include <set>
 #include <iomanip>
 #include <chrono>
+#include <time.h>       /* time */
 using clock_type = std::chrono::high_resolution_clock;
 using ns = std::chrono::nanoseconds;
 
@@ -38,9 +39,11 @@ struct VerifyTrueAssertionFailure {
 
 void VERIFY_TRUE(bool condition, int line) {
     if (!condition) {
-        throw VerifyTrueAssertionFailure{line};
+        std::cout<<0<<std::endl;
+    }else{
+        std::cout<<1<<std::endl;
     }
-    std::cout<<"pass"<<std::endl;
+    
 }
 
 
@@ -161,103 +164,127 @@ void D_iterator_algorithm() {
     std::copy(map.begin(), map.end(), std::inserter(answer, answer.begin()));
     VERIFY_TRUE(check_map_equal(map, answer), __LINE__);
     answer.clear();
-
-    const auto& c_map = map;
-    std::copy(c_map.begin(), c_map.end(), std::inserter(answer, answer.begin()));
-    VERIFY_TRUE(check_map_equal(map, answer), __LINE__);
 }
 
-void E_const_iterator() {
-    /* Tests the const-correctness of your iterator class by asking for const_iterators */
-    std::set<std::pair<int, int> > questions {
-        {1, 1}, {2, 2}, {3, 3}
-    };
-
-    /* testing const_iterator (iterator to const std::pair) */
+void E_constuctor() {
     HashMap<int, int> map;
-    for (const auto& pair : questions) map.insert(pair);
-    const auto& const_map = map;
-    std::set<std::pair<int, int> > answers;
-    for (const auto& pair : const_map) VERIFY_TRUE(answers.insert(pair).second == true, __LINE__);
-    VERIFY_TRUE(questions == answers, __LINE__);
-
-    HashMap<int, int>::const_iterator iter = const_map.begin();
-
-    VERIFY_TRUE((*iter).first == (*iter).second, __LINE__);   // behavior of * operator
-    VERIFY_TRUE(iter->first == iter->second, __LINE__);       // behavior of -> operator
-    VERIFY_TRUE(iter == iter, __LINE__);                      // behavior of == operator
-    VERIFY_TRUE(!(iter != iter), __LINE__);                   // behavior of != operator
-
-    VERIFY_TRUE(iter->second == (*iter).second, __LINE__);
-    auto iter1 = ++iter;
-    auto iter2 = ++iter;
-    auto iter3 = iter++;
-    VERIFY_TRUE(iter == const_map.end(), __LINE__);
-    VERIFY_TRUE(iter3 == iter2, __LINE__);
-    VERIFY_TRUE(iter1 != iter2, __LINE__);
-
-    /* We could have the entire operator from 1C here, though that feels unnecessary */
+    for (int i = 0; i < 100; ++i) {
+        map.insert({i, i*i});
+    }
+    srand (time(NULL));
+    auto iter = map.begin();
+    auto num = rand() % 20  + 10;
+    while(num--) {
+        iter++;
+    }
+    auto iter_cp(iter);
+    while(iter != map.end()) {
+        VERIFY_TRUE(iter == iter_cp,__LINE__);
+        iter++;
+        iter_cp++;
+    }
 }
 
-void F_iterator_const_correctness() {
-    /* Test the distinction between const iterator and const_iterator */
-    std::set<std::pair<int, int> > questions {
-        {1, 1}, {2, 2}, {3, 3}
-    };
-
+void F_equal() {
     HashMap<int, int> map;
-    for (const auto& pair : questions) map.insert(pair);
+    for (int i = 0; i < 100; ++i) {
+        map.insert({i, i*i});
+    }
 
-    /* test behavior of const iterator */
-    HashMap<int, int>::iterator iter = map.begin();
-    const HashMap<int, int>::iterator c_iter = map.begin();
-    const HashMap<int, int>::iterator& copy = iter;
-    const HashMap<int, int>::iterator& copy_next = ++iter;
+    auto iter1 = map.begin();
+    auto iter2 = map.begin();
+    while(iter2 != map.end()){
+        VERIFY_TRUE(iter1 == iter2,__LINE__);
+        ++iter1;
+        ++iter2;
+    }
+    VERIFY_TRUE(iter1 == iter2,__LINE__);
+}
 
-    VERIFY_TRUE(map.begin() == c_iter, __LINE__);
-    VERIFY_TRUE(copy == iter, __LINE__);
-    VERIFY_TRUE(copy_next == iter, __LINE__);
-    VERIFY_TRUE(c_iter != iter, __LINE__);
 
-    // the iterator is const, but the stuff the iterator points to is not const.
-    (*c_iter).second = -1;                                   // behavior of * operator as an l-value
-    VERIFY_TRUE((*c_iter).second == -1, __LINE__);              // behavior of * operator as an r-value
-    c_iter->second = -2;                                     // behavior of -> operator as an l-value
-    VERIFY_TRUE(c_iter->second == -2, __LINE__);                // behavior of -> operator as an r-value
+void G_notequal() {
+    HashMap<int, int> map;
+    for (int i = 0; i < 100; ++i) {
+        map.insert({i, i*i});
+    }
+    auto iter1 = map.begin();
+    auto iter2 = map.begin();
+    iter2++;
+    while(iter2 != map.end()){
+        VERIFY_TRUE(iter1 != iter2,__LINE__);
+        ++iter1;
+        ++iter2;
+    }
+    iter1++;
+    VERIFY_TRUE(iter1 == iter2,__LINE__);
+}
 
-    // these should not compile:
-    // *iter = {0, 0};  // *iter is a std::pair<const K, M>, since K is const, = is deleted
-    // ++c_iter;        // ++ is non-const
-
-    VERIFY_TRUE(++++iter == map.end(), __LINE__);
-
-    /* test behavior of const const_iterator */
-    const auto& const_map = map;
-    HashMap<int, int>::const_iterator const_iter = const_map.begin();
-    const HashMap<int, int>::const_iterator c_const_iter_next = ++const_map.begin();
-    const HashMap<int, int>::const_iterator c_const_iter = const_map.begin();
-
-    // the key here is that these should compile.
-    ++const_iter;
-    VERIFY_TRUE((*c_const_iter).second == -2, __LINE__);
-    VERIFY_TRUE(c_const_iter->second == -2, __LINE__);
-    VERIFY_TRUE(const_iter == c_const_iter_next, __LINE__);
-    VERIFY_TRUE(c_const_iter == const_map.begin(), __LINE__);
-
-    // these should not compile:
-    // ++c_const_iter;
-    // c_const_iter->second = 2;
-    // const_iter->second = 2;
+void H_star(){
+    HashMap<int, int> map;
+    std::map<int, int> answer;
+    srand (time(NULL));
+    for (int i = 0; i < 1000; ++i) {
+        auto key = rand()%1000;
+        map.insert({i, key});
+        answer.insert({i, key});
+    }
+    auto iter = map.begin();
+    while(iter != map.end()){
+        auto value = *iter;
+        VERIFY_TRUE(value.second == answer.at(value.first),__LINE__);
+        iter++;
+    }
 }
 
 
 
+void I_(){
+    HashMap<int, int> map;
+    std::map<int, int> answer;
+    srand (time(NULL));
+    for (int i = 0; i < 1000; ++i) {
+        auto key = rand()%1000;
+        map.insert({i, key});
+        answer.insert({i, key});
+    }
+    
+    auto iter = map.begin();
+    while(iter != map.end()){
+        VERIFY_TRUE(iter->second == answer.at(iter->first),__LINE__);
+        iter++;
+    }
+}
+void J_(){
+    HashMap<int, int> map;
+    std::map<int, int> answer;
+    for (int i = 0; i < 1000; ++i) {
+        auto key = rand()%1000;
+        map.insert({i, key});
+    }
+    auto iter1 = map.begin();
+    auto iter2 = iter1++; 
+    while(iter2 != map.end()){
+        VERIFY_TRUE(iter1.key_equal(iter2->second) == false,__LINE__);
+        iter2++;
+        iter1++;
+    }
+}
 
 int main(){
-    A_iterator_for_each_basic();
-    B_iterator_for_each_edge();
-    C_iterator_operators();
-    D_iterator_algorithm();
-    E_const_iterator();
-    F_iterator_const_correctness();
+    int num ;
+    std::cin>>num;
+    switch(num){
+        case 1: try{A_iterator_for_each_basic();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        case 2: try{B_iterator_for_each_edge();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        case 3: try{C_iterator_operators();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        case 4: try{D_iterator_algorithm();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        case 5: try{E_constuctor();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        case 6: try{F_equal();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        case 7: try{G_notequal();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        case 8: try{H_star();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        case 9: try{I_();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        case 10: try{J_();}catch(std::exception e){std::cout<<0<<std::endl;}break;
+        default: break;
+    }
+
 }

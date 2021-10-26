@@ -12,6 +12,7 @@ using namespace std;
 #include <set>
 #include <iomanip>
 #include <chrono>
+#include <time.h>       /* time */
 using clock_type = std::chrono::high_resolution_clock;
 using ns = std::chrono::nanoseconds;
 
@@ -38,9 +39,9 @@ struct VerifyTrueAssertionFailure {
 
 void VERIFY_TRUE(bool condition, int line) {
     if (!condition) {
-        throw VerifyTrueAssertionFailure{line};
+        std::cout<<"not pass in line "<<line<<std::endl;
     }
-    std::cout<<"pass"<<std::endl;
+    
 }
 
 
@@ -161,247 +162,121 @@ void D_iterator_algorithm() {
     std::copy(map.begin(), map.end(), std::inserter(answer, answer.begin()));
     VERIFY_TRUE(check_map_equal(map, answer), __LINE__);
     answer.clear();
-
-    const auto& c_map = map;
-    std::copy(c_map.begin(), c_map.end(), std::inserter(answer, answer.begin()));
-    VERIFY_TRUE(check_map_equal(map, answer), __LINE__);
 }
 
-void E_const_iterator() {
-    /* Tests the const-correctness of your iterator class by asking for const_iterators */
-    std::set<std::pair<int, int> > questions {
-        {1, 1}, {2, 2}, {3, 3}
-    };
-
-    /* testing const_iterator (iterator to const std::pair) */
+void E_constuctor() {
     HashMap<int, int> map;
-    for (const auto& pair : questions) map.insert(pair);
-    const auto& const_map = map;
-    std::set<std::pair<int, int> > answers;
-    for (const auto& pair : const_map) VERIFY_TRUE(answers.insert(pair).second == true, __LINE__);
-    VERIFY_TRUE(questions == answers, __LINE__);
-
-    HashMap<int, int>::const_iterator iter = const_map.begin();
-
-    VERIFY_TRUE((*iter).first == (*iter).second, __LINE__);   // behavior of * operator
-    VERIFY_TRUE(iter->first == iter->second, __LINE__);       // behavior of -> operator
-    VERIFY_TRUE(iter == iter, __LINE__);                      // behavior of == operator
-    VERIFY_TRUE(!(iter != iter), __LINE__);                   // behavior of != operator
-
-    VERIFY_TRUE(iter->second == (*iter).second, __LINE__);
-    auto iter1 = ++iter;
-    auto iter2 = ++iter;
-    auto iter3 = iter++;
-    VERIFY_TRUE(iter == const_map.end(), __LINE__);
-    VERIFY_TRUE(iter3 == iter2, __LINE__);
-    VERIFY_TRUE(iter1 != iter2, __LINE__);
-
-    /* We could have the entire operator from 1C here, though that feels unnecessary */
-}
-
-void F_iterator_const_correctness() {
-    /* Test the distinction between const iterator and const_iterator */
-    std::set<std::pair<int, int> > questions {
-        {1, 1}, {2, 2}, {3, 3}
-    };
-
-    HashMap<int, int> map;
-    for (const auto& pair : questions) map.insert(pair);
-
-    /* test behavior of const iterator */
-    HashMap<int, int>::iterator iter = map.begin();
-    const HashMap<int, int>::iterator c_iter = map.begin();
-    const HashMap<int, int>::iterator& copy = iter;
-    const HashMap<int, int>::iterator& copy_next = ++iter;
-
-    VERIFY_TRUE(map.begin() == c_iter, __LINE__);
-    VERIFY_TRUE(copy == iter, __LINE__);
-    VERIFY_TRUE(copy_next == iter, __LINE__);
-    VERIFY_TRUE(c_iter != iter, __LINE__);
-
-    // the iterator is const, but the stuff the iterator points to is not const.
-    (*c_iter).second = -1;                                   // behavior of * operator as an l-value
-    VERIFY_TRUE((*c_iter).second == -1, __LINE__);              // behavior of * operator as an r-value
-    c_iter->second = -2;                                     // behavior of -> operator as an l-value
-    VERIFY_TRUE(c_iter->second == -2, __LINE__);                // behavior of -> operator as an r-value
-
-    // these should not compile:
-    // *iter = {0, 0};  // *iter is a std::pair<const K, M>, since K is const, = is deleted
-    // ++c_iter;        // ++ is non-const
-
-    VERIFY_TRUE(++++iter == map.end(), __LINE__);
-
-    /* test behavior of const const_iterator */
-    const auto& const_map = map;
-    HashMap<int, int>::const_iterator const_iter = const_map.begin();
-    const HashMap<int, int>::const_iterator c_const_iter_next = ++const_map.begin();
-    const HashMap<int, int>::const_iterator c_const_iter = const_map.begin();
-
-    // the key here is that these should compile.
-    ++const_iter;
-    VERIFY_TRUE((*c_const_iter).second == -2, __LINE__);
-    VERIFY_TRUE(c_const_iter->second == -2, __LINE__);
-    VERIFY_TRUE(const_iter == c_const_iter_next, __LINE__);
-    VERIFY_TRUE(c_const_iter == const_map.begin(), __LINE__);
-
-    // these should not compile:
-    // ++c_const_iter;
-    // c_const_iter->second = 2;
-    // const_iter->second = 2;
-}
-
-void A_initializer_list_ctor() {
-    /* Tests initializer_list via a simple example */
-    std::map<std::string, int> answer {
-        {"A", 3}, {"B", 2}, {"C", 1}, {"A", -5}, {"B", 3}, {"A", 5}, {"C", 1}
-    };
-
-    HashMap<std::string, int> map {
-        {"A", 3}, {"B", 2}, {"C", 1}, {"A", -5}, {"B", 3}, {"A", 5}, {"C", 1}
-    };
-
-    VERIFY_TRUE(check_map_equal(map, answer), __LINE__);
-
-}
-
-
-
-void B_range_ctor() {
-    /* Simple test of the range ctor taking in two iterators to another collection */
-    std::vector<std::pair<std::string, int>> values {
-        {"Ignore me", 100}, {"A", 3}, {"B", 2}, {"C", 1}, {"A", -5}, {"B", 3}, {"A", 5}, {"C", 1}
-    };
-    std::map<std::string, int> answer {values.begin()++, values.end()};
-    HashMap<std::string, int> map {values.begin()++, values.end()};
-
-    VERIFY_TRUE(check_map_equal(map, answer), __LINE__);
-}
-
-
-
-
-
-
-void B_move_ctor_assignment() {
-    /* Checks correctness of move ctor and move assignment operator */
-    HashMap<std::string, int> map1;
-    HashMap<std::string, int> map2;
-    HashMap<std::string, int> map_copy;
-
-    for (const auto& kv_pair : vec) {
-        map1.insert(kv_pair);
-        map2.insert(kv_pair);
-        map_copy.insert(kv_pair);
+    for (int i = 0; i < 100; ++i) {
+        map.insert({i, i*i});
     }
-    VERIFY_TRUE(map1 == map_copy, __LINE__);
-    VERIFY_TRUE(std::move(map1) == map_copy, __LINE__);
-    HashMap<std::string, int> move_constructed{std::move(map1)};
-    HashMap<std::string, int> move_assigned;
+    srand (time(NULL));
+    auto iter = map.begin();
+    auto num = rand() % 20  + 10;
+    while(num--) {
+        iter++;
+    }
+    auto iter_cp(iter);
+    while(iter != map.end()) {
+        VERIFY_TRUE(iter == iter_cp,__LINE__);
+        iter++;
+        iter_cp++;
+    }
+}
 
-    move_assigned = std::move(map2);
-    VERIFY_TRUE(map_copy == move_constructed, __LINE__);
-    VERIFY_TRUE(map_copy == move_assigned, __LINE__);
-    map1 = move_constructed;
-    VERIFY_TRUE(map1 == move_constructed, __LINE__);
-
-
-    // let's start doing weird things to our map
-    map1 = std::move(map1);
-    (map1 = std::move(map1)) = map1 = std::move(map1 = map1 = std::move(map1));
-    VERIFY_TRUE(map1 == move_constructed, __LINE__);
-
-    // edge case with empty map
-    HashMap<std::string, int> empty1;
-    HashMap<std::string, int> empty2;
-    empty1 = std::move(empty1);
-    VERIFY_TRUE(empty1 == empty2, __LINE__);
-    empty2 = std::move(map1);
-    VERIFY_TRUE(empty2 == move_constructed, __LINE__);
-
-    // verify that moved containers can still be reassigned
-    map1 = std::move(move_assigned);
-    empty1 = std::move(map1);
-    VERIFY_TRUE(empty1 == map_copy, __LINE__);
-    #pragma GCC diagnostic pop
-
+void F_equal() {
+    HashMap<int, int> map;
+    for (int i = 0; i < 100; ++i) {
+        map.insert({i, i*i});
     }
 
-void C_move_time() {
-    /* Checks the efficiency of the move operations (must be much faster than copy) */
+    auto iter1 = map.begin();
+    auto iter2 = map.begin();
+    while(iter2 != map.end()){
+        VERIFY_TRUE(iter1 == iter2,__LINE__);
+        ++iter1;
+        ++iter2;
+    }
+    VERIFY_TRUE(iter1 == iter2,__LINE__);
+}
 
-    struct FunctorZero {
-        size_t operator()(const int& v) const {
-            (void) v;
-            return 0;
-        }
-    };
-    FunctorZero zero;
-    HashMap<int, int, decltype(zero)> map1(2, zero);
-    HashMap<int, int, decltype(zero)> map2(2, zero);
-    HashMap<int, int, decltype(zero)> map_copy(2, zero);
+
+void G_notequal() {
+    HashMap<int, int> map;
+    for (int i = 0; i < 100; ++i) {
+        map.insert({i, i*i});
+    }
+    auto iter1 = map.begin();
+    auto iter2 = map.begin();
+    iter2++;
+    while(iter2 != map.end()){
+        VERIFY_TRUE(iter1 != iter2,__LINE__);
+        ++iter1;
+        ++iter2;
+    }
+    iter1++;
+    VERIFY_TRUE(iter1 == iter2,__LINE__);
+}
+
+void H_star(){
+    HashMap<int, int> map;
     std::map<int, int> answer;
-
-    for (size_t i = 0; i < 2000; ++i) {
-        map1.insert({i, i*i});
-        map2.insert({i, i*i});
-        answer.insert({i, i*i});
+    srand (time(NULL));
+    for (int i = 0; i < 1000; ++i) {
+        auto key = rand()%1000;
+        map.insert({i, key});
+        answer.insert({i, key});
     }
-
-    // call each of the four constructors/assignment, measure their times
-    ns copy_ctor, move_ctor, copy_assign, move_assign;
-    {
-        auto start = clock_type::now();
-        HashMap<int, int, decltype(zero)> copy_constructed = map1;
-        auto end = clock_type::now();
-        copy_ctor = std::chrono::duration_cast<ns>(end - start);
-        VERIFY_TRUE(check_map_equal(copy_constructed,answer), __LINE__);
+    auto iter = map.begin();
+    while(iter != map.end()){
+        auto value = *iter;
+        VERIFY_TRUE(value.second == answer.at(value.first),__LINE__);
+        iter++;
     }
-
-    {
-        auto start = clock_type::now();
-        HashMap<int, int, decltype(zero)> move_constructed = std::move(map1);
-        auto end = clock_type::now();
-        move_ctor = std::chrono::duration_cast<ns>(end - start);
-        VERIFY_TRUE(check_map_equal(move_constructed,answer), __LINE__);
-    }
-
-    {
-        auto start = clock_type::now();
-        HashMap<int, int, decltype(zero)> copy_assigned;
-        copy_assigned = map2;
-        auto end = clock_type::now();
-        copy_assign = std::chrono::duration_cast<ns>(end - start);
-        VERIFY_TRUE(check_map_equal(copy_assigned,answer), __LINE__);
-    }
-
-    {
-        auto start = clock_type::now();
-        HashMap<int, int, decltype(zero)> move_assigned;
-        move_assigned = std::move(map2);
-        auto end = clock_type::now();
-        move_assign = std::chrono::duration_cast<ns>(end - start);
-        VERIFY_TRUE(check_map_equal(move_assigned,answer), __LINE__);
-    }
-    std::cout << "HashMap with 2000 elements (ns)" << std::endl;
-    std::cout << "Copy ctor: " << copy_ctor.count() << setw(15) << "Move ctor: " << move_ctor.count() << std::endl;
-    std::cout << "Copy assign: " << copy_assign.count() << setw(15) << "Move assign: " << move_assign.count() << std::endl;
-
-    // verify that move operations are much faster than their copy counterparts
-    // you should be able to easily beat this benchmark
-    VERIFY_TRUE(100*move_ctor.count() < copy_ctor.count(), __LINE__);
-    VERIFY_TRUE(100*move_assign.count() < copy_assign.count(), __LINE__);
 }
 
+
+
+void I_(){
+    HashMap<int, int> map;
+    std::map<int, int> answer;
+    srand (time(NULL));
+    for (int i = 0; i < 1000; ++i) {
+        auto key = rand()%1000;
+        map.insert({i, key});
+        answer.insert({i, key});
+    }
+    
+    auto iter = map.begin();
+    while(iter != map.end()){
+        VERIFY_TRUE(iter->second == answer.at(iter->first),__LINE__);
+        iter++;
+    }
+}
+void J_(){
+    HashMap<int, int> map;
+    std::map<int, int> answer;
+    for (int i = 0; i < 1000; ++i) {
+        auto key = rand()%1000;
+        map.insert({i, key});
+    }
+    auto iter1 = map.begin();
+    auto iter2 = iter1++; 
+    while(iter2 != map.end()){
+        VERIFY_TRUE(iter1.key_equal(iter2->second) == false,__LINE__);
+        iter2++;
+        iter1++;
+    }
+}
 
 int main(){
-    A_initializer_list_ctor();
     A_iterator_for_each_basic();
     B_iterator_for_each_edge();
-    B_range_ctor();
     C_iterator_operators();
     D_iterator_algorithm();
-    E_const_iterator();
-    F_iterator_const_correctness();
-    B_move_ctor_assignment();
-    C_move_time();
+    E_constuctor();
+    F_equal();
+    G_notequal();
+    H_star();
+    I_();
+    J_();
 }
