@@ -250,14 +250,158 @@ void F_iterator_const_correctness() {
     // const_iter->second = 2;
 }
 
+void A_initializer_list_ctor() {
+    /* Tests initializer_list via a simple example */
+    std::map<std::string, int> answer {
+        {"A", 3}, {"B", 2}, {"C", 1}, {"A", -5}, {"B", 3}, {"A", 5}, {"C", 1}
+    };
 
+    HashMap<std::string, int> map {
+        {"A", 3}, {"B", 2}, {"C", 1}, {"A", -5}, {"B", 3}, {"A", 5}, {"C", 1}
+    };
+
+    VERIFY_TRUE(check_map_equal(map, answer), __LINE__);
+
+}
+
+
+
+void B_range_ctor() {
+    /* Simple test of the range ctor taking in two iterators to another collection */
+    std::vector<std::pair<std::string, int>> values {
+        {"Ignore me", 100}, {"A", 3}, {"B", 2}, {"C", 1}, {"A", -5}, {"B", 3}, {"A", 5}, {"C", 1}
+    };
+    std::map<std::string, int> answer {values.begin()++, values.end()};
+    HashMap<std::string, int> map {values.begin()++, values.end()};
+
+    VERIFY_TRUE(check_map_equal(map, answer), __LINE__);
+}
+
+
+
+
+
+
+void B_move_ctor_assignment() {
+    /* Checks correctness of move ctor and move assignment operator */
+    HashMap<std::string, int> map1;
+    HashMap<std::string, int> map2;
+    HashMap<std::string, int> map_copy;
+
+    for (const auto& kv_pair : vec) {
+        map1.insert(kv_pair);
+        map2.insert(kv_pair);
+        map_copy.insert(kv_pair);
+    }
+    VERIFY_TRUE(map1 == map_copy, __LINE__);
+    VERIFY_TRUE(std::move(map1) == map_copy, __LINE__);
+    HashMap<std::string, int> move_constructed{std::move(map1)};
+    HashMap<std::string, int> move_assigned;
+
+    move_assigned = std::move(map2);
+    VERIFY_TRUE(map_copy == move_constructed, __LINE__);
+    VERIFY_TRUE(map_copy == move_assigned, __LINE__);
+    map1 = move_constructed;
+    VERIFY_TRUE(map1 == move_constructed, __LINE__);
+
+
+    // let's start doing weird things to our map
+    map1 = std::move(map1);
+    (map1 = std::move(map1)) = map1 = std::move(map1 = map1 = std::move(map1));
+    VERIFY_TRUE(map1 == move_constructed, __LINE__);
+
+    // edge case with empty map
+    HashMap<std::string, int> empty1;
+    HashMap<std::string, int> empty2;
+    empty1 = std::move(empty1);
+    VERIFY_TRUE(empty1 == empty2, __LINE__);
+    empty2 = std::move(map1);
+    VERIFY_TRUE(empty2 == move_constructed, __LINE__);
+
+    // verify that moved containers can still be reassigned
+    map1 = std::move(move_assigned);
+    empty1 = std::move(map1);
+    VERIFY_TRUE(empty1 == map_copy, __LINE__);
+    #pragma GCC diagnostic pop
+
+    }
+
+void C_move_time() {
+    /* Checks the efficiency of the move operations (must be much faster than copy) */
+
+    struct FunctorZero {
+        size_t operator()(const int& v) const {
+            (void) v;
+            return 0;
+        }
+    };
+    FunctorZero zero;
+    HashMap<int, int, decltype(zero)> map1(2, zero);
+    HashMap<int, int, decltype(zero)> map2(2, zero);
+    HashMap<int, int, decltype(zero)> map_copy(2, zero);
+    std::map<int, int> answer;
+
+    for (size_t i = 0; i < 2000; ++i) {
+        map1.insert({i, i*i});
+        map2.insert({i, i*i});
+        answer.insert({i, i*i});
+    }
+
+    // call each of the four constructors/assignment, measure their times
+    ns copy_ctor, move_ctor, copy_assign, move_assign;
+    {
+        auto start = clock_type::now();
+        HashMap<int, int, decltype(zero)> copy_constructed = map1;
+        auto end = clock_type::now();
+        copy_ctor = std::chrono::duration_cast<ns>(end - start);
+        VERIFY_TRUE(check_map_equal(copy_constructed,answer), __LINE__);
+    }
+
+    {
+        auto start = clock_type::now();
+        HashMap<int, int, decltype(zero)> move_constructed = std::move(map1);
+        auto end = clock_type::now();
+        move_ctor = std::chrono::duration_cast<ns>(end - start);
+        VERIFY_TRUE(check_map_equal(move_constructed,answer), __LINE__);
+    }
+
+    {
+        auto start = clock_type::now();
+        HashMap<int, int, decltype(zero)> copy_assigned;
+        copy_assigned = map2;
+        auto end = clock_type::now();
+        copy_assign = std::chrono::duration_cast<ns>(end - start);
+        VERIFY_TRUE(check_map_equal(copy_assigned,answer), __LINE__);
+    }
+
+    {
+        auto start = clock_type::now();
+        HashMap<int, int, decltype(zero)> move_assigned;
+        move_assigned = std::move(map2);
+        auto end = clock_type::now();
+        move_assign = std::chrono::duration_cast<ns>(end - start);
+        VERIFY_TRUE(check_map_equal(move_assigned,answer), __LINE__);
+    }
+    std::cout << "HashMap with 2000 elements (ns)" << std::endl;
+    std::cout << "Copy ctor: " << copy_ctor.count() << setw(15) << "Move ctor: " << move_ctor.count() << std::endl;
+    std::cout << "Copy assign: " << copy_assign.count() << setw(15) << "Move assign: " << move_assign.count() << std::endl;
+
+    // verify that move operations are much faster than their copy counterparts
+    // you should be able to easily beat this benchmark
+    VERIFY_TRUE(100*move_ctor.count() < copy_ctor.count(), __LINE__);
+    VERIFY_TRUE(100*move_assign.count() < copy_assign.count(), __LINE__);
+}
 
 
 int main(){
+    A_initializer_list_ctor();
     A_iterator_for_each_basic();
     B_iterator_for_each_edge();
+    B_range_ctor();
     C_iterator_operators();
     D_iterator_algorithm();
     E_const_iterator();
     F_iterator_const_correctness();
+    B_move_ctor_assignment();
+    C_move_time();
 }
