@@ -240,8 +240,12 @@ void I_(){
     HashMap<int, int> map;
     std::map<int, int> answer;
     srand (time(NULL));
+    std::vector<int> keys;
     for (int i = 0; i < 1000; ++i) {
-        auto key = rand()%1000;
+        auto key = rand()%10000;
+        while(std::find(keys.begin(),keys.end(),key)!=keys.end()){
+            key = rand()%10000;
+        }
         map.insert({i, key});
         answer.insert({i, key});
     }
@@ -255,8 +259,13 @@ void I_(){
 void J_(){
     HashMap<int, int> map;
     std::map<int, int> answer;
+    std::vector<int> keys;
+    srand (time(NULL));
     for (int i = 0; i < 1000; ++i) {
-        auto key = rand()%1000;
+        auto key = rand()%10000;
+         while(std::find(keys.begin(),keys.end(),key)!=keys.end()){
+            key = rand()%10000;
+        }
         map.insert({i, key});
     }
     auto iter1 = map.begin();
@@ -266,6 +275,27 @@ void J_(){
         iter2++;
         iter1++;
     }
+}
+
+void K_(){
+    HashMap<int, int> map;
+    std::map<int, int> answer;
+    std::vector<int> keys;
+    srand (time(NULL));
+    for (int i = 0; i < 1000; ++i) {
+        auto key = rand()%10000;
+         while(std::find(keys.begin(),keys.end(),key)!=keys.end()){
+            key = rand()%10000;
+        }
+        map.insert({i, key});
+    }
+    auto iter = map.begin();
+    auto sz = map.size();
+    while(sz--){
+        VERIFY_TRUE(iter != map.end(),__LINE__);
+        iter++;
+    }
+    VERIFY_TRUE(iter == map.end(),__LINE__);
 }
 
 int main(){
@@ -279,4 +309,5 @@ int main(){
     H_star();
     I_();
     J_();
+    K_();
 }

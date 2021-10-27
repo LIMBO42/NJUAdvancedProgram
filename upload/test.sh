@@ -1,6 +1,6 @@
 index=1
-g++ -std=c++17 test.cpp
-while [ $index -le 10 ]
+g++ -std=c++17 main.cpp
+while [ $index -le 11 ]
 do
   infile="in/input${index}.txt"
   outfile="out/output${index}.txt"
