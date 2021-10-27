@@ -88,7 +88,7 @@ for(int i=0;i<hashMap->bucket_count();++i){
 |`iterator operator++(int)`|return the curr_node and let curr_node point to the next node|
 |`iterator&operator=(iterator&other)`|I think this does the same as constructor|
 |`iterator&operator=(const iterator&other)`|above|
-|`==,!=`|judge whether two iterators are the same. If they both point to the end postion or the same node,they are the same.|
+|`==,!=`|judge whether two iterators are the same. If they both point to the end position or the same node,they are the same.|
 |`value_type& operator*()`|return value stored in curr_node|
 |`value_type*operator->()`|return address of value stored in curr_node|
 |`bool key_equal(const K&_key)`|judge whether key of curr_node is _key|
@@ -111,7 +111,7 @@ for(int i=0;i<hashMap->bucket_count();++i){
 
 #### 提交要求
 
-- 提交源码文件：`hashmap.cpp` ,直接打包成zip格式的压缩包。**不要添加其他任何目录**
+- 提交源码文件：`iterator.hpp` ,直接打包成zip格式的压缩包。**不要添加其他任何目录**
 - 文件的编码格式只支持utf-8。
 - 请严格按照给定的接口进行编码,否则无法调用测试用例。
 - **提交的源码文件中不需要包含main函数,否则无法通过编译。**
