@@ -1,4 +1,6 @@
 
+> To make it easier for your implementation, you can just add code to class defined in `iterator.hpp`
+
 #### 题目描述
 
 要访问顺序容器和关联容器中的元素，需要通过“迭代器（iterator）”进行。迭代器是一个变量，相当于容器和操纵容器的算法之间的中介。迭代器可以指向容器中的某个元素，通过迭代器就可以读写它指向的元素。从这一点上看，迭代器和指针类似。
