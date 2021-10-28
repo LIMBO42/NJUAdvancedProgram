@@ -171,9 +171,9 @@ void E_constuctor() {
     for (int i = 0; i < 100; ++i) {
         map.insert({i, i*i});
     }
-    srand (time(NULL));
+
     auto iter = map.begin();
-    auto num = rand() % 20  + 10;
+    auto num = 20;
     while(num--) {
         iter++;
     }

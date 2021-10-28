@@ -32,6 +32,9 @@ class HashMap<K,M,H>::iterator:public std::iterator<std::input_iterator_tag,valu
         }
 
         friend bool operator==(const iterator& lhs,const iterator& rhs){
+            if(lhs.hashMap!=rhs.hashMap){
+                return false;
+            }
             return (lhs.is_end&rhs.is_end) || (lhs.curr_node == rhs.curr_node);
         }
         friend bool operator!=(const iterator& lhs,const iterator& rhs){
