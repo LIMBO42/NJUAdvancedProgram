@@ -71,6 +71,17 @@ void sort( RandomIt first, RandomIt last );
 
 ![image-20211027151909730](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211027151909730.png)
 
+这里的获得并不是说迭代器指向`node1`，而是指迭代器中的`cur_node`指向`node1`。
+
+| 私有成员变量             | 简要说明                      |
+| ------------------------ | ----------------------------- |
+| const HashMap*hashMap;   | 迭代器对应的hashmap           |
+| bool is_end = true;      | 指示当前迭代器对应是否为end() |
+| int index = 0;           | hashmap中第几个bucket         |
+| node*curr_node= nullptr; | 当前迭代器对应的node          |
+
+
+
 ```c++
 for(int i=0;i<hashMap->bucket_count();++i){
     auto curr_node = hashMap->_buckets_array[i];
