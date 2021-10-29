@@ -270,7 +270,7 @@ void J_(){
     }
     auto iter1 = map.begin();
     auto iter2 = iter1++; 
-    while(iter2 != map.end()){
+    while(iter1 != map.end()){
         VERIFY_TRUE(iter1.key_equal(iter2->second) == false,__LINE__);
         iter2++;
         iter1++;
