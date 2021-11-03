@@ -106,8 +106,6 @@ for(int i=0;i<hashMap->bucket_count();++i){
 |`value_type*operator->()`|return address of value stored in curr_node|
 |`bool key_equal(const K&_key)`|judge whether key of curr_node is _key|
 
-**黑体部分是你需要完成的接口。**
-
 #### Tips：
 
 - 构造函数的`end`的作用：**指示的是迭代器是begin还是end。**
