@@ -95,16 +95,18 @@ for(int i=0;i<hashMap->bucket_count();++i){
 
 |接口|说明|
 |-|-|
-|`iterator(const HashMap*mp,bool end)`|constructor, you need to initlize private menbers in this function|
-|`iterator(const iterator&it)`|constructor, useful for you implementation in `iterator operator++(int)`|
-|`iterator&operator++()`|let curr_node point to the next node and return curr_node|
-|`iterator operator++(int)`|return the curr_node and let curr_node point to the next node|
-|`iterator&operator=(iterator&other)`|I think this does the same as constructor|
-|`iterator&operator=(const iterator&other)`|above|
-|`==,!=`|judge whether two iterators are the same. If they both point to the end position or the same node,they are the same.|
-|`value_type& operator*()`|return value stored in curr_node|
+|**`iterator(const HashMap*mp,bool end)`**|constructor, you need to initlize private menbers in this function|
+|**`iterator(const iterator&it)`**|constructor, useful for you implementation in `iterator operator++(int)`|
+|**`iterator&operator++()`**|let curr_node point to the next node and return curr_node|
+|**`iterator operator++(int)`**|return the curr_node and let curr_node point to the next node|
+|**`iterator&operator=(iterator&other)`**||
+| **`iterator&operator=(const iterator&other)** |                                                              |
+|**`==,!=`**|judge whether two iterators are the same. If they both point to the end position or the same node,they are the same.|
+|**`value_type& operator*()`**|return value stored in curr_node|
 |`value_type*operator->()`|return address of value stored in curr_node|
 |`bool key_equal(const K&_key)`|judge whether key of curr_node is _key|
+
+**黑体部分是你需要完成的接口。**
 
 #### Tips：
 
