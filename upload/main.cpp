@@ -268,6 +268,7 @@ void J_(){
          while(std::find(keys.begin(),keys.end(),key)!=keys.end()){
             key = rand()%10000;
         }
+        keys.push_back(key);
         map.insert({i, key});
     }
     auto iter1 = map.begin();
@@ -289,6 +290,7 @@ void K_(){
          while(std::find(keys.begin(),keys.end(),key)!=keys.end()){
             key = rand()%10000;
         }
+        keys.push_back(key);
         map.insert({i, key});
     }
     auto iter = map.begin();
