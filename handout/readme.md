@@ -138,6 +138,8 @@
 
    输出如下：
 
+   ![image-20211108200350740](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211108200350740.png)
+
    ```c++
    ParkSystem:
    xiaoli
@@ -184,5 +186,14 @@
    3 2 10.100000
    ```
 
-   
+   如果你需要快速比较文件是否相同，可以在shell下使用
 
+   ```shell
+   diff <(cat filename1) <(cat filename2)
+   ```
+
+   ![image-20211108200152007](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211108200152007.png)
+
+   其中hello.txt中内容为hello，helloworld.txt中的内容为hello world。
+
+   
