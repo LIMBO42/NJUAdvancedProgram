@@ -14,9 +14,9 @@ private:
 	double sum = 0;
 public:
 	void add_card(Card* card);
-	void vehicle_arrive(Vehicle* vehicle, int time);
-	void vehicle_depart(Vehicle* vehicle, int time);
-	void print_status();
+	string vehicle_arrive(Vehicle* vehicle, int time);
+	string vehicle_depart(Vehicle* vehicle, int time);
+	string print_status();
 	//void print_people();
 
 };
