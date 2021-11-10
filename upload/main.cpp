@@ -240,7 +240,7 @@ void A() {
     newstr += to_string(newmonthcard1->get_discount()) + "\n";
     newstr += to_string(newyearcard1->get_discount()) + "\n";
 
-    VERIFY_TRUE(newstr == str, 73);
+    VERIFY_TRUE(newstr == str, __LINE__);
 }
 
 
@@ -272,7 +272,7 @@ void B() {
     newstr += to_string(newbicycle2->get_charge(8, 10)) + "\n";
     newstr += to_string(newbicycle3->get_charge(8, 11)) + "\n";
     
-    VERIFY_TRUE(str == newstr, 144);
+    VERIFY_TRUE(str == newstr, __LINE__);
 
 }
 
@@ -323,7 +323,7 @@ void C() {
     newstr += newpark_system->vehicle_arrive(newbicycle2, 7);
     newstr += newpark_system->print_status();
 
-    VERIFY_TRUE(newstr == str, 266);
+    VERIFY_TRUE(newstr == str, __LINE__);
 
 }
 
@@ -395,7 +395,7 @@ void D() {
             newstr += newpark_system->print_status();
         }
     }
-    VERIFY_TRUE(str == newstr, 318);
+    VERIFY_TRUE(str == newstr, __LINE__);
 
 
 }
