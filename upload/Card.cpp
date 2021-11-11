@@ -52,4 +52,5 @@ int main()
 	cout << monthcard1->get_discount() << endl;
 	cout << yearcard1->get_discount() << endl;
 
-}*/
+}
+*/

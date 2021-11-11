@@ -58,8 +58,10 @@ string ParkSystem::print_status()
 {
 	string str = "";
 	str += "ParkSystem:\n";
-	for (auto it = mapCard.begin(); it != mapCard.end(); it++) {
+	//for (auto it = mapCard.begin(); it != mapCard.end(); it++) {
 		//name
+	for(auto itra = cards.begin();itra!=cards.end();++itra){
+		auto it = mapCard.find((*itra)->getName());
 		string name = (*it).first;
 		str += name + "\n";
 		str += "card:" + (*it).second->getcardNum() + "\n";
@@ -86,12 +88,9 @@ string ParkSystem::print_status()
 int main()
 {
 	ParkSystem* park_system = new ParkSystem();
-	
-	
 	Card* monthcard1 = new MonthCard("monthcard001", "xiaohong", 50);
 	Card* yearcard1 = new YearCard("yearcard001", "xiaoming", 80);
 	Card* card1 = new Card("card1", "xiaoli", 60);
-	
 	Vehicle* car1 = new Car("suA8888", "xiaohong", 5);
 	Vehicle* bicycle2 = new Bicycle("ofo002", "xiaoming");
 	Vehicle* car2 = new Car("suA9999", "xiaoming", 6);
@@ -111,5 +110,5 @@ int main()
 	//park_system->vehicle_depart(car2, 9);
 	str += park_system->print_status();
 	cout << str;
-	//system("pause");
+	system("pause");
 }*/

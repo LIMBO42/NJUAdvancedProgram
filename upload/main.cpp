@@ -2,6 +2,7 @@
 #include <iostream>
 #include <random>
 #include <unordered_map>
+#include <time.h>
 #include <algorithm>
 using namespace std;
 
@@ -26,7 +27,10 @@ vector<int> random_permut(int n)
     vector<int> temp;
     for (int i = 0; i < n; i++)
         temp.push_back(i);
-    std::random_shuffle(temp.begin(), temp.end());
+        std::random_device rng;
+    std::mt19937 urng(rng());
+    std::shuffle(temp.begin(), temp.end(), urng);
+    //std::random_shuffle(temp.begin(), temp.end());
     return temp;
 }
 
@@ -184,7 +188,9 @@ public:
     string print_status() {
         string str = "";
         str+= "ParkSystem:\n";
-        for (auto it = mapCard.begin(); it != mapCard.end(); it++) {
+        //for (auto it = mapCard.begin(); it != mapCard.end(); it++) {
+        for (auto itra = cards.begin(); itra != cards.end(); ++itra) {
+            auto it = mapCard.find((*itra)->getName());
             //name
             string name = (*it).first;
             // std::cout << name << ":\n";
@@ -240,7 +246,7 @@ void A() {
     newstr += to_string(newmonthcard1->get_discount()) + "\n";
     newstr += to_string(newyearcard1->get_discount()) + "\n";
 
-    VERIFY_TRUE(newstr == str, __LINE__);
+    VERIFY_TRUE(newstr == str, 73);
 }
 
 
@@ -272,7 +278,7 @@ void B() {
     newstr += to_string(newbicycle2->get_charge(8, 10)) + "\n";
     newstr += to_string(newbicycle3->get_charge(8, 11)) + "\n";
     
-    VERIFY_TRUE(str == newstr, __LINE__);
+    VERIFY_TRUE(str == newstr, 144);
 
 }
 
@@ -323,7 +329,7 @@ void C() {
     newstr += newpark_system->vehicle_arrive(newbicycle2, 7);
     newstr += newpark_system->print_status();
 
-    VERIFY_TRUE(newstr == str, __LINE__);
+    VERIFY_TRUE(newstr == str, 266);
 
 }
 
@@ -395,7 +401,7 @@ void D() {
             newstr += newpark_system->print_status();
         }
     }
-    VERIFY_TRUE(str == newstr, __LINE__);
+    VERIFY_TRUE(str == newstr, 318);
 
 
 }
