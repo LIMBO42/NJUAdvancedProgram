@@ -6,7 +6,7 @@
 
 （2）使用不同停车卡消费可享受不同折扣：普通卡不享受折扣，月卡享受 8 折，年卡 享受 7 折。每次结算都从停车卡中扣除相应金额，不考虑卡内余额不足的情况。 
 
-（3）车与卡都与唯一用户关联，为简单起见，假设不存在重名用户，每人有且仅有一张 停车卡。
+（3）车与卡都与唯一用户关联，为简单起见，假设不存在重名用户，每人有且仅有一张 停车卡。**（但是每个人可能有多辆vehicle）**
 
 
 
@@ -91,22 +91,27 @@
 
 设计停车场系统 ParkSystem 类，需要完成以下功能：
 
-1. 向停车场系统中加入卡：**void add_card(Card *card)** 
+1. 向停车场系统中加入卡：**add_card(Card *card)** 
 
-2. 车辆 vehicle 在 time 时间驶入: **void vehicle_arrive(Vehicle *vehicle, int time)** 安排车进入车位，记录车辆进入时间，**返回“Successfully Arranged\n”**的string。 
+2. 车辆 vehicle 在 time 时间驶入: **vehicle_arrive(Vehicle *vehicle, int time)** 安排车进入车位，记录车辆进入时间，**返回“Successfully Arranged\n”**的string。 
 
-3. 车辆 vehicle 在 time 时间离开: **void vehicle_depart(Vehicle *vehicle, int time)** 完成结账（从卡的余额中扣除相应金额，需要考虑相应的折扣），**返回“车牌号:金 额\n”**的string，最后出车。金额用double即可。
+3. 车辆 vehicle 在 time 时间离开: **vehicle_depart(Vehicle *vehicle, int time)** 完成结账（从卡的余额中扣除相应金额，需要考虑相应的折扣），**返回“车牌号:金 额\n”**的string，最后出车。金额用double即可。
 
-4.  打印停车场当前状态：**void print_status()** **用一个变量string str存储**这个函数中所有需要打印的内容。（下面所说的打印都是将字符串加到str后面）
+4.  打印停车场当前状态：**print_status() **用一个变量string str存储这个函数中所有需要打印的内容。（下面所说的打印都是将字符串加到str后面）
 
    首先先**打印"ParkSystem:\n"**，对于拥有Card的所有用户进行遍历，打印**姓名+"\n"**，**"Card:"+卡号+"\n"**。
 
    然后打印遍历到的**当前客户在停车场中所停的车辆的车牌号**+“\n”。最后打印当前停车场的card数量，停车数量，以及停车场的总收入，分别用空格分隔，最后加上"\n"。
 
+   这里的打印顺序：
+
+   1. 打印Card的相关信息按照new的顺序。
+   2. 打印vehicle的顺序按照arrive的顺序。
    
-
+   
+   
    ##### 调用接口示例：
-
+   
    ```c++
    	ParkSystem* park_system = new ParkSystem();
    	Card* monthcard1 = new MonthCard("monthcard001", "xiaohong", 50);
@@ -133,67 +138,67 @@
    	cout << str;
    	//system("pause");
    ```
-
+   
    **如果用VS需要加上system("pause");**
-
+   
    输出如下：
-
+   
    ![image-20211108200350740](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211108200350740.png)
-
+   
    ```c++
    ParkSystem:
-   xiaoli
-   card:card1
-   xiaoming
-   card:yearcard001
    xiaohong
    card:monthcard001
+   xiaoming
+   card:yearcard001
+   xiaoli
+   card:card1
    3 0 0.000000
    Successfully Arranged
    ParkSystem:
-   xiaoli
-   card:card1
-   xiaoming
-   card:yearcard001
    xiaohong
    card:monthcard001
    suA8888
+   xiaoming
+   card:yearcard001
+   xiaoli
+   card:card1
    3 1 0.000000
    Successfully Arranged
    ParkSystem:
-   xiaoli
-   card:card1
-   xiaoming
-   card:yearcard001
-   ofo002
    xiaohong
    card:monthcard001
    suA8888
+   xiaoming
+   card:yearcard001
+   ofo002
+   xiaoli
+   card:card1
    3 2 0.000000
    suA8888:8.000000
    ofo002:2.100000
    Successfully Arranged
    Successfully Arranged
    ParkSystem:
-   xiaoli
-   card:card1
+   xiaohong
+   card:monthcard001
    xiaoming
    card:yearcard001
    suA9999
    ofo002
-   xiaohong
-   card:monthcard001
+   xiaoli
+   card:card1
    3 2 10.100000
    ```
-
+   
    如果你需要快速比较文件是否相同，可以在shell下使用
-
+   
    ```shell
    diff <(cat filename1) <(cat filename2)
    ```
-
+   
    ![image-20211108200152007](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211108200152007.png)
-
+   
    其中hello.txt中内容为hello，helloworld.txt中的内容为hello world。
-
+   
    
