@@ -52,6 +52,9 @@
 	cout << card1->get_discount() << endl;
 	cout << monthcard1->get_discount() << endl;
 	cout << yearcard1->get_discount() << endl;
+	delete card1;
+	delete monthcard1;
+	delete yearcard1;
 ```
 
 
@@ -81,6 +84,11 @@
 	cout << bicycle1->get_charge(8, 9) << endl;
 	cout << bicycle2->get_charge(8, 10) << endl;
 	cout << bicycle3->get_charge(8, 11) << endl;
+	delete car1;
+	delete car2;
+	delete bicycle1;
+	delete bicycle2;
+	delete bicycle3;
 ```
 
 <img src="https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211108193410858.png" alt="image-20211108193410858" style="zoom:67%;" />
@@ -89,7 +97,7 @@
 
 **第三问可以修改前两问的文件，加上你需要的接口**
 
-建议使用STL相关
+建议使用STL相关容器。
 
 设计停车场系统 ParkSystem 类，需要完成以下功能：
 
@@ -138,6 +146,13 @@
    	str += park_system->vehicle_arrive(bicycle2, 7);
    	str += park_system->print_status();
    	cout << str;
+   	delete park_system;
+   	delete monthcard1;
+   	delete yearcard1;
+   	delete card1;
+   	delete car1;
+   	delete bicycle2;
+   	delete car2;
    	//system("pause");
    ```
    
@@ -192,6 +207,8 @@
    card:card1
    3 2 10.100000
    ```
+   
+   ##### Tips：
    
    如果你需要快速比较文件是否相同，可以在shell下使用
    
