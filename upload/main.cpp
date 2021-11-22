@@ -1,18 +1,12 @@
-#include "ParkSystem.h"
-#include <iostream>
+#include"MathUtils.h"
+#include<vector>
 #include <random>
 #include <unordered_map>
 #include <time.h>
 #include <algorithm>
+#include <stdlib.h>
 using namespace std;
-
-vector<string> peopleName = { "A","B","C","D","E","F" };
-
-vector<string> cardType = { "Card","Month","Year" };
-vector<string> vehicleNum = { "a","b","c","d","e","f","a1","b2","c3","d4","e5","f6" };
-
-vector<string> cardName(6, "");
-
+/*
 void VERIFY_TRUE(bool condition, int line) {
     if (!condition) {
         std::cout << 0 << std::endl;
@@ -22,443 +16,514 @@ void VERIFY_TRUE(bool condition, int line) {
     }
 }
 
+class newComplex
+{
+private:
+    int real; // 实部
+    int imag; // 虚部
+public:
+    newComplex() = default;
+    newComplex(int real, int imag) {
+        this->real = real;
+        this->imag = imag;
+    }
+    int getReal() {
+        return real;
+    }
+    int getImag() {
+        return imag;
+    }
+    // TODO 重载+, 实现复数的相加
+    newComplex operator+(const newComplex& c);
+
+    // TODO 重载-, 实现复数的相减
+    newComplex operator-(const newComplex& c);
+
+    // TODO 重载*, 实现负数的相乘
+    newComplex operator*(const newComplex& c);
+
+    // TODO 重载/, 实现复数的相除
+    newComplex operator/(const newComplex& c);
+
+    // 重载<<, 输出格式为a+bi，a和b分别是复数的实部和虚部,没有空格，不需要输出回车
+    // 注意:a或b为复数的输出示例，-1-3i
+    friend ostream& operator << (ostream& out, const newComplex& c);
+    // 重载>>, 读取a+bi格式的输入，格式同上。
+    friend istream& operator >> (istream& in, newComplex& c);
+};
+
+
+bool newjudgeAdd(int x, int y) {
+	int sum = x + y;
+	if (x > 0 && y > 0 && sum < 0) return false;
+	if (x < 0 && y < 0 && sum > 0) return false;
+	return true;
+}
+newComplex newComplex::operator+(const newComplex& c)
+{
+
+	if (!newjudgeAdd(real, c.real)) {
+		throw  OverFlow("newComplex add overflow!\n");
+	}
+	if (!newjudgeAdd(imag, c.imag)) {
+		throw  OverFlow("newComplex add overflow!\n");
+	}
+	int realSum = real + c.real;
+	int imagSum = imag + c.imag;
+	return newComplex(realSum, imagSum);
+}
+
+bool newjudgeMinus(int x, int y) {
+	if (y == INT_MIN) {
+		if (x >= 0) return false;
+		else return true;
+	}
+	return newjudgeAdd(x, -y);
+}
+
+newComplex newComplex::operator-(const newComplex& c)
+{
+
+	if (!newjudgeMinus(real, c.real)) {
+		throw OverFlow("newComplex add overflow!\n");
+	}
+	if (!newjudgeMinus(imag, c.imag)) {
+		throw OverFlow("newComplex add overflow!\n");
+	}
+	int realSum = real - c.real;
+	int imagSum = imag - c.imag;
+	return newComplex(realSum, imagSum);
+}
+
+bool newjudgeMul(int x, int y) {
+	int mul = x * y;
+	if (mul / y != x) return false;
+	return true;
+}
+
+newComplex newComplex::operator*(const newComplex& c)
+{
+	if (!newjudgeMul(real, c.real) || !newjudgeMul(imag, c.imag) || !newjudgeMul(real, c.imag) || !newjudgeMul(imag, c.real)) {
+		throw  OverFlow("newComplex multiply overflow!\n");
+	}
+	int realSum = real * c.real - (imag * c.imag);
+	int imagSum = real * c.imag + imag * c.real;
+
+	return newComplex(realSum, imagSum);
+}
+
+bool newjudgeDivide(int x, int y) {
+	if (y == 0) return false;
+	if (x == INT_MIN && y == -1) return false;
+	return true;
+}
+
+newComplex newComplex::operator/(const newComplex& c)
+{
+	//ac+bd
+	int realx = real * c.imag + imag * c.real;
+	int y = c.real * c.real + c.imag * c.imag;
+	if (y == 0) throw ArithmeticError("ArithmeticError!\n");
+	if (!newjudgeMul(real, c.imag) || !newjudgeMul(imag, c.real) || !newjudgeMul(c.real, c.real) || !newjudgeMul(c.imag, c.imag)) {
+		throw  OverFlow("newComplex multiply overflow!\n");
+	}
+	//bc-ad
+	int realy = imag * c.real - real * c.imag;
+	if (!newjudgeDivide(realx, y) || !newjudgeDivide(realy, y)) {
+		throw OverFlow("newComplex divide overflow!\n");
+	}
+	int realSum = realx / y;
+	int imagSum = realy / y;
+
+	return newComplex(realSum, imagSum);
+}
+
+ostream& operator<<(ostream& out, const newComplex& c)
+{
+	// TODO: 在此处插入 return 语句
+	//虚部大于等于0
+	if (c.imag >= 0) out << c.real << "+" << c.imag << "i";
+	else out << c.real << "-" << -c.imag << "i";
+	return out;
+}
+
+vector<string> newsplit(const string& str, const string& pattern) {
+	vector<string> res;
+	if (str == "") return res;
+	string strs = str + pattern[0];
+	size_t pos = strs.find_first_of(pattern);
+	while (pos != strs.npos) {
+		string temp = strs.substr(0, pos);
+		res.push_back(temp);
+		//
+		strs = strs.substr(pos + 1, strs.size());
+		pos = strs.find_first_of(pattern);
+	}
+	return res;
+}
+
+istream& operator>>(istream& in, newComplex& c)
+{
+
+	//只考虑 虚数
+	string str = "";
+	in >> str;
+	size_t pos = str.find_last_of("+-");
+	//实部
+	string real_part = str.substr(0, pos);
+
+	//虚部
+	string imag_part = str.substr(pos + 1, str.size());
+
+	c.real = stoi(real_part);
+
+
+	imag_part = imag_part.substr(0, str.size() - 1);
+
+
+	c.imag = stoi(imag_part);
+	if (str[pos] == '-')	c.imag = -c.imag;
+	return in;
+
+}
+
+
+class newMathUtils {
+public:
+    // 接受一个表达式字符串并返回计算结果。例如:calculator("(1+2i)+(2+3i)")的结果为3+5i
+    static newComplex calculator(string s);
+    // 使用函数calculator处理文本文件，输入文件名为 inputFileName, 输出文件名为 outputFileName。
+    // 每一行为一个表达式，为了简单起见，我们假定这里的表达式不会触发InvalidExpression异常
+    static void processTextFile(string inputFilename, string outputFilename);
+};
+
+newComplex newMathUtils::calculator(string s)
+{
+	//只支持两个复数的计算
+	int first_end = s.find_first_of(")");
+	string first_newComplex = s.substr(1, first_end - 1);
+	char ch = s[first_end + 1];
+	string second_newComplex = s.substr(first_end + 3, s.size() - first_end - 4);
+
+	istringstream iss_first(first_newComplex);
+	newComplex c1;
+	iss_first >> c1;
+
+	istringstream iss_second(second_newComplex);
+	newComplex c2;
+	iss_second >> c2;
+	try {
+		if (ch == '+') {
+			return c1 + c2;
+		}
+		else if (ch == '-') {
+			return c1 - c2;
+		}
+		else if (ch == '*') {
+			return c1 * c2;
+		}
+		else if (ch == '/') {
+			return c1 / c2;
+		}
+	}
+	catch (ArithmeticError& e) {
+		//cout << e.what();
+		throw e;
+	}
+	catch (OverFlow& e) {
+		//cout << e.what();
+		throw e;
+	}
+	catch (...) {
+		cout << "ERROR" << endl;
+	}
+
+	return newComplex(0, 0);
+}
+
+void newMathUtils::processTextFile(string inputFilename, string outputFilename)
+{
+	ifstream in(inputFilename);
+	if (!in) throw FileNotFound("Cannot open " + inputFilename + "\n");
+	ofstream out(outputFilename);
+	if (!out) throw FileNotFound("Cannot open " + outputFilename + "\n");
+	string str;
+	while (in >> str) {
+		newComplex c = calculator(str);
+		out << c << endl;
+	}
+}
+
 vector<int> random_permut(int n)
 {
-    vector<int> temp;
-    for (int i = 0; i < n; i++)
-        temp.push_back(i);
-        std::random_device rng;
-    std::mt19937 urng(rng());
-    std::shuffle(temp.begin(), temp.end(), urng);
-    //std::random_shuffle(temp.begin(), temp.end());
-    return temp;
+	vector<int> temp;
+	for (int i = 0; i < n; i++)
+		temp.push_back(i);
+	std::random_device rng;
+	std::mt19937 urng(rng());
+	std::shuffle(temp.begin(), temp.end(), urng);
+	//std::random_shuffle(temp.begin(), temp.end());
+	return temp;
+}*/
+
+vector<int> nums{ INT_MAX,INT_MIN,0,INT_MAX - 1,INT_MIN + 1,INT_MAX/2,INT_MIN/2,2,-2,1,-1,3};
+
+string generate(int i,int j) {
+	string res = "(";
+	res += to_string(nums[i]);
+	if (nums[j] >= 0) {
+		res += "+";
+	}
+	res += to_string(nums[j])+"i";
+	res += ")";
+	//cout << res << endl;
+	return res;
+}
+vector<string> compute;
+void str_complex(){
+	vector<string> res;
+	for (int i = 0; i < nums.size(); ++i) {
+		for (int j = 0; j < nums.size(); ++j) {
+			res.push_back(generate(i,j));
+		}
+	}
+	for (int i = 0; i < res.size(); ++i) {
+		for (int j = 0; j < res.size(); ++j) {
+			compute.push_back(res[i] + "+" + res[j]);
+			compute.push_back(res[i] + "-" + res[j]);
+			compute.push_back(res[i] + "*" + res[j]);
+			compute.push_back(res[i] + "/" + res[j]);
+		}
+	}
 }
 
-
-class newCard {
-private:
-    string cardNum;
-    string name;
-    double balance;
-public:
-    
-    newCard(string cardNum, string name, double balance) {
-        this->cardNum = cardNum;
-        this->name = name;
-        this->balance = balance;
-    }
-    double get_balance() {
-        return balance;
-    }
-    virtual double get_discount(){
-        return 1.0;
-    }
-    string getName() {
-        return name;
-    }
-    string getcardNum() {
-        return cardNum;
-    }
-    void min_balance(double num) {
-        balance -= num;
-    }
+vector<string> Astr = {
+"(2147483646-1i)+(-2+1i)",
+"(0-2i)+(2147483647+2i)",
+"(-2147483647-1073741824i)+(-2-1i)",
+"(-2147483648+0i)/(0+0i)",
+"(-2147483648-2i)*(2147483647-1i)",
+"(-2147483648+1i)+(0+1073741823i)",
+"(2147483646-1i)*(-1+1073741823i)",
+"(2147483646+2i)*(1073741823-2147483647i)",
+"(0+1i)+(2+1i)",
+"(0-1i)*(-2+0i)",
+"(-2147483648+2147483647i)*(2-2i)",
+"(-2147483648-2i)+(3+2i)",
 };
-
-class newMonthCard :public newCard {
-public:
-    newMonthCard(string cardNum, string name, double balance):newCard(cardNum, name, balance) {
-        
-    }
-    virtual double get_discount() {
-        return 0.8;
-    }
-
-};
-
-class newYearCard :public newCard {
-public:
-    newYearCard(string cardNum, string name, double balance):newCard(cardNum, name, balance) {
-        
-    }
-    virtual double get_discount() {
-        return 0.7;
-    }
-
-};
-
-class newVehicle {
-private:
-    string vehicleNum;
-    string ownerName;
-public:
-    newVehicle(string vehicleNum, string ownerName) {
-        this->vehicleNum = vehicleNum;
-        this->ownerName = ownerName;
-    }
-    virtual double get_charge(int arrive_time, int depart_time) {
-        return 0.0;
-    }
-    string getName() {
-        return ownerName;
-    }
-    string getVehicle() {
-        return vehicleNum;
-    }
-};
-class newCar :public newVehicle {
-private:
-    int people;
-public:
-    newCar(string vehicleNum, string ownerName, int people):newVehicle(vehicleNum, ownerName) {
-        this->people = people;
-    }
-    virtual double get_charge(int arrive_time, int depart_time) {
-        int time = depart_time - arrive_time;
-        if (people <= 5) return time * 5;
-        return time * 10;
-    }
-
-};
-
-class newBicycle :public newVehicle {
-public:
-    newBicycle(string vehicleNum, string ownerName):newVehicle(vehicleNum, ownerName) {};
-    virtual double get_charge(int arrive_time, int depart_time) {
-        int time = depart_time - arrive_time;
-        if (time < 2) return 0.0;
-        return time - 2;
-    }
-};
-
-class newParkSystem {
-private:
-    vector<newCard*> cards;
-    vector<newVehicle*> vehicles;
-    unordered_map<string, newCard*> mapCard;
-    unordered_map<string, vector<newVehicle*>> mapVehicle;
-    unordered_map<newVehicle*, int> mapArrive;
-    double sum = 0;
-public:
-    void add_card(newCard* card) {
-        cards.push_back(card);
-        mapCard.insert({ card->getName(),card });
-    }
-    string vehicle_arrive(newVehicle* vehicle, int time) {
-        string str = "";
-        vehicles.push_back(vehicle);
-        mapArrive.insert({ vehicle,time });
-        //如果能找到
-        if (mapVehicle.find(vehicle->getName()) != mapVehicle.end()) {
-            mapVehicle[vehicle->getName()].push_back(vehicle);
-        }
-        else {
-            mapVehicle.insert({ vehicle->getName(),vector<newVehicle*>{vehicle} });
-        }
-        str+= "Successfully Arranged\n";
-        return str;
-    }
-    string vehicle_depart(newVehicle* vehicle, int time) {
-        string ownerName = vehicle->getName();
-        string str = "";
-        if (mapVehicle.find(ownerName) != mapVehicle.end()) {
-
-            auto& vec = mapVehicle[ownerName];
-            auto it = vec.begin();
-            for (; it != vec.end(); it++) {
-                //同一辆车
-                if ((*it)->getVehicle() == vehicle->getVehicle()) {
-                    int arrive = mapArrive[vehicle];
-                    double pay = (*it)->get_charge(arrive, time);
-                    double discount = mapCard[ownerName]->get_discount();
-                    mapCard[ownerName]->min_balance(discount * pay);
-                    str += vehicle->getVehicle() + ":" + to_string((double)discount * pay) + "\n";
-                    sum += (double)discount * pay;
-                    break;
-                }
-
-            }
-            vec.erase(it);
-            mapArrive.erase(vehicle);
-        }
-        else {
-            cerr << "error!\n";
-        }
-        return str;
-    }
-    string print_status() {
-        string str = "";
-        str+= "ParkSystem:\n";
-        //for (auto it = mapCard.begin(); it != mapCard.end(); it++) {
-        for (auto itra = cards.begin(); itra != cards.end(); ++itra) {
-            auto it = mapCard.find((*itra)->getName());
-            //name
-            string name = (*it).first;
-            // std::cout << name << ":\n";
-            //std::cout << "card:" << (*it).second->getcardNum() << "\n";
-
-            str += name + "\n";
-            str+= "card:" + (*it).second->getcardNum() + "\n";
-
-            for (auto& v : mapVehicle) {
-                if (v.first == name) {
-                    auto& vec = v.second;
-                    if (vec.size() > 0) {
-                        for (auto p : vec) {
-                            str += p->getVehicle() + "\n";
-                            //std::cout << p->getVehicle() << " ";
-                        }
-                        //std::cout << "\n";
-                        //str += "\n";
-                    }
-                }
-            }
-        }
-
-        //std::cout << mapCard.size() << " " << mapArrive.size() << " " << sum << "\n";
-        str += to_string(mapCard.size()) + " " + to_string(mapArrive.size()) + " " + to_string(sum) + "\n";
-        return str;
-    }
-    //void print_people();
-};
-
-
 void A() {
-    Card* card1 = new Card("card001", "xiaobing", 100);
-    Card* monthcard1 = new MonthCard("monthcard001", "xiaohong", 50);
-    Card* yearcard1 = new YearCard("yearcard001", "xiaoming", 80);
-    string str = "";
-    str += to_string(card1->get_balance()) + "\n";
-    str += to_string(monthcard1->get_balance()) + "\n";
-    str += to_string(yearcard1->get_balance()) + "\n";
-    str += to_string(card1->get_discount()) + "\n";
-    str += to_string(monthcard1->get_discount()) + "\n";
-    str += to_string(yearcard1->get_discount()) + "\n";
-    
-
-    newCard* newcard1 = new newCard("card001", "xiaobing", 100);
-    newCard* newmonthcard1 = new newMonthCard("monthcard001", "xiaohong", 50);
-    newCard* newyearcard1 = new newYearCard("yearcard001", "xiaoming", 80);
-    string newstr = "";
-    newstr += to_string(newcard1->get_balance()) + "\n";
-    newstr += to_string(newmonthcard1->get_balance()) + "\n";
-    newstr += to_string(newyearcard1->get_balance()) + "\n";
-    newstr += to_string(newcard1->get_discount()) + "\n";
-    newstr += to_string(newmonthcard1->get_discount()) + "\n";
-    newstr += to_string(newyearcard1->get_discount()) + "\n";
-
-    VERIFY_TRUE(newstr == str, 73);
+	for (size_t i = 0; i < Astr.size(); ++i) {
+		try {
+			cout << MathUtils::calculator(Astr[i]) << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+		}
+	}
 }
 
+
+vector<string> Bstr = {
+"(2147483646+3i)+(-2147483648+2i)",
+"(-2147483647+2147483647i)-(1073741823+3i)",
+"(2147483646+0i)+(2147483647+3i)",
+"(-1-2147483648i)/(1+2i)",
+"(2147483646+2147483646i)-(3+0i)",
+"(-2147483647+0i)*(-2147483648-2147483647i)",
+"(-2147483647+0i)+(2+2147483646i)",
+"(2147483647+2147483646i)+(0-2i)",
+"(-2147483647-2i)/(0+2147483646i)",
+"(-2147483648-2i)/(2+3i)",
+"(2147483646+3i)+(2147483646+1073741823i)",
+"(2147483646+3i)-(-1+0i)",
+};
 
 void B() {
-    Vehicle* car1 = new Car("suA8888", "xiaoming", 5);
-    Vehicle* car2 = new Car("suA9999", "xiaohong", 7);
-    Vehicle* bicycle1 = new Bicycle("ofo001", "xiaoming");
-    Vehicle* bicycle2 = new Bicycle("ofo002", "xiaohong");
-    Vehicle* bicycle3 = new Bicycle("ofo003", "xiaogang");
-    string str = "";
-    
-    str += to_string(car1->get_charge(8, 10)) + "\n";
-    str += to_string(car2->get_charge(8, 9)) + "\n";
-    str += to_string(bicycle1->get_charge(8, 9)) + "\n";
-    str += to_string(bicycle2->get_charge(8, 10)) + "\n";
-    str += to_string(bicycle3->get_charge(8, 11)) + "\n";
-
-
-    newVehicle* newcar1 = new newCar("suA8888", "xiaoming", 5);
-    newVehicle* newcar2 = new newCar("suA9999", "xiaohong", 7);
-    newVehicle* newbicycle1 = new newBicycle("ofo001", "xiaoming");
-    newVehicle* newbicycle2 = new newBicycle("ofo002", "xiaohong");
-    newVehicle* newbicycle3 = new newBicycle("ofo003", "xiaogang");
-    string newstr = "";
-
-    newstr += to_string(newcar1->get_charge(8, 10)) + "\n";
-    newstr += to_string(newcar2->get_charge(8, 9)) + "\n";
-    newstr += to_string(newbicycle1->get_charge(8, 9)) + "\n";
-    newstr += to_string(newbicycle2->get_charge(8, 10)) + "\n";
-    newstr += to_string(newbicycle3->get_charge(8, 11)) + "\n";
-    
-    VERIFY_TRUE(str == newstr, 144);
-
+	for (size_t i = 0; i < Bstr.size(); ++i) {
+		try {
+			cout << MathUtils::calculator(Bstr[i]) << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+		}
+	}
 }
 
 void C() {
-
-    ParkSystem* park_system = new ParkSystem();
-    Card* monthcard1 = new MonthCard("monthcard001", "xiaohong", 50);
-    Card* yearcard1 = new YearCard("yearcard001", "xiaoming", 80);
-    Card* card1 = new Card("card1", "xiaoli", 60);
-    Vehicle* car1 = new Car("suA8888", "xiaohong", 5);
-    Vehicle* bicycle2 = new Bicycle("ofo002", "xiaoming");
-    Vehicle* car2 = new Car("suA9999", "xiaoming", 6);
-    string str = "";
-    park_system->add_card(monthcard1);
-    park_system->add_card(yearcard1);
-    park_system->add_card(card1);
-    str += park_system->print_status();
-    str += park_system->vehicle_arrive(car1, 8);
-    str += park_system->print_status();
-    str += park_system->vehicle_arrive(bicycle2, 14);
-    str += park_system->print_status();
-    str += park_system->vehicle_depart(car1, 10);
-    str += park_system->vehicle_depart(bicycle2, 19);
-    str += park_system->vehicle_arrive(car2, 6);
-    str += park_system->vehicle_arrive(bicycle2, 7);
-    str += park_system->print_status();
-    
-
-    newParkSystem* newpark_system = new newParkSystem();
-    newCard* newmonthcard1 = new newMonthCard("monthcard001", "xiaohong", 50);
-    newCard* newyearcard1 = new newYearCard("yearcard001", "xiaoming", 80);
-    newCard* newcard1 = new newCard("card1", "xiaoli", 60);
-    newVehicle* newcar1 = new newCar("suA8888", "xiaohong", 5);
-    newVehicle* newbicycle2 = new newBicycle("ofo002", "xiaoming");
-    newVehicle* newcar2 = new newCar("suA9999", "xiaoming", 6);
-    string newstr = "";
-    newpark_system->add_card(newmonthcard1);
-    newpark_system->add_card(newyearcard1);
-    newpark_system->add_card(newcard1);
-    newstr += newpark_system->print_status();
-    newstr += newpark_system->vehicle_arrive(newcar1, 8);
-    newstr += newpark_system->print_status();
-    newstr += newpark_system->vehicle_arrive(newbicycle2, 14);
-    newstr += newpark_system->print_status();
-    newstr += newpark_system->vehicle_depart(newcar1, 10);
-    newstr += newpark_system->vehicle_depart(newbicycle2, 19);
-    newstr += newpark_system->vehicle_arrive(newcar2, 6);
-    newstr += newpark_system->vehicle_arrive(newbicycle2, 7);
-    newstr += newpark_system->print_status();
-
-    VERIFY_TRUE(newstr == str, 266);
-
+	//srand((int)time(0));
+	int index = 0;
+	for (int i = 0; i < 24; i++) {
+		try {
+			index = rand() % compute.size();
+			cout<< MathUtils::calculator(compute[index])<<endl;
+			//cout << compute[index] << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+			//cout << compute[index] << endl;
+		}
+	}
 }
+
 
 
 void D() {
-    //获得cardName
-    ParkSystem* park_system = new ParkSystem();
-    newParkSystem* newpark_system = new newParkSystem();
-
-    string str = "";
-    string newstr = "";
-
-    vector<int> randNum = random_permut(6);
-    for (unsigned i = 0; i < 6; ++i) {
-        cardName[i] = cardType[i % 3] + to_string(randNum[i]);
-    }
-    //对应的是6个人 peopleName
-    vector<Card*> cards(6);
-    vector<newCard*> newcards(6);
-    
-    for (unsigned i = 0; i < 6; ++i) {
-        if (i % 3 == 0) {
-            cards[i] = new Card(cardName[i], peopleName[i], 1000);
-            newcards[i] = new newCard(cardName[i], peopleName[i], 1000);
-        }
-        else if (i % 3 == 1) {
-            cards[i] = new MonthCard(cardName[i], peopleName[i], 1000);
-            newcards[i] = new newMonthCard(cardName[i], peopleName[i], 1000);
-        }
-        else if (i % 3 == 2) {
-            cards[i] = new YearCard(cardName[i], peopleName[i], 1000);
-            newcards[i] = new newYearCard(cardName[i], peopleName[i], 1000);
-        }
-        park_system->add_card(cards[i]);
-        newpark_system->add_card(newcards[i]);
-    }
-
-    //12辆车
-    //随机选人
-    vector<Vehicle*> vehicles(12);
-    vector<newVehicle*> newvehicles(12);
-    srand((int)time(0));
-    for (unsigned i = 0; i < 12; ++i) {
-        int num = rand() % 6;
-        int type = rand() % 2;
-        if (type % 2 == 0) {
-            int tmp = rand() % 10;
-            vehicles[i] = new Car(vehicleNum[i], peopleName[num], tmp);
-            newvehicles[i] = new newCar(vehicleNum[i], peopleName[num], tmp);
-        }
-        else {
-            vehicles[i] = new Bicycle(vehicleNum[i], peopleName[num]);
-            newvehicles[i] = new newBicycle(vehicleNum[i], peopleName[num]);
-        }
-    }
-    for (unsigned i = 0; i < 24; i++) {
-        int tmpTime = rand() % 10;
-        str += park_system->vehicle_arrive(vehicles[i % 12], tmpTime);
-        newstr += newpark_system->vehicle_arrive(newvehicles[i % 12], tmpTime);
-        if (rand() % 3 == 0) {
-            str += park_system->print_status();
-            newstr += newpark_system->print_status();
-        }
-        int departTime = tmpTime + (rand() % 10);
-        str += park_system->vehicle_depart(vehicles[i % 12], departTime);
-        newstr += newpark_system->vehicle_depart(newvehicles[i % 12], departTime);
-        if (rand() % 3 == 1) {
-            str += park_system->print_status();
-            newstr += newpark_system->print_status();
-        }
-    }
-    VERIFY_TRUE(str == newstr, 318);
-
-
+	
+	C();
 }
 
 void E() {
-    D();
+	C();
 }
 
 void F() {
-    D();
+	try {
+		MathUtils::processTextFile("input1.txt", "output.txt"); // "input.txt"不存在
+	}
+	catch (FileNotFound& e) {
+		cout << e.what();
+	}
+	catch (...) {
+		cout << "ERROR" << endl;
+	}
+	C();
+	/*
+	try {
+		MathUtils::processTextFile("input2.txt", "output.txt"); // "input2.txt"存在
+		cout << "True" << endl;
+	}
+	catch (FileNotFound& e) {
+		cout << e.what();
+	}
+	catch (...) {
+		cout << "ERROR" << endl;
+	}*/
 }
 
 void G() {
-    D();
+	//srand((int)time(0));
+	const string file = "complex_input.txt";
+	ofstream out(file);
+	for (int i = 0; i < 24; i++) {
+		int index = rand() % compute.size();
+		out << compute[index] << endl;
+	}
+	out.close();
+	ifstream in(file);
+	string s;
+	while (in >> s) {
+		try {
+			cout << MathUtils::calculator(s) << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+		}
+	}
+	in.close();
+	remove(file.c_str());
 }
 
 void H() {
-    D();
+	//srand((int)time(0));
+	const string file = "complex_input.txt";
+	ofstream out(file);
+	for (int i = 0; i < 24; i++) {
+		int index = rand() % compute.size();
+		out << compute[index] << endl;
+	}
+	out.close();
+	ifstream in(file);
+	string s;
+	while (in >> s) {
+		try {
+			cout << MathUtils::calculator(s) << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+		}
+	}
+	in.close();
+	remove(file.c_str());
 }
 
 void I() {
-    D();
+	C();
 }
 
 void J() {
-    D();
+	C();
 }
 
+int main() {
+	srand((unsigned)time(NULL));
+	str_complex();
+	int num;
+	cin >> num;
+	switch (num) {
+	case 1:
+		A();
+		break;
+	case 2:
+		B();
+		break;
+	case 3:
+		C();
+		break;
+	case 4:
+		D();
+		break;
+	case 5:
+		E();
+		break;
+	case 6:
+		F();
+		break;
+	case 7:
+		G();
+		break;
+	case 8:
+		H();
+		break;
+	case 9:
+		I();
+		break;
+	case 10:
+		J();
+		break;
+	default:
+		break;
+	}
+	
 
-
-int main()
-{
-    int num;
-    std::cin >> num;
-    
-
-    switch (num) {
-    case 1: try { A(); }
-          catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    case 2: try { B(); }
-          catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    case 3: try { C(); }
-          catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    case 4: try { D(); }
-          catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    case 5: try { E(); }
-          catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    case 6: try { F(); }
-          catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    case 7: try { G(); }
-          catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    case 8: try { H(); }
-          catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    case 9: try { I(); }
-          catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    case 10: try { J(); }
-           catch (std::exception e) { std::cout << 0 << std::endl; }break;
-    default: break;
-    }
+	
 }
