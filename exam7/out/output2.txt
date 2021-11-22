@@ -1,0 +1,12 @@
+-2+5i
+Complex minus overflow!
+Complex add overflow!
+429496729-429496729i
+2147483643+2147483646i
+Complex multiply overflow!
+-2147483645+2147483646i
+2147483647+2147483644i
+Complex multiply overflow!
+Complex multiply overflow!
+Complex add overflow!
+2147483647+3i

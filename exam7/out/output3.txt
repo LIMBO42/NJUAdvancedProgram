@@ -1,0 +1,24 @@
+-2147483647-2147483644i
+Complex minus overflow!
+Complex multiply overflow!
+ArithmeticError!
+Complex add overflow!
+Complex add overflow!
+Complex multiply overflow!
+2147483647-3i
+Complex minus overflow!
+Complex multiply overflow!
+-214748365-214748363i
+Complex multiply overflow!
+Complex multiply overflow!
+Complex multiply overflow!
+2+1073741824i
+-5+1073741824i
+Complex multiply overflow!
+6+4i
+-1+2147483645i
+Complex multiply overflow!
+-2147483646-1073741828i
+Complex multiply overflow!
+Complex minus overflow!
+Complex add overflow!

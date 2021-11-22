@@ -1,0 +1,24 @@
+1073741824-1i
+Complex minus overflow!
+2147483644+1i
+Complex add overflow!
+-214748364-214748363i
+Complex add overflow!
+Complex multiply overflow!
+Complex multiply overflow!
+-2147483644+1073741823i
+Complex multiply overflow!
+Complex add overflow!
+Complex minus overflow!
+-1073741823-1073741825i
+2147483646-1073741820i
+1+0i
+2147483645-2147483647i
+Complex multiply overflow!
+2147483646-1i
+-5-1073741823i
+0+0i
+Complex add overflow!
+Complex multiply overflow!
+0-2i
+Complex multiply overflow!
