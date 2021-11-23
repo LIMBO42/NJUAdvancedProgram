@@ -1,24 +1,60 @@
--2-10i
+Complex multiply overflow!
+2147483646+2147483644i
+1073741823+1073741823i
+Complex multiply overflow!
+-1+0i
+Complex multiply overflow!
+Complex add overflow!
+Complex minus overflow!
+Complex minus overflow!
+Complex multiply overflow!
 Complex multiply overflow!
 Complex multiply overflow!
 Complex add overflow!
--1+1i
-2147483646+0i
--1073741825+2147483645i
+Complex add overflow!
+Complex multiply overflow!
+Complex add overflow!
+Complex multiply overflow!
+Complex minus overflow!
 Complex multiply overflow!
 Complex multiply overflow!
 Complex add overflow!
 Complex multiply overflow!
 Complex multiply overflow!
-1-5i
+0+2147483644i
+2147483645+1i
+Complex add overflow!
+Complex multiply overflow!
+Complex multiply overflow!
 Complex minus overflow!
-1073741822+2147483647i
-0-6i
--1073741824-2147483646i
 Complex minus overflow!
+1+1i
+Complex multiply overflow!
+Complex multiply overflow!
+0+2147483646i
+Complex multiply overflow!
+Complex multiply overflow!
+Complex add overflow!
+Complex multiply overflow!
 1073741823+0i
+2147483646+2147483644i
+Complex minus overflow!
+0+2147483645i
 Complex multiply overflow!
+Complex minus overflow!
+1+2147483645i
 Complex multiply overflow!
+0+0i
+Complex add overflow!
+Complex add overflow!
+2147483646+2147483646i
 ArithmeticError!
+Complex multiply overflow!
+2147483647-1i
+Complex minus overflow!
+Complex minus overflow!
+Complex minus overflow!
+Complex minus overflow!
+Complex minus overflow!
 Complex multiply overflow!
 Complex multiply overflow!

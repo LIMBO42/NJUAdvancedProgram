@@ -365,8 +365,9 @@ void B() {
 }
 
 void C() {
+	////srand((int)time(0));
+	/*
 	//srand((int)time(0));
-	srand((int)time(0));
 	int index = 0;
 	for (int i = 0; i < 24; i++) {
 		try {
@@ -384,19 +385,96 @@ void C() {
 			cout << "ERROR" << endl;
 			//cout << compute[index] << endl;
 		}
+	}*/
+	//srand((int)time(0));
+	const string file = "complex_input.txt";
+	ofstream out(file);
+	for (int i = 0; i < 60; i++) {
+		int index = rand() % 233;
+		out << compute[index] << endl;
 	}
+	out.close();
+	ifstream in(file);
+	string s;
+	while (in >> s) {
+		try {
+			cout << MathUtils::calculator(s) << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+		}
+	}
+	in.close();
+	remove(file.c_str());
+
 }
 
 
 
 void D() {
 	
-	C();
+	//srand((int)time(0));
+	const string file = "complex_input.txt";
+	ofstream out(file);
+	for (int i = 0; i < 60; i++) {
+		int index = rand() % compute.size();
+		out << compute[index] << endl;
+	}
+	out.close();
+	ifstream in(file);
+	string s;
+	while (in >> s) {
+		try {
+			cout << MathUtils::calculator(s) << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+		}
+	}
+	in.close();
+	remove(file.c_str());
 }
 
 void E() {
 	
-	C();
+	//srand((int)time(0));
+	const string file = "complex_input.txt";
+	ofstream out(file);
+	for (int i = 0; i < 60; i++) {
+		int index = rand() % 347;
+		out << compute[index] << endl;
+	}
+	out.close();
+	ifstream in(file);
+	string s;
+	while (in >> s) {
+		try {
+			cout << MathUtils::calculator(s) << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+		}
+	}
+	in.close();
+	remove(file.c_str());
 }
 
 void F() {
@@ -425,11 +503,11 @@ void F() {
 }
 
 void G() {
-	srand((int)time(0));
+	//srand((int)time(0));
 	const string file = "complex_input.txt";
 	ofstream out(file);
-	for (int i = 0; i < 24; i++) {
-		int index = rand() % compute.size();
+	for (int i = 0; i < 60; i++) {
+		int index = rand() % 311;
 		out << compute[index] << endl;
 	}
 	out.close();
@@ -454,11 +532,11 @@ void G() {
 }
 
 void H() {
-	srand((int)time(0));
+	//srand((int)time(0));
 	const string file = "complex_input.txt";
 	ofstream out(file);
-	for (int i = 0; i < 24; i++) {
-		int index = rand() % compute.size();
+	for (int i = 0; i < 60; i++) {
+		int index = rand() % 547;
 		out << compute[index] << endl;
 	}
 	out.close();
@@ -484,16 +562,66 @@ void H() {
 
 void I() {
 	
-	C();
+	//srand((int)time(0));
+	const string file = "complex_input.txt";
+	ofstream out(file);
+	for (int i = 0; i < 60; i++) {
+		int index = rand() % 577;
+		out << compute[index] << endl;
+	}
+	out.close();
+	ifstream in(file);
+	string s;
+	while (in >> s) {
+		try {
+			cout << MathUtils::calculator(s) << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+		}
+	}
+	in.close();
+	remove(file.c_str());
 }
 
 void J() {
 	
-	C();
+	////srand((int)time(0));
+	const string file = "complex_input.txt";
+	ofstream out(file);
+	for (int i = 0; i < 60; i++) {
+		int index = rand() % 661;
+		out << compute[index] << endl;
+	}
+	out.close();
+	ifstream in(file);
+	string s;
+	while (in >> s) {
+		try {
+			cout << MathUtils::calculator(s) << endl;
+		}
+		catch (ArithmeticError& e) {
+			cout << e.what();
+		}
+		catch (OverFlow& e) {
+			cout << e.what();
+		}
+		catch (...) {
+			cout << "ERROR" << endl;
+		}
+	}
+	in.close();
+	remove(file.c_str());
 }
 
 int main() {
-	//srand((int)time(0));
+	////srand((int)time(0));
 	str_complex();
 	int num;
 	cin >> num;

@@ -2,7 +2,7 @@ index=1
 g++ Complex.cpp MathUtils.cpp main.cpp
 while [ $index -le 10 ]
 do
-  sleep 1
+  #sleep 1
   infile="in/input${index}.txt"
   outfile="out/output${index}.txt"
   ./a.out < ${infile} > ${outfile}
