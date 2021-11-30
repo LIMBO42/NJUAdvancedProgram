@@ -76,6 +76,12 @@ Complex Complex::operator/(const Complex& c)
 	}
 	//bc-ad
 	int realy = imag * c.real - real * c.imag;
+	if(!judgeAdd(real * c.imag,imag * c.real)||!judgeAdd(c.real * c.real,c.imag * c.imag)){
+		throw  OverFlow("Complex add overflow!\n");
+	}
+	if(!judgeMinus(imag * c.real,real * c.imag)){
+		throw OverFlow("Complex minus overflow!\n");
+	}
 	if (!judgeDivide(realx, y) || !judgeDivide(realy, y)) {
 		throw OverFlow("Complex divide overflow!\n");
 	}

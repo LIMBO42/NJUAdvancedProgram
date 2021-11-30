@@ -3,7 +3,7 @@ Complex multiply overflow!
 Complex minus overflow!
 Complex multiply overflow!
 Complex minus overflow!
--429496729+429496729i
+Complex minus overflow!
 Complex multiply overflow!
 Complex add overflow!
 1+2i
@@ -12,7 +12,7 @@ Complex multiply overflow!
 Complex multiply overflow!
 Complex multiply overflow!
 Complex multiply overflow!
-268435455-268435455i
+Complex add overflow!
 Complex multiply overflow!
 -1+2147483647i
 Complex multiply overflow!

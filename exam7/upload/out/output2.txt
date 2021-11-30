@@ -1,7 +1,7 @@
 -2+5i
 Complex minus overflow!
 Complex add overflow!
-429496729-429496729i
+Complex add overflow!
 2147483643+2147483646i
 Complex multiply overflow!
 -2147483645+2147483646i
