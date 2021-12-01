@@ -423,7 +423,7 @@ void D() {
 	const string file = "complex_input.txt";
 	ofstream out(file);
 	for (int i = 0; i < 60; i++) {
-		int index = rand() % compute.size();
+		int index = rand() % (compute.size()-1);
 		out << compute[index] << endl;
 	}
 	out.close();
