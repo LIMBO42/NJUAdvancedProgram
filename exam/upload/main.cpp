@@ -381,7 +381,7 @@ void C() {
 	//srand(t);
 	//cout << "time " << t<< endl;
 	int index = 0;
-	for (int i = 0; i < 24; i++) {
+	for (int i = 0; i < 60; i++) {
 		try {
 			index = rand() % compute.size();
 			//cout << "index "<< index <<endl;
@@ -441,7 +441,7 @@ void G() {
 	//srand((int)time(0));
 	const string file = "complex_input.txt";
 	ofstream out(file);
-	for (int i = 0; i < 24; i++) {
+	for (int i = 0; i < 60; i++) {
 		int index = rand() % compute.size();
 		out << compute[index] << endl;
 	}
@@ -470,7 +470,7 @@ void H() {
 	//srand((int)time(0));
 	const string file = "complex_input.txt";
 	ofstream out(file);
-	for (int i = 0; i < 24; i++) {
+	for (int i = 0; i < 60; i++) {
 		int index = rand() % compute.size();
 		out << compute[index] << endl;
 	}
@@ -526,7 +526,7 @@ int main() {
 		E();
 		break;
 	case 6:
-		F();
+		C();
 		break;
 	case 7:
 		G();

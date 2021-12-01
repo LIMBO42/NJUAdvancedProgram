@@ -88,6 +88,10 @@ public:
 #endif
 ```
 
+​	复数除法按以下公式计算，直接int/int即可。
+
+![image-20211130214417428](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211130214417428.png)
+
 
 
 #### 调用示例
@@ -95,21 +99,26 @@ public:
 ------
 
 ```C++
-	vector<string> strs(4);
-	for(size_t i=0;i<4;++i){
-		cin>>strs[i];
+#include "Complex.h"
+#include "MathUtils.h"
+#include <vector>
+using namespace std;
+int main(){
+    vector<string> strs ={
+	"(1+2i)+(3+4i)",
+	"(-1-2i)/(3-4i)",
+	"(7-8i)*(-9+10i)",
+	"(7-8i)-(-9+10i)"
+    };	
+    for(size_t i=0;i<strs.size();++i){
+        cout<<MathUtils::calculator(strs[i]);
 	}
+}
 ```
 
-​		输入格式如下
+​		结果如下：
 
 ```C++
-//test
-(1+2i)+(3+4i)
-(-1-2i)/(3-4i)
-(7-8i)*(-9+10i)
-(7-8i)-(-9+10i)
-    
 //output
 4+6i
 0+0i
