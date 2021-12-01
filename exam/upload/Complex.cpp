@@ -68,13 +68,15 @@ bool judgeDivide(int x, int y) {
 Complex Complex::operator/(const Complex& c)
 {
 	//ac+bd
-	int realx = real * c.imag + imag * c.real;
+	//a+bi
+	//c+di
+	int realx = real * c.real + imag * c.imag;
 	int y = c.real * c.real + c.imag * c.imag;
 	if (y == 0) throw ArithmeticError("ArithmeticError!\n");
-	if (!judgeMul(real, c.imag) || !judgeMul(imag, c.real) || !judgeMul(c.real, c.real) || !judgeMul(c.imag, c.imag)) {
+	if (!judgeMul(real, c.real) || !judgeMul(imag, c.imag) || !judgeMul(c.real, c.real) || !judgeMul(c.imag, c.imag)) {
 		throw  OverFlow("Complex multiply overflow!\n");
 	}
-	if(!judgeAdd(real * c.imag,imag * c.real)||!judgeAdd(c.real * c.real,c.imag * c.imag)){
+	if(!judgeAdd(real * c.real,imag * c.imag)||!judgeAdd(c.real * c.real,c.imag * c.imag)){
 		throw  OverFlow("Complex add overflow!\n");
 	}
 	if(!judgeMinus(imag * c.real,real * c.imag)){

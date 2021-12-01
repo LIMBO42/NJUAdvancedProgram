@@ -57,11 +57,11 @@ public:
     // TODO 重载*, 实现负数的相乘
     Complex operator*(const Complex& c);
 
-    // TODO 重载/, 实现复数的相除
+    // TODO 重载/, 实现复数的相乘
     Complex operator/(const Complex& c);
     
 
-    // 重载<<, 输出格式为a+bi，a和b分别是复数的实部和虚部,没有空格，不需要输出回车
+    // 重载<<, 输出格式为a+bi，a和b分别是复数的实部和虚部,没有空格，加上“\n”
     // 注意:a或b为复数的输出示例，-1-3i
     friend ostream & operator << (ostream & out, const Complex &c);
     // 重载>>, 读取a+bi格式的输入，格式同上。
@@ -80,19 +80,14 @@ class MathUtils {
 public:
     // 接受一个表达式字符串并返回计算结果。例如:calculator("(1+2i)+(2+3i)")的结果为3+5i
     static Complex calculator(string s);
-    // 使用函数calculator处理文本文件，输入文件名为 inputFileName, 输出文件名为 outputFileName。
-    // 每一行为一个表达式，你在这个函数中只需完成文件读写和计算的过程
-    static void processTextFile(string inputFilename, string outputFilename);
 };
 
 #endif
 ```
 
-​	复数除法按以下公式计算，直接int/int即可。
+​	$(a+bi)/(c+di)$复数除法按以下公式计算，直接int/int即可。
 
 ![image-20211130214417428](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211130214417428.png)
-
-
 
 #### 调用示例
 
@@ -126,9 +121,10 @@ int main(){
 16-18i
 ```
 
-**注意：**上述输入测试样例的形式只是为了你方便测试，实际上在你提交的文件中不应该有任何cin。
+**注意：**
 
-
+- 上述输入测试样例的形式只是为了你方便测试，实际上在你提交的文件中不应该有任何cin。
+- calculator的输入一定是字符串，且为$(a+bi)+(c+di)$的格式，即仅有两个复数，两个复数的括号之间一定是运算符。
 
 #### Tips：
 
@@ -141,8 +137,6 @@ int main(){
 ​		比如说$(a+bi)+(c+di)$，利用`find_first_of("(")`可以获得右括号第一次出现的位置。
 
 ​		string.substr(pos，len)返回从pos开始长为len的子字符串。
-
-
 
 #### 提交说明
 
