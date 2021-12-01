@@ -43,7 +43,7 @@ Complex MathUtils::calculator(string s)
 
 	return Complex(0,0);
 }
-
+/*
 void MathUtils::processTextFile(string inputFilename, string outputFilename)
 {
 	ifstream in(inputFilename);
@@ -57,7 +57,7 @@ void MathUtils::processTextFile(string inputFilename, string outputFilename)
 	}
 	in.close();
 	out.close();
-}
+}*/
 
 /*
 (2147483646-1i)+(-2+1i)

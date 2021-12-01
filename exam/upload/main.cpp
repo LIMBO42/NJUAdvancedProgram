@@ -413,7 +413,7 @@ void E() {
 }
 
 void F() {
-	
+	/*
 	try {
 		MathUtils::processTextFile("input1.txt", "output.txt"); // "input.txt"²»´æÔÚ
 	}
@@ -424,7 +424,7 @@ void F() {
 		cout << "ERROR" << endl;
 	}
 	C();
-	/*
+	
 	try {
 		MathUtils::processTextFile("input2.txt", "output.txt"); // "input2.txt"´æÔÚ
 		cout << "True" << endl;
