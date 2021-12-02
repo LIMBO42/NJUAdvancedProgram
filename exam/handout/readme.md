@@ -61,7 +61,7 @@ public:
     Complex operator/(const Complex& c);
     
 
-    // 重载<<, 输出格式为a+bi，a和b分别是复数的实部和虚部,没有空格，加上“\n”
+    // 重载<<, 输出格式为a+bi，a和b分别是复数的实部和虚部,没有空格，不用加换行
     // 注意:a或b为复数的输出示例，-1-3i
     friend ostream & operator << (ostream & out, const Complex &c);
     // 重载>>, 读取a+bi格式的输入，格式同上。
@@ -106,7 +106,7 @@ int main(){
 	"(7-8i)-(-9+10i)"
     };	
     for(size_t i=0;i<strs.size();++i){
-        cout<<MathUtils::calculator(strs[i]);
+        cout<<MathUtils::calculator(strs[i])<<endl;
 	}
 }
 ```
