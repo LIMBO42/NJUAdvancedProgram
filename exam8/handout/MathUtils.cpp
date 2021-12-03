@@ -73,3 +73,18 @@ int main()
 	
 	return 0;
 }*/
+
+
+
+
+int main(){
+    vector<string> strs ={
+	"(1+2i)+(3+4i)",
+	"(-1-2i)/(3-4i)",
+	"(7-8i)*(-9+10i)",
+	"(7-8i)-(-9+10i)"
+    };	
+    for(size_t i=0;i<strs.size();++i){
+        cout<<MathUtils::calculator(strs[i])<<endl;
+	}
+}

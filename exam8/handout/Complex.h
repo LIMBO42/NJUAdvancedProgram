@@ -26,15 +26,16 @@ public:
         return imag;
     }
     // TODO 重载+, 实现复数的相加
-    
+    Complex operator+(const Complex& c);
     
     // TODO 重载-, 实现复数的相减
-    
+    Complex operator-(const Complex& c);
 
     // TODO 重载*, 实现负数的相乘
-    
+    Complex operator*(const Complex& c);
 
     // TODO 重载/, 实现复数的相除
+    Complex operator/(const Complex& c);
     
 
     // 重载<<, 输出格式为a+bi，a和b分别是复数的实部和虚部,没有空格，不需要输出回车

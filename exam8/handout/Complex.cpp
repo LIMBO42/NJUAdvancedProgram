@@ -16,7 +16,6 @@ Complex Complex::operator-(const Complex& c)
 }
 
 
-
 Complex Complex::operator*(const Complex& c)
 {
 	
