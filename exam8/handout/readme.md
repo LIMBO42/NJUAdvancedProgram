@@ -1,4 +1,4 @@
-### 复数计算器
+复数计算器
 
 #### 考察内容：异常和文件读写
 
@@ -102,16 +102,16 @@ public:
         return imag;
     }
     // TODO 重载+, 实现复数的相加
-    
+    Complex operator+(const Complex& c);
     
     // TODO 重载-, 实现复数的相减
-    
+    Complex operator-(const Complex& c);
 
     // TODO 重载*, 实现负数的相乘
-    
+    Complex operator*(const Complex& c);
 
     // TODO 重载/, 实现复数的相除
-    
+    Complex operator/(const Complex& c);
 
     // 重载<<, 输出格式为a+bi，a和b分别是复数的实部和虚部,没有空格，不需要输出回车
     // 注意:a或b为复数的输出示例，-1-3i
@@ -146,7 +146,7 @@ public:
 
 ------
 
-1. 上面的每个函数都要检测所有可能出现的异常，并抛出异常。针对每种异常，必须抛出对应的异常类，例如溢 出时，必须抛出 Overflow 异常类。
+1. 上面的每个函数都要检测所有可能出现的异常，并抛出异常。针对每种异常，必须抛出对应的异常类，例如溢 出时，必须抛出 OverFlow 异常类。
 
 2. 异常的优先级从大到小为： FileNotFound ,  ArithmeticError ，Overflow ，即若有多个异常，先抛出优先级最高的异常。
 
@@ -177,51 +177,46 @@ public:
 4. 溢出说明：
 
    - C++用INT_MIN来表示int能表示的最小值，INT_MAX表示int能表示的最大值，在头文件<climits> 中定义。INT_MIN = -2147483648，INT_MAX = 2147483647。
-- int + int：**两个大于0的int相加结果为负数或者两个小于0的int相加结果为正数**，溢出。
+   - int + int：**两个大于0的int相加结果为负数或者两个小于0的int相加结果为正数**，溢出。
    - int - int：**可以转化为int + (-int)来判断**，但是注意如果第二个int为INT_MIN，则取负之后超过INT_MAX，**此时需要特殊判断：任意>=0的整型加上 -INT_MIN均溢出。**
-   
    - int * int：`sum = int1 * int2`，如果`sum/int1 != int2`，溢出。**需要特殊处理`int1==0`的情况，以及`int1==INT_MIN && int2==-1`的情况。**
-   
    - int / int：由于复数的分母一定大于等于0，因此**只需要判断/0异常，抛出ArithmeticError**。（如果普通的int / int，需要特判`INT_MIN/-1`的情况）。
-   
    - $(a+bi)$*$(c+di)$中 $ac,bd$ 如果溢出，**即使 $ac-bd$ 不溢出也需要抛出 $Overflow$** 
-   
-   - 除法计算过程中的乘法出现溢出报乘法溢出异常，加法减法溢出报加法减法的异常。
-   
+   - 除法计算过程中的乘法出现溢出报乘法溢出异常，出现加法减法溢出报加法减法的异常。顺序按照除0异常，乘法异常，加法异常，减法异常的顺序。
    - 实部虚部的计算均可能出现异常。
-   
-   - 复数除法按以下公式计算，$ac+bd$ 的计算过程可能报乘法和加法溢出，同理 $bc-ad$ 可能报减法和乘法溢出，$c^2+d^2$可能报乘法和加法溢出，
-   
-   - ![image-20211130201853394](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211130201853394.png)
-   
-     ```cpp
-     bool judgeAdd(int x, int y) {
-     	int sum = x + y;
-     	if (x > 0 && y > 0 && sum < 0) return false;
-     	if (x < 0 && y < 0 && sum > 0) return false;
-     	return true;
-     }
-     bool judgeMinus(int x, int y) {
-     	if (y == INT_MIN) {
-     		if (x >= 0) return false;
-     		else return true;
-     	}
-     	return judgeAdd(x, -y);
-     }
-     bool judgeMul(int x,int y) {
-     	if (y == 0) return true;
-     	long long mul = x * y;
-     	if (mul / y != x) return false;
-     	return true;
-     }
-     bool judgeDivide(int x, int y) {
-     	if (y == 0) return false;
-     	if (x == INT_MIN && y == -1) return false;
-     	return true;
-     }
-     ```
-   
-     当然，如果比较机智，你也可以使用long long来计算最后判断有没有溢出。
+   - 乘法的溢出顺序按照乘法，加法，减法的顺序。出现乘法溢出报乘法溢出异常，出现加法减法溢出报加法减法的异常。
+   - 复数除法按以下公式计算，$ac+bd$ 的计算过程可能报乘法和加法溢出，同理 $bc-ad$ 可能报减法和乘法溢出，$c^2+d^2$可能报乘法和加法溢出。
+
+![image-20211130201853394](https://typora-1306385380.cos.ap-nanjing.myqcloud.com/img/image-20211130201853394.png)
+
+```cpp
+bool judgeAdd(int x, int y) {
+	int sum = x + y;
+	if (x > 0 && y > 0 && sum < 0) return false;
+	if (x < 0 && y < 0 && sum > 0) return false;
+	return true;
+}
+bool judgeMinus(int x, int y) {
+	if (y == INT_MIN) {
+		if (x >= 0) return false;
+		else return true;
+	}
+	return judgeAdd(x, -y);
+}
+bool judgeMul(int x,int y) {
+	if (y == 0) return true;
+	long long mul = x * y;
+	if (mul / y != x) return false;
+	return true;
+}
+bool judgeDivide(int x, int y) {
+	if (y == 0) return false;
+	if (x == INT_MIN && y == -1) return false;
+	return true;
+}
+```
+
+当然，如果比较机智，你也可以使用long long来计算最后判断有没有溢出。
 
 5. 输入表达式进行了简化，即输入的字符串一定满足以下条件：
 
@@ -235,8 +230,6 @@ public:
 
    - 输入输出文件都以文本格式储存，每一行为一个合法的复数计算表达式，你需要调用calculator函数计算 返回值，并将返回值储存到输出文件中，每一行为一个返回值。 
    - 打开输入或输出文件失败时，应当抛出异常。 
-
-
 
 #### 调用示例
 
@@ -318,7 +311,7 @@ vector<string> Bstr = {
 -2+5i
 Complex minus overflow!
 Complex add overflow!
-Complex add overflow!
+Complex multiply overflow!
 2147483643+2147483646i
 Complex multiply overflow!
 -2147483645+2147483646i

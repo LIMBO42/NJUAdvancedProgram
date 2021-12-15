@@ -53,6 +53,13 @@ Complex Complex::operator*(const Complex& c)
 	if (!judgeMul(real,c.real) || !judgeMul(imag,c.imag) || !judgeMul(real, c.imag) || !judgeMul(imag, c.real)) {
 		throw  OverFlow("Complex multiply overflow!\n");
 	}
+	
+	if(!judgeAdd(real*c.imag,imag*c.real)){
+		throw  OverFlow("Complex add overflow!\n");
+	}
+	if(!judgeMinus(real*c.real,imag*c.imag)){
+		throw  OverFlow("Complex minus overflow!\n");
+	}
 	int realSum = real * c.real - (imag * c.imag);
 	int imagSum = real * c.imag + imag * c.real;
 
