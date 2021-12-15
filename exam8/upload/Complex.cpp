@@ -79,7 +79,7 @@ Complex Complex::operator/(const Complex& c)
 	//c+di
 	int realx = real * c.real + imag * c.imag;
 	int y = c.real * c.real + c.imag * c.imag;
-	if (y == 0) throw ArithmeticError("ArithmeticError!\n");
+	if (c.real==0 &&c.imag== 0) throw ArithmeticError("ArithmeticError!\n");
 	if (!judgeMul(real, c.real) || !judgeMul(imag, c.imag) || !judgeMul(c.real, c.real) || !judgeMul(c.imag, c.imag)) {
 		throw  OverFlow("Complex multiply overflow!\n");
 	}
