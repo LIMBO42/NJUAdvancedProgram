@@ -49,7 +49,7 @@ Complex minus overflow!
 Complex minus overflow!
 Complex minus overflow!
 Complex minus overflow!
-ArithmeticError!
+Complex multiply overflow!
 0+2147483644i
 Complex multiply overflow!
 Complex multiply overflow!

@@ -18,7 +18,7 @@ Complex add overflow!
 Complex multiply overflow!
 Complex multiply overflow!
 Complex add overflow!
-ArithmeticError!
+Complex multiply overflow!
 Complex multiply overflow!
 Complex multiply overflow!
 Complex multiply overflow!

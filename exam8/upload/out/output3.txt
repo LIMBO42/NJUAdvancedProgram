@@ -34,7 +34,7 @@ Complex minus overflow!
 Complex minus overflow!
 2147483647-2147483647i
 Complex multiply overflow!
-ArithmeticError!
+Complex multiply overflow!
 2147483647+2147483647i
 0+1073741824i
 Complex multiply overflow!

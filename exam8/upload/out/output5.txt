@@ -3,7 +3,7 @@ Complex minus overflow!
 Complex minus overflow!
 Complex multiply overflow!
 1+1073741824i
-ArithmeticError!
+Complex multiply overflow!
 Complex multiply overflow!
 0+0i
 Complex minus overflow!
