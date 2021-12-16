@@ -1,61 +1,60 @@
-Cannot open input1.txt
 Complex add overflow!
-Complex multiply overflow!
-Complex add overflow!
-Complex multiply overflow!
-Complex multiply overflow!
-Complex multiply overflow!
-Complex multiply overflow!
-Complex multiply overflow!
-Complex add overflow!
-Complex add overflow!
-Complex add overflow!
-2147483647+2147483645i
+Complex minus overflow!
 Complex minus overflow!
 Complex multiply overflow!
-Complex multiply overflow!
-1+2147483646i
-Complex minus overflow!
-Complex multiply overflow!
-1+2147483645i
+1+1073741824i
 Complex multiply overflow!
 Complex multiply overflow!
-Complex multiply overflow!
-Complex multiply overflow!
-Complex multiply overflow!
-Complex multiply overflow!
-Complex multiply overflow!
-ArithmeticError!
-2147483647+2147483644i
-Complex add overflow!
-Complex multiply overflow!
-2147483647-2147483647i
 0+0i
 Complex minus overflow!
+Complex multiply overflow!
+Complex multiply overflow!
 Complex minus overflow!
-2147483647-2147483647i
-Complex multiply overflow!
-Complex multiply overflow!
-2147483647+2147483647i
-0+1073741824i
-Complex multiply overflow!
 Complex add overflow!
-Complex minus overflow!
-Complex multiply overflow!
-Complex minus overflow!
-Complex multiply overflow!
--2147483647+2147483647i
-Complex multiply overflow!
-Complex multiply overflow!
--1-1i
-Complex multiply overflow!
-Complex minus overflow!
 Complex multiply overflow!
 Complex add overflow!
 Complex multiply overflow!
-Complex multiply overflow!
+Complex minus overflow!
 Complex multiply overflow!
 Complex minus overflow!
-Complex minus overflow!
-0+2147483645i
 Complex add overflow!
+Complex multiply overflow!
+Complex add overflow!
+Complex minus overflow!
+Complex add overflow!
+Complex add overflow!
+Complex add overflow!
+Complex minus overflow!
+1+2147483646i
+Complex add overflow!
+Complex add overflow!
+Complex add overflow!
+Complex multiply overflow!
+Complex multiply overflow!
+1073741823+2147483645i
+1+2147483647i
+0+0i
+Complex add overflow!
+Complex multiply overflow!
+Complex minus overflow!
+Complex minus overflow!
+Complex multiply overflow!
+Complex minus overflow!
+Complex minus overflow!
+Complex multiply overflow!
+Complex minus overflow!
+Complex add overflow!
+Complex minus overflow!
+Complex multiply overflow!
+Complex multiply overflow!
+Complex multiply overflow!
+Complex multiply overflow!
+0+0i
+Complex multiply overflow!
+Complex minus overflow!
+Complex multiply overflow!
+Complex multiply overflow!
+Complex multiply overflow!
+Complex multiply overflow!
+0+0i
+Complex multiply overflow!

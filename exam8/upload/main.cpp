@@ -642,7 +642,7 @@ int main() {
 		E();
 		break;
 	case 6:
-		F();
+		E();
 		break;
 	case 7:
 		G();
