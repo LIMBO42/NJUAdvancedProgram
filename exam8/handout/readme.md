@@ -192,6 +192,7 @@ public:
 
 ```cpp
 bool judgeAdd(int x, int y) {
+    if(x==INT_MIN&&y==INT_MIN)return false;
 	int sum = x + y;
 	if (x > 0 && y > 0 && sum < 0) return false;
 	if (x < 0 && y < 0 && sum > 0) return false;
